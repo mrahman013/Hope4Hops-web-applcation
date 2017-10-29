@@ -1,49 +1,90 @@
+<!doctype html>
 <html>
 <head>
-<style>
-</style>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="icon" href="nlogo.png">
 <title>Hope 4 Hops, Online Beer Shipment Locator</title>
+<style>
+  body{
+    background-color:gray;
+	position:relative
+  }
+  .skip{
+    padding:5px;
+  }
+  .nav{
+	color:white;
+	}
+  
+  .nav:hover{
+  color:white;
+  cursor:pointer
+  }
+  .heading{
+font-family:"courier";
+font-color:"white";
+font-weight: 400;
+font-size:15pt;
+width:90%;
+height:100px;
+margin-left:3%;
+margin-right:3%;
+border-style:solid;
+position:fixed;
+text-align:center;
+padding:1% 1% 5% 15%;
+background-color:black;
+border-radius:50px;
+}
+  .featured{
+  color:black;
+  margin-top:1-%
+}
+.featured{
+font-size:20pt;
+margin-left:10%
+}
+</style>
+
 </head>
 <body>
-	<div class="container-fluid">
-		<h1>
-		Hope 4 Hops <img src="logo.png" width="160px" height="120px">
-		</h1>
-		
-		<div class="row">
-			<div class="col-md-3">Browse Beers</div>
-			<div  class="col-md-3">Browse Breweries</div>
-			<div  class="col-md-3">Browse Stores</div>
-			<form  class="col-md-3">
-				<input type="text" name="search" placeholder="Search..">
+<div class="container-fluid">
+  <div class="row heading">
+    <div class="col-xs-2 skip"><a  class="nav">HOPE4HOPS<img src="nlogo.png" height="40" width="60"></a></div>
+    <div class="col-xs-2 skip">
+      <a class="nav">
+        BROWSE BEERS
+          </img></a></div>
+    <div class="col-xs-2 skip">
+      <a class="nav">
+        BROWSE BREWERIES
+          </a></div>
+    <div class="col-xs-2 skip">
+      <a class="nav">
+        BROWSE STORES
+        </a></div>
+    <div class="col-xs-3 skip">
+      
+        <form  class="col-md-3 skip" style="margin:auto;">
+				<input type="text" name="search" placeholder="Search.."><br>
 				<button class="btn">
 				Where's My Beer?
 				</button>
-			</form>
-				
-				
-		</div>
-		<ol> Popular Products
+			</form></div>
+  </div>
+  <div class="featured">
+	<ol style="margin-top:10%"> Popular Products
 		  <li></li>
 		  <li></li>
 		  <li></li>
 		</ol>
+		</div>
+	<div class="featured">	
 		<ol> Featured Products
 		  <li></li>
 		  <li></li>
 		  <li></li>
 		</ol>
-
-		<div>
-		About Us<br>
-		</div>
-		<div>
-		Follow us on<br>
-		</div>
-
-	</div>
+</div>
+</div>
 </body>
-
-</html>
