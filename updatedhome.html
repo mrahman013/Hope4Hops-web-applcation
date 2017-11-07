@@ -103,6 +103,13 @@
         var map = new google.maps.Map(document.getElementById('map'), options);
 
 
+      // Add marker
+        var marker = new google.maps.Marker({
+          position:{lat:40.8200471,lng:-73.9514611},
+          map:map,
+          icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+        });
+
       }
 
     </script>
