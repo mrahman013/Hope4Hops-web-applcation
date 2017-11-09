@@ -1,1 +1,1 @@
-web: gunicorn hopsapp:app
+web: gunicorn -b :$PORT hopsapp:app
