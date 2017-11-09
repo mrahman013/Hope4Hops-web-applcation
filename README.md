@@ -10,4 +10,9 @@
 ## Running the dev server
 
 * Navigate to root directory of this project 
-* python application.py
+* Run these commands once
+  * export FLASK_DEBUG=true
+  * export FLASK_APP=hopsapp
+
+* Run this line every time you want to start the server
+  * flask run
