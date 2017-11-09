@@ -1,14 +1,14 @@
 """Routes for flask app."""  # pylint: disable=cyclic-import
-import hashlib
-from flask import render_template
-from flask import request
+# import hashlib
+from flask import render_template, request
 from hopsapp import app
+print("app: ", app) #NOTE: FOR TESTING PURPOSES, NEEDS TO BE DELETED WHEN TEST FILES CREATES
 
 
 # @app.route('/', methods=['GET'])
 @app.route('/')
 def home():
-    return render_template("home.html")  #insert name of template here
+    return render_template("home.html")
 
 # @app.route('/about')
 # def about():
