@@ -1,8 +1,8 @@
 from setuptools import setup
 
 setup(
-    name='app',
-    packages=['app'],
+    name='hopsapp',
+    packages=['hopsapp'],
     include_package_data=True,
     install_requires=[
         'flask',

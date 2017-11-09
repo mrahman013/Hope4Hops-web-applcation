@@ -10,5 +10,5 @@
 ## Running the dev server
 
   export FLASK_DEBUG=true
-  export FLASK_APP=app
+  export FLASK_APP=hopsapp
   flask run
