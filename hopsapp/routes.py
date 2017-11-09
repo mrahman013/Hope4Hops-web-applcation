@@ -2,7 +2,7 @@
 # import hashlib
 from flask import render_template, request
 from hopsapp import app
-print("app: ", app)
+print("app: ", app) #NOTE: FOR TESTING PURPOSES, NEEDS TO BE DELETED WHEN TEST FILES CREATES
 
 
 # @app.route('/', methods=['GET'])
