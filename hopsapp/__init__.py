@@ -10,5 +10,4 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://yjjuylsytqewni:d0d63322c6abd
 
 db = SQLAlchemy(app) #TODO: assure this works
 # print("db: ", db) #NOTE: FOR TESTING PURPOSES, NEEDS TO BE DELETED WHEN TEST FILES CREATES
-=======
 app.config['DEBUG'] = True
