@@ -64,7 +64,7 @@
       <h1 style="text-align:center">Welcome to Hope 4 Hops</h1>
       <p>Where is your beer? Let us help you find it!</p>
       <p>Search within 
-<select>
+<select id="miles">
   <option value="1">1</option>
   <option value="5">5</option>
   <option value="10">10</option>
@@ -120,16 +120,19 @@
       <p style="text-align:center">Map provided by Google</p>
     </div>
    <div class="col-sm-2 sidenav">
-      <div class="well">
+      <div>
         <form>
         <input type="text" name="beer" placeholder="Search...">
-      <button type="submit"><span class="glyphicon glyphicon-search"> Search Beer</span>
+      <button type="submit" value="searchbeer">
+		<span class="glyphicon glyphicon-search"> Search <br/> Beer</span>
       
-      <button type="submit"><span class="glyphicon glyphicon-search">Search Brewery</span>
+      <button type="submit" value="searchbrewery">
+		<span class="glyphicon glyphicon-search"> Search <br/> Brewery</span>
       </button>
     
         
-      <button type="submit"><span class="glyphicon glyphicon-search">Search Proximity</span>
+      <button type="submit"  value="searchproximity">
+		<span class="glyphicon glyphicon-search"> Search <br/> Proximity</span>
       </button>
     </form>
       </div>
