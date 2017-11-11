@@ -1,7 +1,7 @@
 import hopsapp
 from hopsapp import app
 import unittest
-from flask_testing import TestCase
+
 class hoptest(unittest.TestCase):
 	def setUp(self):
 		self.app = hopsapp.app.test_client()
