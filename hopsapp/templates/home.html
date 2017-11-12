@@ -67,11 +67,16 @@
       function addMarker(props, count){
         var marker = new google.maps.Marker({
           position:props.coords,
-          label: (count+1).toString(),
+          label: (count+1).toString(), // put label on marker
           map:map
-          
-          
         });
+
+        // Check content and add on info windo if exist
+        if(props.content){
+          var infoWindow = new google.maps.InfoWindow({
+            content:props.content
+          });
+
       } // end of addMarker function
 
 
