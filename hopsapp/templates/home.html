@@ -41,7 +41,7 @@
       //     position:{lat:40.8200471,lng:-73.9514611},
       //     map:map
       //   });
-      
+
         // Array of marker for mocking
         // TODO: this array will come from database when database will be setup from store address
         var markers = [
@@ -60,15 +60,17 @@
       // Loop through markers
       for(var i = 0;i < markers.length;i++){
         // Add marker
-        addMarker(markers[i]);
+        addMarker(markers[i], i);
       }
 
       // Marker function
-      function addMarker(props){
+      function addMarker(props, count){
         var marker = new google.maps.Marker({
           position:props.coords,
-          map:map,
-          //icon:props.iconImage
+          label: (count+1).toString(),
+          map:map
+          
+          
         });
       } // end of addMarker function
 
