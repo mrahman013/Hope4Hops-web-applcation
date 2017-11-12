@@ -47,6 +47,7 @@
         var markers = [
         {
           coords:{lat:40.801866,lng:-73.967432},
+          content: '<a href="#"><h3>Store A</h3></a><br><p>Description goes here</p>'
         },
         {
           coords:{lat:40.815301,lng:-73.958240},
@@ -76,6 +77,11 @@
           var infoWindow = new google.maps.InfoWindow({
             content:props.content
           });
+
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+        }
 
       } // end of addMarker function
 
