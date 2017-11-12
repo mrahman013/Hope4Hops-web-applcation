@@ -56,6 +56,17 @@
         }
       ];
 
+
+
+      // Marker function
+      function addMarker(props){
+        var marker = new google.maps.Marker({
+          position:props.coords,
+          map:map,
+          //icon:props.iconImage
+        });
+      }
+
           //If user shares location, set that as center
         if (navigator.geolocation) {
          navigator.geolocation.getCurrentPosition(function (position) {
