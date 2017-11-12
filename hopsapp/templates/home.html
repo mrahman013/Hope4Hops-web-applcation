@@ -36,12 +36,25 @@
         var map = new google.maps.Map(document.getElementById('map'), options);
 
 
-      // Add marker
-        var marker = new google.maps.Marker({
-          position:{lat:40.8200471,lng:-73.9514611},
-          map:map
-        });
-
+      // // Add marker
+      //   var marker = new google.maps.Marker({
+      //     position:{lat:40.8200471,lng:-73.9514611},
+      //     map:map
+      //   });
+// Array of marker for mocking
+// TODO: this array will come from database when database will be setup from store address
+        var markers = [
+        {
+          coords:{lat:40.801866,lng:-73.967432},
+        },
+        {
+          coords:{lat:40.815301,lng:-73.958240},
+          
+        },
+        {
+          coords:{lat:40.798510,lng:-73.968495}
+        }
+      ];
 
           //If user shares location, set that as center
         if (navigator.geolocation) {
