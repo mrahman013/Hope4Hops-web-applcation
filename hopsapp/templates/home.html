@@ -34,20 +34,24 @@
 
         // New map
         var map = new google.maps.Map(document.getElementById('map'), options);
+        var icon_image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
 
+      // Add marker
+        // var marker = new google.maps.Marker({
+        //   position:{lat:40.8200471,lng:-73.9514611},
+        //   map:map,
+        //   icon: icon_image
+        // });
 
-      // // Add marker
-      //   var marker = new google.maps.Marker({
-      //     position:{lat:40.8200471,lng:-73.9514611},
-      //     map:map
-      //   });
+        
 
         // Array of marker for mocking
         // TODO: this array will come from database when database will be setup from store address
         var markers = [
         {
           coords:{lat:40.801866,lng:-73.967432},
-          content: '<a href="#"><h3>Store A</h3></a><br><p>Description goes here</p>'
+          content: '<a href="#"><h3>Store A</h3></a><br><p>Description goes here</p>',
+          title: "Store A" 
         },
         {
           coords:{lat:40.815301,lng:-73.958240},
@@ -70,8 +74,11 @@
           position:props.coords,
           label: (count+1).toString(), // put label on marker
           map:map,
+          //title: 'Uluru (Ayers Rock)',
           animation: google.maps.Animation.DROP // drop animation 
+           
         });
+
 
         // Check content and add on info windo if exist
         if(props.content){
@@ -84,7 +91,8 @@
           });
         }
 
-         marker.addListener('click', toggleBounce); 
+
+   
       } // end of addMarker function
 
           //If user shares location, set that as center
@@ -101,14 +109,7 @@
 
       }
 
-      // toofle bounce of marker when clicked
-      function toggleBounce() {
-        if (marker.getAnimation() !== null) {
-          marker.setAnimation(null);
-        } else {
-          marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
-      }
+     
 
     </script>
 
