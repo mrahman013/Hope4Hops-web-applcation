@@ -70,7 +70,7 @@
           position:props.coords,
           label: (count+1).toString(), // put label on marker
           map:map,
-          animation: google.maps.Animation.DROP
+          animation: google.maps.Animation.DROP // drop animation 
         });
 
         // Check content and add on info windo if exist
@@ -84,9 +84,8 @@
           });
         }
 
+         marker.addListener('click', toggleBounce); 
       } // end of addMarker function
-
-
 
           //If user shares location, set that as center
         if (navigator.geolocation) {
@@ -100,6 +99,15 @@
           handleLocationError(false, infoWindow, map.getCenter());
         }
 
+      }
+
+      // toofle bounce of marker when clicked
+      function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
       }
 
     </script>
