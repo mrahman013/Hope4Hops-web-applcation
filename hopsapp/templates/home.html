@@ -69,7 +69,8 @@
         var marker = new google.maps.Marker({
           position:props.coords,
           label: (count+1).toString(), // put label on marker
-          map:map
+          map:map,
+          animation: google.maps.Animation.DROP
         });
 
         // Check content and add on info windo if exist
