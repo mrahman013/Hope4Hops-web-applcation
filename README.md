@@ -5,10 +5,8 @@ seem to get your hands on it? We have too! Which is why we have developed
 Hope4Hops!  At the Hope4Hops team, we want to use location services to find
 you and that brew you've been searching for with our easy to use interface!
 
-### Features
+### Overview
 -------
-* use location of user to find liquor store closest to the user with the beer the user wants
-
 ![screen shot 2017-11-14 at 1 14 33 pm](https://user-images.githubusercontent.com/12536035/32797838-fb7463fc-c940-11e7-9a07-ac9890cb4164.png)
 
 If you want to search for a specific beer, input beer name in the **Search Beer** search bar.
@@ -46,12 +44,12 @@ With the following input values, we will return a selection of liquor stores tha
 ### Contribute
 -------
 Issue Tracker: https://github.com/katierose1029/Hope4Hops/issues
+
 Source Code: https://github.com/katierose1029/Hope4Hops
 
 ### Support
 -------
 If you are having issues, please let us know.
-
 
 ### License
 -------
