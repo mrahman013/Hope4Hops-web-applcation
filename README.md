@@ -19,11 +19,11 @@ To narrow down the amount of liquor stores near you use the **Search Proximity**
 
 With the following input values, we will return a selection of liquor stores that contain the product you are searching for on the map.
 
-**Happy Hunting!
+**Happy Hunting!**
 
-Drink Responsibly!
+**Drink Responsibly!**
 
-Cheers Friends!**
+**Cheers Friends!**
 
 
 ### Installation
