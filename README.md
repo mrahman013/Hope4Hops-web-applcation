@@ -15,7 +15,7 @@ If you want to search for a specific beer, input beer name in the **Search Beer*
 
 If you want to search by brewery, input brewery name in the **Search Brewery** search bar.
 
-To narrow down the amount of liquor stores near you use the **Search Proximity** drop down (IN PROGRESS)
+To narrow down the amount of liquor stores near you use the **Search Proximity** drop down *(IN PROGRESS)*
 
 With the following input values, we will return a selection of liquor stores that contain the product you are searching for on the map.
 
