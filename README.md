@@ -9,18 +9,18 @@ you and that brew you've been searching for with our easy to use interface!
 
 
 ### Features
-
-* Be awesome
-* Make things faster
+-------
+* use location of user to find liquor store closest to the user with the beer the user wants
 
 ### Installation
+-------
 * create a virtual env (virtualenv .venv)
 * source .venv/bin/activate
 * pip3 install -r requirements.txt
 * pip install -e .
 
-#### Running the dev server locally
-
+### Running the dev server locally
+-------
 * Navigate to root directory of this project
 * Run these commands once
   * export FLASK_DEBUG=true
@@ -30,15 +30,15 @@ you and that brew you've been searching for with our easy to use interface!
   * flask run
 
 ### Contribute
-
-Issue Tracker: github.com/$project/$project/issues
-Source Code: github.com/$project/$project
+-------
+Issue Tracker: https://github.com/katierose1029/Hope4Hops/issues
+Source Code: https://github.com/katierose1029/Hope4Hops
 
 ### Support
-
+-------
 If you are having issues, please let us know.
 
 
-License
+### License
 -------
-The project is licensed under the BSD license.
+The project is licensed under the MIT license.
