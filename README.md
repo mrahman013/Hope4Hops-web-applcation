@@ -7,13 +7,14 @@ you and that brew you've been searching for with our easy to use interface!
 
 ### Overview
 -------
-![screen shot 2017-11-14 at 1 14 33 pm](https://user-images.githubusercontent.com/12536035/32797838-fb7463fc-c940-11e7-9a07-ac9890cb4164.png)
+
+https://user-images.githubusercontent.com/12536035/32802900-beb01286-c94f-11e7-8393-0f9e4809571d.png
 
 If you want to search for a specific beer, input beer name in the **Search Beer** search bar.
 
 If you want to search by brewery, input brewery name in the **Search Brewery** search bar.
 
-To narrow down the amount of liquor stores near you use the **Search Proximity** drop down *(IN PROGRESS)*
+To narrow down the amount of liquor stores near you use the **Search Proximity** drop down
 
 With the following input values, we will return a selection of liquor stores that contain the product you are searching for on the map.
 
