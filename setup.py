@@ -5,6 +5,6 @@ setup(
     packages=['hopsapp'],
     include_package_data=True,
     install_requires=[
-        'flask',
+        'flask', 'Flask-SQLAlchemy'
     ],
 )
