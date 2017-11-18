@@ -42,6 +42,8 @@ With the following input values, we will return a selection of liquor stores tha
 * Run this line every time you want to start the server
   * flask run
 
+* Other way is to run `python app.py` on root directory
+
 ### Contribute
 -------
 Issue Tracker: https://github.com/katierose1029/Hope4Hops/issues
