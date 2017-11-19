@@ -8,6 +8,7 @@ you and that brew you've been searching for with our easy to use interface!
 ### Overview
 -------
 
+
 https://user-images.githubusercontent.com/12536035/32802900-beb01286-c94f-11e7-8393-0f9e4809571d.png
 
 If you want to search for a specific beer, input beer name in the **Search Beer** search bar.
