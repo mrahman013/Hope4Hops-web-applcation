@@ -2,11 +2,11 @@
 SQLAlchemy models
 """
 from app import db
+from datetime import datetime
 
 class Beer(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String(50), unique=True, nullable=False)
-    # brewery_id=
     # accepts: ['ale' | 'stout' | 'lager' | 'IPA' | 'pilsner' | 'porter' | 'bitter' | 'saison']
     beer_type=db.Column(db.String(50))
     # accepts: ['winter' | 'spring' | 'summer' | 'fall'| 'None']
@@ -15,6 +15,10 @@ class Beer(db.Model):
     average_popularity=db.Column(db.Float)
     # accepts: ['common' | 'uncommon' | 'rare']
     rarity=db.Column(db.String(10))
+
+    #points to a brewery_id
+    brewery_id==db.Column(db.Integer, db.ForeignKey('brewery.id'),nullable=False)
+    brewery=db.Relationship('Brewery', backref=db.backref('brewery',lazy=True))
 
     def __repr__(self):
         return '<name %r>' % (self.name)
@@ -48,7 +52,7 @@ class Store(db.Model):
 
 class Customer(db.Model):
     id=db.Column(db.Integer, primary_key=True)
-    name=db.Column(db.String(50), nullable=False)
+    name=db.Column(db.String(50), unique=True, nullable=False)
     phone=db.Column(db.Integer)
     #one email per one customer
     email=db.Column(db.String(50), unique=True, nullable=False)
@@ -58,11 +62,14 @@ class Customer(db.Model):
 
 class StoreOwner(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    #store_id
     name=db.Column(db.String(50), nullable=False)
     #one email per one store owner
     email=db.Column(db.String(50), unique=True, nullable=False)
     phone=db.Column(db.Integer)
+    
+    #points to a store_id
+    store_id=db.Column(db.Integer, db.ForeignKey('store.id'),nullable=False)
+    store=db.Relationship('Store', backref=db.backref('store',lazy=True))
 
     def __repr__(self):
         return '<email %r>' % (self.email)
