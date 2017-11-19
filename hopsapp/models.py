@@ -26,7 +26,7 @@ class Beer(db.Model):
     brewery_id = db.Column(db.Integer, db.ForeignKey('brewery.id'), nullable=False)
 
     def __repr__(self):
-        return '<name %r>' % (self.name)
+        return '<Beer %r, %r, %r, %r, %r, %r, %r, %r>' % (self.name, self.brewery, self.abv, self.beer_type, self.seasonal, self.retail_cost, self.average_popularity, self.rarity)
 
 """
 Brewery Model
@@ -44,7 +44,7 @@ class Brewery(db.Model):
     beers = db.Relationship('Brewery', backref='brewery', lazy='dynamic')
 
     def __repr__(self):
-        return '<name %r>' % (self.name)
+        return '<Brewery %r, %r, %r, %r, %r, %r>' % (self.name, self.address, self.city, self.state, self.zip_code, self.beers)
 
 """
 Store Model
@@ -64,7 +64,7 @@ class Store(db.Model):
     store_owner_id = db.Column(db.Integer, db.ForeignKey('storeowner.id'))
 
     def __repr__(self):
-        return '<name %r>' % (self.name)
+        return '<Store %r, %r, %r, %r, %r, %r, %r>' % (self.name, self.address, self.city, self.state, self.zip_code, self.average_traffic, self.owner)
 
 """
 Customer Model
@@ -78,7 +78,7 @@ class Customer(db.Model):
     email = db.Column(db.String(50), unique=True, nullable=False)
 
     def __repr__(self):
-        return '<email %r>' % (self.email)
+        return '<Customer %r, %r, %r>' % (self.name, self.phone, self.email)
 
 """
 StoreOwner Model
@@ -94,7 +94,7 @@ class StoreOwner(db.Model):
     store = db.Relationship('Store', backref='owner', lazy='dynamic')
 
     def __repr__(self):
-        return '<email %r>' % (self.email)
+        return '<email %r, %r, %r, %r>' % (self.name, self.phone, self.email, self.stores)
 
 """
 """
