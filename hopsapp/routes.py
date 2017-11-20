@@ -2,6 +2,7 @@
 # import hashlib
 from flask import render_template, request
 from hopsapp import app
+from models import Beer, Brewery, Store, Customer, StoreOwner
 
 @app.route('/')
 def home():
