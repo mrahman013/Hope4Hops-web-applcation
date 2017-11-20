@@ -35,7 +35,7 @@
 	    </div>
 	    <div class="item">
 	      <a href="#">
-<img class="img-responsive" src="{{ url_for('static', filename='images/placeholder2.png') }}" alt="Beer2"></a>
+<img class="img-responsive" src="{{ url_for('static', filename='images/placeholder2.jpg') }}" alt="Beer2"></a>
 	      <div class="carousel-caption">
 		<h3>Beer 2</h3>
 		<p>#2</p>
@@ -43,7 +43,7 @@
 	    </div>
 	    <div class="item">
 		<a href="#">
-			<img class="img-responsive" src="{{ url_for('static', filename='images/placeholder3.png') }}" alt="Beer3"></a>
+			<img class="img-responsive" src="{{ url_for('static', filename='images/placeholder3.jpg') }}" alt="Beer3"></a>
 	      <div class="carousel-caption">
 		<h3>Beer 3</h3>
 		<p>#3</p>
@@ -64,7 +64,101 @@
 
 </div>
     <div class="col-sm-8 text-left">
-      Hello
+<h1 style="text-align:center">Browse</h1>
+<form>
+Beer Style: 
+ <select name="style">
+    <option value="ale">Ale</option>
+    <option value="stout">Stout</option>
+    <option value="lager">Lager</option>
+    <option value="ipa">IPA</option>
+    <option value="pilsner">Pilsner</option>
+    <option value="porter">Porter</option>
+    <option value="bitter">Bitter</option>
+    <option value="saison">Saison</option>
+  </select>
+State of Origin:
+<select name="state">
+	<option value="AL">AL</option>
+	<option value="AK">AK</option>
+	<option value="AR">AR</option>	
+	<option value="AZ">AZ</option>
+	<option value="CA">CA</option>
+	<option value="CO">CO</option>
+	<option value="CT">CT</option>
+	<option value="DC">DC</option>
+	<option value="DE">DE</option>
+	<option value="FL">FL</option>
+	<option value="GA">GA</option>
+	<option value="HI">HI</option>
+	<option value="IA">IA</option>	
+	<option value="ID">ID</option>
+	<option value="IL">IL</option>
+	<option value="IN">IN</option>
+	<option value="KS">KS</option>
+	<option value="KY">KY</option>
+	<option value="LA">LA</option>
+	<option value="MA">MA</option>
+	<option value="MD">MD</option>
+	<option value="ME">ME</option>
+	<option value="MI">MI</option>
+	<option value="MN">MN</option>
+	<option value="MO">MO</option>	
+	<option value="MS">MS</option>
+	<option value="MT">MT</option>
+	<option value="NC">NC</option>	
+	<option value="NE">NE</option>
+	<option value="NH">NH</option>
+	<option value="NJ">NJ</option>
+	<option value="NM">NM</option>			
+	<option value="NV">NV</option>
+	<option value="NY">NY</option>
+	<option value="ND">ND</option>
+	<option value="OH">OH</option>
+	<option value="OK">OK</option>
+	<option value="OR">OR</option>
+	<option value="PA">PA</option>
+	<option value="RI">RI</option>
+	<option value="SC">SC</option>
+	<option value="SD">SD</option>
+	<option value="TN">TN</option>
+	<option value="TX">TX</option>
+	<option value="UT">UT</option>
+	<option value="VT">VT</option>
+	<option value="VA">VA</option>
+	<option value="WA">WA</option>
+	<option value="WI">WI</option>	
+	<option value="WV">WV</option>
+	<option value="WY">WY</option>
+</select>
+<brs>
+Rarity: 
+<select name="rarity">		
+	<option value="common">Common</option>
+	<option value="uncommon">Uncommon</option>	
+	<option value="rare">Rare</option>
+</select>
+<br>
+Availability: 
+<select name="availability">		
+	<option value="winter">Winter</option>
+	<option value="spring">Spring</option>	
+	<option value="summer">Summer</option>
+	<option value="fall">Fall</option>
+	<option value="none">All Year</option>
+</select>	
+<input type="submit">
+</form>
+<table style="text-align:center;margin:auto">
+<thead>
+<td>Beer Name</td>
+<td>Brewery</td>
+<td>Style</td>
+<td>ABV</td>
+<td>Popularity</td>
+<td>Rarity</td>
+</thead>
+</table>
     </div>
    <div class="col-sm-2 sidenav">
       <div>
