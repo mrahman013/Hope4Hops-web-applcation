@@ -52,7 +52,7 @@ class Beer(db.Model):
         store2.beers.append(beer3)
 
         To Query:
-        for beer in store1.beers():
+        for beer in store1.beers:
             print(beer.name)
     """
     stores = db.Relationship('Store', secondary=stock, backref=db.backref('beers', lazy='dynamic'))
