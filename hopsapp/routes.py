@@ -1,8 +1,9 @@
 """Routes for flask app."""  # pylint: disable=cyclic-import
 # import hashlib
-from flask import render_template, request
 from hopsapp import app
-from models import Beer, Brewery, Store, Customer, StoreOwner
+from flask import render_template, request
+from flask_sqlalchemy import SQLAlchemy
+from hopsapp.models import Beer, Brewery, Store, Customer, StoreOwner
 
 @app.route('/')
 def home():
