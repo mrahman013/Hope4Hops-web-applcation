@@ -22,6 +22,9 @@ class Beer(db.Model):
     average_popularity = db.Column(db.Float)
     # accepts: ['common' | 'uncommon' | 'rare']
     rarity = db.Column(db.String(10))
+    # accepts: ['MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN']
+    devlivery_day_of_the_week = db.Column(db.String(3))
+
     #beer.brewery
     brewery_id = db.Column(db.Integer, db.ForeignKey('brewery.id'), nullable=False)
 
@@ -54,7 +57,9 @@ class Beer(db.Model):
         To Query:
         for beer in store1.beers:
             print(beer.name)
+
     """
+    #TODO: test beer.stores query like above
     stores = db.Relationship('Store', secondary=stock, backref=db.backref('beers', lazy='dynamic'))
 
     def __repr__(self):
