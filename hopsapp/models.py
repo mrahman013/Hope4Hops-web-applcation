@@ -4,8 +4,6 @@ SQLAlchemy models
 from datetime import datetime
 from hopsapp import db
 
-
-
 """
 Beer Model
 Beer(name, abv, beer_type, seasonal, retail_cost, average_popularity, rarity, brewery)
@@ -104,7 +102,7 @@ class Store(db.Model):
         return '<Store %r, %r, %r, %r, %r, %r, %r>' % (self.name, self.address, self.city, self.state, self.zip_code, self.average_traffic, self.owner)
 
 """
-Customer Model
+Customer Model (these are our Users)
 Customer(name, phone, email)
 """
 class Customer(db.Model):
@@ -113,12 +111,15 @@ class Customer(db.Model):
     phone = db.Column(db.Integer)
     #one email per one customer
     email = db.Column(db.String(50), unique=True, nullable=False)
+    password = db.Column(db.String)
+    authenticated = db.Column(db.Boolean, default=False)
+
 
     def __repr__(self):
         return '<Customer %r, %r, %r>' % (self.name, self.phone, self.email)
 
 """
-StoreOwner Model
+StoreOwner Model (these are our Admins)
 StoreOwner(name, email, phone)
 """
 class StoreOwner(db.Model):
@@ -129,6 +130,9 @@ class StoreOwner(db.Model):
     phone = db.Column(db.Integer)
     #storeowner.store
     store = db.Relationship('Store', backref='owner', lazy='dynamic')
+    password = db.Column(db.String)
+    authenticated = db.Column(db.Boolean, default=False)
+
 
     def __repr__(self):
         return '<email %r, %r, %r, %r>' % (self.name, self.phone, self.email, self.stores)
