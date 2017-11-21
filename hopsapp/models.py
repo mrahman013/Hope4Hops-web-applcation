@@ -21,6 +21,8 @@ Beer(name, abv, beer_type, seasonal, retail_cost, average_popularity, rarity, br
 class Beer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
+    #beer_image is a string that represents the link to an image associated with the row entry
+    beer_image = db.Column(db.String(200), unique=True, nullable=False)
     # float represents percentage (i.e. 0.08 -> 8%)
     abv = db.Column(db.Float)
     # accepts: ['ale' | 'stout' | 'lager' | 'IPA' | 'pilsner' | 'porter' | 'bitter' | 'saison', 'belgian']
@@ -89,7 +91,9 @@ class Brewery(db.Model):
     city = db.Column(db.String(50), unique=True, nullable=False)
     #accepts: state acronyms (i.e. 'NY' | 'NJ' | etc... )
     state = db.Column(db.String(2), unique=True, nullable=False)
-    zip_code = db.Column(db.String(50), unique=True, nullable=False)
+    zip_code = db.Column(db.Integer, unique=True, nullable=False)
+    lat = db.Column(db.Float, nullable=False)
+    lon = db.Column(db.Float, nullable=False)
     #brewery.beers
     beers = db.relationship('Brewery', backref='brewery', lazy='dynamic')
 
@@ -106,16 +110,13 @@ class Storeowner(db.Model):
     #one email per one store owner
     email = db.Column(db.String(50), unique=True, nullable=False)
     phone = db.Column(db.Integer)
+    password = db.Column(db.String(100))
+    authenticated = db.Column(db.Boolean, default=False)
     #storeowner.store
     store = db.relationship('Store', backref='owner', lazy='dynamic')
 
-    password = db.Column(db.String)
-    authenticated = db.Column(db.Boolean, default=False)
-
-
     def __repr__(self):
         return '<StoreOwner %r, %r, %r, %r>' % (self.name, self.phone, self.email, self.stores)
-
 
 """
 Store Model
@@ -128,9 +129,11 @@ class Store(db.Model):
     city = db.Column(db.String(50), nullable=False)
     #accepts: state acronyms (i.e. 'NY' | 'NJ' | etc... )
     state = db.Column(db.String(2), nullable=False)
-    zip_code = db.Column(db.String(50), nullable=False)
+    zip_code = db.Column(db.Integer, nullable=False)
     # accepts: ['common' | 'uncommon' | 'rare']
     average_traffic = db.Column(db.String(10))
+    lat = db.Column(db.Float, nullable=False)
+    lon = db.Column(db.Float, nullable=False)
     #store.owner
     storeowner_id = db.Column(db.Integer, db.ForeignKey('storeowner.id'), nullable=False)
 
@@ -147,7 +150,7 @@ class Customer(db.Model):
     phone = db.Column(db.Integer)
     #one email per one customer
     email = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String)
+    password = db.Column(db.String(100))
     authenticated = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
