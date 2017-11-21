@@ -26,5 +26,9 @@ def login():
 def register():
 	return render_template("register.html")
 
+@app.route('/beerprofile')
+def beerprofile():
+	return render_template("beerprofile.html")
+
 if __name__ == "__main__":
   app.run(debug=True)
