@@ -1,15 +1,11 @@
-/*body{
-	background: url({% static 'images/beer_for_login_page.jpg' %}) no-repeat center center fixed;
-	-webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}*/
+.custom_css{
+	width: 400px;
+	background-color: rgba(0,0,0);
+	
+	
+	font-family: arial;
+	color: white;
+	padding-bottom: 20px;
+	margin-bottom: 100px;
+}
 
-	body{
-		background: url({{ url_for('static', filename='images/beer_for_login_page.jpg') }}) no-repeat center center fixed;
-		-webkit-background-size: cover;
-	    -moz-background-size: cover;
-	    -o-background-size: cover;
-	    background-size: cover;
-	}
