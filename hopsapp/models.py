@@ -21,14 +21,19 @@ Beer(name, abv, beer_type, seasonal, retail_cost, average_popularity, rarity, br
 class Beer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
-    # accepts: ['ale' | 'stout' | 'lager' | 'IPA' | 'pilsner' | 'porter' | 'bitter' | 'saison']
+    # float represents percentage (i.e. 0.08 -> 8%)
     abv = db.Column(db.Float)
+    # accepts: ['ale' | 'stout' | 'lager' | 'IPA' | 'pilsner' | 'porter' | 'bitter' | 'saison', 'belgian']
     beer_type = db.Column(db.String(50))
-    # accepts: ['winter' | 'spring' | 'summer' | 'fall'| 'None']
+    # accepts: ['winter' | 'spring' | 'summer' | 'autumn'| 'None']
+    # value 'None' indicate all year
     seasonal = db.Column(db.String(7))
+    # retail cost per unit (can or bottle)
     retail_cost = db.Column(db.Float)
+    # default value will be 0
     average_popularity = db.Column(db.Float)
     # accepts: ['common' | 'uncommon' | 'rare']
+    # default value for entries will be 'common'
     rarity = db.Column(db.String(10))
     # accepts: ['MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN']
     devlivery_day_of_the_week = db.Column(db.String(3))
@@ -92,10 +97,10 @@ class Brewery(db.Model):
         return '<Brewery %r, %r, %r, %r, %r, %r>' % (self.name, self.address, self.city, self.state, self.zip_code, self.beers)
 
 """
-StoreOwner Model (these are our Admins)
-StoreOwner(name, email, phone)
+Storeowner Model (these are our Admins)
+Storeowner(name, email, phone)
 """
-class StoreOwner(db.Model):
+class Storeowner(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
     #one email per one store owner

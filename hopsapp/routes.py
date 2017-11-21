@@ -3,7 +3,7 @@
 from hopsapp import app
 from flask import render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from hopsapp.models import Beer, Brewery, Store, Customer, StoreOwner
+from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 
 @app.route('/')
 def home():
