@@ -1,7 +1,12 @@
 .custom_css{
 	width: 400px;
 	background-color: rgba(0,0,0,0.7);
-	
+	margin: 0 auto;
+	margin-top: 120px;
+	padding-top: 20px;
+	padding-left: 66px;
+	padding-right: 32px;
+	border-radius: 20px;
 	
 	font-family: arial;
 	color: white;
