@@ -7,10 +7,12 @@
 	padding-left: 66px;
 	padding-right: 32px;
 	border-radius: 20px;
-	
 	font-family: arial;
 	color: white;
 	padding-bottom: 20px;
 	margin-bottom: 100px;
+	-webkit-border-radius:20px;
+	-moz-border-radius:20px;
+	-o-border-radius:20px;
 }
 
