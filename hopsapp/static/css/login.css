@@ -4,8 +4,8 @@
 	margin: 0 auto;
 	margin-top: 240px;
 	padding-top: 20px;
-	padding-left: 66px;
-	padding-right: 32px;
+	padding-left: 54px;
+	padding-right: 47px;
 	border-radius: 20px;
 	font-family: arial;
 	color: white;
@@ -15,4 +15,6 @@
 	-moz-border-radius:20px;
 	-o-border-radius:20px;
 }
+
+.custom_css button:hover, #current{color:black;}
 
