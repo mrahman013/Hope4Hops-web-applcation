@@ -4,7 +4,18 @@
 
 {% block body %}
 <head>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+
+  <style type="text/css">
+	body{
+		background: url({{ url_for('static', filename='images/beer_for_login_page.jpg') }}) no-repeat center center fixed;
+		-webkit-background-size: cover;
+	    -moz-background-size: cover;
+	    -o-background-size: cover;
+	    background-size: cover;
+	}
+  </style>
+
 </head>
 
 <div class="container">
