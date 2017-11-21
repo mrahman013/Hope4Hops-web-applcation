@@ -28,6 +28,7 @@ def register():
 @app.route('/beerprofile')
 def beerprofile():
 	return render_template("beerprofile.html")
+
 @app.route('/breweryprofile')
 def beerprofile():
 	return render_template("breweryprofile.html")
