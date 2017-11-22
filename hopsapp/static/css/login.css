@@ -25,6 +25,7 @@
     padding-right: 163px;
 	margin-left: -53px;
 	font-size: 20px;
+	text-decoration: none;
 }
 .reg_link{
 	-webkit-border-bottom-left-radius:20px;
@@ -37,3 +38,4 @@
 
 .custom_css button:hover, #current{color:black;}
 .custom_css a:hover, #current{background:black; color: rgb(227,165,0);}
+
