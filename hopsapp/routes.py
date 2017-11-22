@@ -30,10 +30,10 @@ def beerprofile():
 	return render_template("beerprofile.html")
 
 @app.route('/breweryprofile')
-def beerprofile():
+def breweryprofile():
 	return render_template("breweryprofile.html")
 @app.route('/storeprofile')
-def beerprofile():
+def storeprofile():
 	return render_template("storeprofile.html")
 
 if __name__ == "__main__":
