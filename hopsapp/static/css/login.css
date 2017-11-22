@@ -9,7 +9,7 @@
 	border-radius: 20px;
 	font-family: arial;
 	color: rgb(227,165,0);
-	padding-bottom: 20px;
+	padding-bottom: 5px;
 	margin-bottom: 100px;
 	-webkit-border-radius:20px;
 	-moz-border-radius:20px;
@@ -17,7 +17,7 @@
 }
 
 .custom_css a{
-	background: black;
+	background: rgba(0,0,0,0.6);
     
     padding-top: 10px;
     padding-bottom: 10px;
@@ -26,6 +26,13 @@
 	margin-left: -53px;
 	font-size: 20px;
 }
+.reg_link{
+	-webkit-border-bottom-left-radius:20px;
+	-moz-border-bottom-left-radius:20px;
+	-o-border-bottom-left-radius:20px;
+	-webkit-border-bottom-right-radius:20px;
+	-moz-border-bottom-right-radius:20px;
+	-o-border-bottom-right-radius:20px;
 }
 
 .custom_css button:hover, #current{color:black;}
