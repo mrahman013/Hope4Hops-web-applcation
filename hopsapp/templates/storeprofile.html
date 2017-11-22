@@ -13,9 +13,9 @@
 <div class="row">
 <div class="col-sm-4">
 
-Address:<span>123</span><br>
-State:<span>VM</span><br>
-Traffic<span>High</span>
+Address: {{address}}<br>
+State: {{state}}<br>
+Traffic: {{traffic}}
 </div>
 <div class="col-sm-6">
 <table>
@@ -28,11 +28,11 @@ Traffic<span>High</span>
 </thead>
 {% for i in range(20) %}
 <tr>
-<td>Beer Name</td>
-<td>Brewery</td>
-<td>Popularity</td>
-<td>Rarity</td>
-<td>Delivery Day</td>
+<td>{{beername}}</td>
+<td>{{brewery}}</td>
+<td>{{popularity}}</td>
+<td>{{rarity}}</td>
+<td>{{deliveryday}}</td>
 </tr>
 {% endfor %}
 </table>
