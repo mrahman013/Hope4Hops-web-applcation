@@ -54,6 +54,7 @@ beer13 = Beer('Mother Lager', 0.05, 'Lager', 'autumn', 1.50, 'common', brewery4)
 beer14 = Beer('Art Hope Ale', 0.072, 'Pilsner', 'autumn', 2.50, 'common', brewery4)
 
 
-store1 = Store()
-store2 = Store()
-store3 = Store()
+store1 = Store('Good Beer', '422 E 9th St', 'New York', 'NY', 10009, )
+store2 = Store('Top Hops', '94 Orchard St', 'New York', 'NY', 10002)
+store3 = Store('New Beer Distributors', '167 Chrystie St', 'New York', 'NY', 10002)
+store4 = Store('Carmine Street Beers', '52 A Carmine St', 'New York', 'NY', 10014)
