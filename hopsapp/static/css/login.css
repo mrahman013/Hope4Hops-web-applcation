@@ -16,5 +16,16 @@
 	-o-border-radius:20px;
 }
 
+.custom_css a{
+	background: black;
+    
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 163px;
+    padding-right: 180px;
+    margin-left: -53px;
+}
+}
+
 .custom_css button:hover, #current{color:black;}
 
