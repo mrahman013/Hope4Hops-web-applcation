@@ -14,24 +14,16 @@
 <div class="col-sm-5">
 <div class="text-left">
 
-<h1>Heady Topper</h1>
+<h1>{{beername}}</h1>
 <img src="{{ url_for('static', filename='images/placeholder.jpg') }}" style="width:100%; float:right">
-Brewed By: <span>The Alchemist Brewery</span><br>
-Style:<span>IPA</span><br>
-Alcohol By Volume:<span>8%</span><br>
-Availability:<span>All Year</span><br>
-Popularity:<span>High</span><br>
-Rarity:<span>Uncommon</span><br>
-
-<h1>Beer Name</h1>
-<img src="{{ url_for('static', filename='images/placeholder.jpg') }}" style="width:100%; float:right">
-Brewed By:<span></span><br>
-Style:<span></span><br>
-Alcohol By Volume:<span></span><br>
-Availability:<span></span><br>
-Popularity:<span></span><br>
-Rarity:<span></span><br>
-
+<span>
+Brewed By: {{brewery}}<br>
+Style: {{style}}<br>
+Alcohol By Volume: {{abv}}<br>
+Availability: {{availability}}<br>
+Popularity: {{popularity}}<br>
+Rarity: {{rarity}}<br>
+</span>
 
 </div>
 </div>
@@ -40,14 +32,17 @@ Rarity:<span></span><br>
 <thead>
 <td>Store Name</td>
 <td>Store Traffic</td>
-
 <td>Delivery Day</td>
 
-<td>Last Shipment</td>
-<td>Next Shipment</td>
-
-
 </thead>
+{% for i in range(20) %}
+<tr>
+<td>{{storename}}</td>
+<td>{{traffic}}</td>
+<td>{{deliveryday}}</td>
+
+</tr>
+{% endfor %}
 </table>
 </div>
 <div class="col-sm-2 sidenav">
