@@ -30,31 +30,60 @@ To add entries to stock:
 
 """
 
-brewery1 = Brewery('The Alchemist', '100 Cottage Rd', 'Stowe', 'VT', 05672)
-brewery2 = Brewery('Carton Brewing Company', '6 E Washington Ave', 'Atlantic Highlands', 'NJ', 07716)
-brewery3 = Brewery('Kane Brewing Company', '1750 Bloomsbury Ave', 'Ocean', 'NJ', 07712)
-brewery4 = Brewery('Magic Hat Brewing Company', '5 Bartlett Bay Rd', 'South Burlington', 'VT', 05403)
+#TODO: add lats + lons
+brewery1 = Brewery('The Alchemist', '100 Cottage Rd', 'Stowe', 'VT', 05672, 32.165923, -94.340370)
+brewery2 = Brewery('Carton Brewing Company', '6 E Washington Ave', 'Atlantic Highlands', 'NJ', 07716, 40.411777, -74.038177)
+brewery3 = Brewery('Kane Brewing Company', '1750 Bloomsbury Ave', 'Ocean', 'NJ', 07712, 40.236504, -74.044961)
+brewery4 = Brewery('Magic Hat Brewing Company', '5 Bartlett Bay Rd', 'South Burlington', 'VT', 05403, 44.428961, -73.213401)
+brewery5 = Brewery('Cricket Hill Brewery', '24 Kulick Rd', 'Fairfield', 'NJ', 07004, 40.872614, -74.296310)
 
-beer1 = Beer('Heady Topper', 0.08, 'IPA', None, 4.00, 0, 'common', brewery1)
-beer2 = Beer('Focal Banger', 0.07, 'IPA', None, 3.50, 0, 'common', brewery1)
-beer3 = Beer('El Jefe', 0.07, 'IPA', 'winter', 3.75, 0, 'common', brewery1)
+"""
+Note: links to beer imgs
+https://cdn.beeradvocate.com/im/beers/16814.jpg (Heady Topper)
+https://alchemistbeer.com/ (for Focal Banger & El Jefe imgs)
+http://cartonbrewing.com/wp-content/uploads/2015/04/BOAT_can.jpg
+http://cartonbrewing.com/wp-content/uploads/2015/08/ID_can.jpg
+http://cartonbrewing.com/wp-content/uploads/2015/04/077XX_can.jpg
+http://cartonbrewing.com/wp-content/uploads/2016/02/CUPID_can_web.png
+https://i.pinimg.com/originals/90/76/79/9076793b07fb7cd58f09ade15f02072f.jpg (Head High)
+http://www.businessinsider.in/thumb/msid-59600892,width-640,resizemode-4/NEW-JERSEY-Kane-Brewing-Company-Head-High.jpg?244690 (Head High)
+https://bestofnj.com/wp-content/uploads/2017/06/6-kane-brewing.jpg (OVERHEAD)
+https://cdn.beeradvocate.com/im/beers/185178.jpg (SNEAKBOX)
+https://d33wubrfki0l68.cloudfront.net/951723edd0174e8704ce4b281ee4f49c4b4db5fb/da62a/img/elixirs/bottleswithpints/feastoffools.png (feat of fools)
+http://www.williamsdistributing.com/wp-content/uploads/2017/06/CIRCUS.jpg (circus boy)
+https://d33wubrfki0l68.cloudfront.net/872fe6d05fcedca21b1ae2cbffb4817ec4396ebe/b69d4/img/elixirs/bottleswithpints/motherlager.png (mother lager)
+https://decrescente.net/images/suppliers/north-american-breweries/magic-hat/magic-hat-art-hop/art-hop-can-lg.png (art hop)
+https://www.shoppersvineyard.com/images/labels/cricket-hill-east-coast-lager.gif (east coast lager)
+http://media.nj.com/food/photo/cricket-hill-american-pale-ale-beer-of-the-weekpng-4885b60b2a8c6894.png (american pale ale)
+http://newjerseycraftbeer.com/wp-content/uploads/gravity_forms/5-48b61b129df756afa4ec5393984f2ddf/2015/03/CH_ReleaseEvent_JerseySummer.jpg (jersey summer)
+http://nebula.wsimg.com/3704b82109d165d6516e12154eaced81?AccessKeyId=22E47027FF5B90820C12&disposition=0&alloworigin=1 (SIM-NOTIC)
+"""
+#Beer(name, beer_image, abv, beer_type, seasonal, retail_cost, average_popularity, rarity, brewery)
+beer1 = Beer('Heady Topper', 'https://i.imgur.com/6ZOFUM3.jpg', 0.08, 'IPA', None, 4.00, 0, 'common', brewery1)
+beer2 = Beer('Focal Banger', 'https://i.imgur.com/aH7bZ9G.jpg', 0.07, 'IPA', None, 3.50, 0, 'common', brewery1)
+beer3 = Beer('El Jefe', 'https://i.imgur.com/J0cHO8s.jpg', 0.07, 'IPA', 'winter', 3.75, 0, 'common', brewery1)
 
-beer4 = Beer('Boat', 0.06, 'ale', None, 2.25, 0, 'common', brewery2)
-beer5 = Beer('IDIPA', 0.07, 'IPA', None, 3.25, 0, 'common', brewery2)
-beer6 = Beer('077XX', 0.078, 'IPA', None, 3.30, 0, 'common', brewery2)
-beer7 = Beer('Cupid', 0.066, 'Stout', 'winter', 3.25, 'common', brewery2)
+beer4 = Beer('Boat', 'https://i.imgur.com/WMEMUn0.jpg', 0.06, 'ale', None, 2.25, 0, 'common', brewery2)
+beer5 = Beer('IDIPA', 'https://i.imgur.com/FOtF8r0.jpg', 0.07, 'IPA', None, 3.25, 0, 'common', brewery2)
+beer6 = Beer('077XX', 'https://i.imgur.com/gPeh0Lf.jpg', 0.078, 'IPA', None, 3.30, 0, 'common', brewery2)
+beer7 = Beer('Cupid', 'https://i.imgur.com/H6sF289.png', 0.066, 'Stout', 'winter', 3.25, 0, 'common', brewery2)
 
-beer8 = Beer('HEAD HIGH', 0.065, 'IPA', None, 2.00, 'common', brewery3)
-beer9 = Beer('OVERHEAD', 0.082, 'IPA', None, 4.00, 'common', brewery3)
-beer10 = Beer('SINGLE FIN', 0.048, 'Belgian', None, 2.00, 'common', brewery3)
+beer8 = Beer('HEAD HIGH', 'https://i.imgur.com/pjp6Hm2.jpg', 0.065, 'IPA', None, 2.00, 0, 'common', brewery3)
+beer9 = Beer('OVERHEAD', 'https://i.imgur.com/VRcH0wR.jpg', 0.082, 'IPA', None, 4.00, 0, 'common', brewery3)
+beer10 = Beer('SNEAKBOX', 'https://i.imgur.com/uNTzf0J.jpg', 0.052, 'Ale', None, 2.00, 0, 'common', brewery3)
 
-beer11 = Beer('Feast of Fools', 0.072, 'Stout', 'winter', 8.00, 'common', brewery4)
-beer12 = Beer('Circus Boy', 0.045, 'Ale', None, 1.50, 'common', brewery4)
-beer13 = Beer('Mother Lager', 0.05, 'Lager', 'autumn', 1.50, 'common', brewery4)
-beer14 = Beer('Art Hope Ale', 0.072, 'Pilsner', 'autumn', 2.50, 'common', brewery4)
+beer11 = Beer('Feast of Fools', 'https://i.imgur.com/2UmyY4Q.png', 0.072, 'Stout', 'winter', 8.00, 0, 'common', brewery4)
+beer12 = Beer('Circus Boy', 'https://i.imgur.com/i2yjYql.jpg', 0.045, 'Ale', None, 1.50, 0, 'common', brewery4)
+beer13 = Beer('Mother Lager', 'https://i.imgur.com/UQ5c5OK.png', 0.05, 'Lager', 'autumn', 1.50, 0, 'common', brewery4)
+beer14 = Beer('Art Hop Ale', 'https://i.imgur.com/uI6HYaM.png', 0.072, 'Pilsner', 'autumn', 2.50, 0, 'common', brewery4)
 
+beer15 = Beer('EAST COAST LAGER', 'https://i.imgur.com/08cDEC8.png', 0.042, 'Lager', None, 1.50, 0, 'common', brewery5)
+beer16 = Beer('AMERICAN PALE ALE', 'https://i.imgur.com/EAmWqua.png?1', 0.055, 'Ale', None, 1.74,  0, 'common', brewery5)
+beer17 = Beer('JERSEY SUMMER BREAKFAST ALE', 'https://i.imgur.com/E3Lu02z.jpg?1', 0.05, 'Ale', 'summer', 1.75,  0, 'common', brewery5)
+beer18 = Beer('SIM-NOTIC IMPERIAL IPA', 'https://i.imgur.com/5r0Hb0O.jpg', 0.082, 'IPA', 'spring', 3.50,  0, 'common', brewery5)
 
-store1 = Store('Good Beer', '422 E 9th St', 'New York', 'NY', 10009, )
-store2 = Store('Top Hops', '94 Orchard St', 'New York', 'NY', 10002)
-store3 = Store('New Beer Distributors', '167 Chrystie St', 'New York', 'NY', 10002)
-store4 = Store('Carmine Street Beers', '52 A Carmine St', 'New York', 'NY', 10014)
+#TODO: add lats + lons
+store1 = Store('Good Beer', '422 E 9th St', 'New York', 'NY', 10009, 40.727588, -73.983858)
+store2 = Store('Top Hops', '94 Orchard St', 'New York', 'NY', 10002, 40.718403, -73.989943)
+store3 = Store('New Beer Distributors', '167 Chrystie St', 'New York', 'NY', 10002, 40.720793, -73.997962)
+store4 = Store('Carmine Street Beers', '52 A Carmine St', 'New York', 'NY', 10014, 40.729821, -74.003613)

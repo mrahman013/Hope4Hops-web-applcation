@@ -32,6 +32,7 @@ def beerprofile():
 @app.route('/breweryprofile')
 def beerprofile():
 	return render_template("breweryprofile.html")
+
 @app.route('/storeprofile')
 def beerprofile():
 	return render_template("storeprofile.html")
