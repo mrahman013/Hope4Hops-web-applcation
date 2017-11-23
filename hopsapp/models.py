@@ -77,6 +77,29 @@ class Beer(db.Model):
     #TODO: test beer.stores query like above
     stores = db.relationship('Store', secondary=stock, backref=db.backref('beers', lazy='dynamic'))
 
+    def __init__(self,
+                name,
+                beer_image,
+                abv,
+                beer_type,
+                seasonal,
+                retail_cost,
+                average_popularity,
+                rarity,
+                devlivery_day_of_the_week,
+                brewery_id,
+                **kwargs):
+        super(Beer, self).__init__(**kwargs)
+        self.name=name
+        self.beer_image=beer_image
+        self.abv=abv
+        self.beer_type=beer_type
+        self.seasonal=seasonal
+        self.retail_cost=retail_cost
+        self.average_popularity=average_popularity
+        self.rarity=rarity
+        self.devlivery_day_of_the_week=devlivery_day_of_the_week
+
     def __repr__(self):
         return '<Beer %r, %r, %r, %r, %r, %r, %r, %r>' % (self.name, self.brewery, self.abv, self.beer_type, self.seasonal, self.retail_cost, self.average_popularity, self.rarity)
 
@@ -91,11 +114,30 @@ class Brewery(db.Model):
     city = db.Column(db.String(50), unique=True, nullable=False)
     #accepts: state acronyms (i.e. 'NY' | 'NJ' | etc... )
     state = db.Column(db.String(2), unique=True, nullable=False)
-    zip_code = db.Column(db.Integer, unique=True, nullable=False)
+    zip_code = db.Column(db.String(7), unique=True, nullable=False)
     lat = db.Column(db.Float, nullable=False)
     lon = db.Column(db.Float, nullable=False)
     #brewery.beers
     beers = db.relationship('Brewery', backref='brewery', lazy='dynamic')
+
+    def __init__(self,
+                name,
+                address,
+                city,
+                state,
+                zip_code,
+                lat,
+                lon,
+                **kwargs):
+        super(Brewery, self).__init__(**kwargs)
+        self.name=name
+        self.address=address
+        self.city=city
+        self.state=state
+        self.zip_code=zip_code
+        self.lat=lat
+        self.lon=lon
+
 
     def __repr__(self):
         return '<Brewery %r, %r, %r, %r, %r, %r>' % (self.name, self.address, self.city, self.state, self.zip_code, self.beers)
@@ -115,6 +157,17 @@ class Storeowner(db.Model):
     #storeowner.store
     store = db.relationship('Store', backref='owner', lazy='dynamic')
 
+    def __init__(self,
+                name,
+                email,
+                phone,
+                **kwargs):
+        super(Storeowner, self).__init__(**kwargs)
+        self.name = name
+        self.email=email
+        self.phone=phone
+        self.password=password
+
     def __repr__(self):
         return '<StoreOwner %r, %r, %r, %r>' % (self.name, self.phone, self.email, self.stores)
 
@@ -129,13 +182,32 @@ class Store(db.Model):
     city = db.Column(db.String(50), nullable=False)
     #accepts: state acronyms (i.e. 'NY' | 'NJ' | etc... )
     state = db.Column(db.String(2), nullable=False)
-    zip_code = db.Column(db.Integer, nullable=False)
+    zip_code = db.Column(db.String(7), nullable=False)
     # accepts: ['common' | 'uncommon' | 'rare']
     average_traffic = db.Column(db.String(10))
     lat = db.Column(db.Float, nullable=False)
     lon = db.Column(db.Float, nullable=False)
     #store.owner
     storeowner_id = db.Column(db.Integer, db.ForeignKey('storeowner.id'), nullable=False)
+
+    def __init__(self,
+                name,
+                address,
+                city,
+                state,
+                zip_code,
+                average_traffic,
+                lat,
+                lon,
+                **kwargs):
+        super(Store, self).__init__(**kwargs)
+        self.name=name
+        self.address=address
+        self.city=city
+        self.state=state
+        self.zip_code=zip_code
+        self.lat=lat
+        self.lon=lon
 
     def __repr__(self):
         return '<Store %r, %r, %r, %r, %r, %r, %r>' % (self.name, self.address, self.city, self.state, self.zip_code, self.average_traffic, self.owner)
@@ -152,6 +224,13 @@ class Customer(db.Model):
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(100))
     authenticated = db.Column(db.Boolean, default=False)
+
+    def __init__(self, name, phone, email, password, **kwargs):
+        super(Customer, self).__init__(**kwargs)
+        self.name = name
+        self.email=email
+        self.phone=phone
+        self.password=password
 
     def __repr__(self):
         return '<Customer %r, %r, %r>' % (self.name, self.phone, self.email)
