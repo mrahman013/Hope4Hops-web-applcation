@@ -13,58 +13,112 @@
 	  <div class="row content">
 	    <div class="col-sm-2 sidenav">
 	      <p>ADS or more stuff</p>
-	      <p style:"font-family:Verdana;">Popular Beers</p>
-	      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+         </div>
 
-	  <!-- Indicators -->
-	  <ol class="carousel-indicators">
-	    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-	    <li data-target="#myCarousel" data-slide-to="1"></li>
-	    <li data-target="#myCarousel" data-slide-to="2"></li>
-	  </ol>
-
-	  <!-- The slideshow -->
-	  <div class="carousel-inner">
-	    <div class="item active">
-	      <a href="#">
-<img class="img-responsive" src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Beer1"></a>
-	      <div class="carousel-caption">
-		<h3>Beer 1</h3>
-		<p>#1</p>
-	      </div>
-	    </div>
-	    <div class="item">
-	      <a href="#">
-<img class="img-responsive" src="{{ url_for('static', filename='images/placeholder2.jpg') }}" alt="Beer2"></a>
-	      <div class="carousel-caption">
-		<h3>Beer 2</h3>
-		<p>#2</p>
-	      </div>
-	    </div>
-	    <div class="item">
-		<a href="#">
-			<img class="img-responsive" src="{{ url_for('static', filename='images/placeholder3.jpg') }}" alt="Beer3"></a>
-	      <div class="carousel-caption">
-		<h3>Beer 3</h3>
-		<p>#3</p>
-	      </div>
-	    </div>
-	  </div>
-
-	  <!-- Left and right controls -->
-	  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-	    <span class="glyphicon glyphicon-chevron-left"></span>
-	    <span class="sr-only">Previous</span>
-	  </a>
-	  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-	    <span class="glyphicon glyphicon-chevron-right"></span>
-	    <span class="sr-only">Next</span>
-	  </a>
-	</div>
-
-</div>
+<!-- Popular Beer Carousel -->
     <div class="col-sm-8 text-left">
 <h1 style="text-align:center">Welcome to Hope4Hops!</h1>
+<div style="height:500px">
+<div class="row">
+<div class="col-xs-6">
+<h3 style="text-align:center">Popular Beers</h3>
+      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Beer1"></a>
+      <div class="carousel-caption">
+        <h3>Beer 1</h3>
+        <p>#1</p>
+      </div>
+    </div>
+    <div class="item">
+      <a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/placeholder2.jpg') }}" alt="Beer2"></a>
+      <div class="carousel-caption">
+        <h3>Beer 2</h3>
+        <p>#2</p>
+      </div>
+    </div>
+    <div class="item">
+        <a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/placeholder3.jpg') }}" alt="Beer3"></a>
+      <div class="carousel-caption">
+        <h3>Beer 3</h3>
+        <p>#3</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
+
+<!-- Rare Beer Carousel -->
+<div class="col-xs-6">
+<h3 style="text-align:center">Rare Beers</h3>
+<div id="myCarousel2" class="carousel slide" data-ride="carousel">
+
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel2" data-slide-to="1"></li>
+    <li data-target="#myCarousel2" data-slide-to="2"></li>
+  </ol>
+
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/placeholderR1.jpg') }}" alt="BeerR1"></a>
+      <div class="carousel-caption">
+        <h3>Rare Beer 1</h3>
+        <p>#12</p>
+      </div>
+    </div>
+    <div class="item">
+      <a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/placeholderR2.jpg') }}" alt="BeerR2"></a>
+      <div class="carousel-caption">
+        <h3>Rare Beer 2</h3>
+        <p>#22</p>
+      </div>
+    </div>
+    <div class="item">
+        <a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/placeholderR3.jpg') }}" alt="BeerR3"></a>
+      <div class="carousel-caption">
+        <h3>Rare Beer 3</h3>
+        <p>#32</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel2" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel2" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
+</div>
+</div>
+<hr>
 <h2 style="text-align:center">Browse</h2>
 <form>
 Beer Style: 
