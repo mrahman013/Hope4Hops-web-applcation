@@ -11,10 +11,35 @@
 <body>
 <div class="container-fluid text-center">
 <div class="row">
-<div class="col-sm-5">
+<div class="col-sm-4">
+
+<h1>{{brewery}}</h1>
+<img src="{{ url_for('static', filename='images/placeholder.jpg') }}" style="width:100%; float:right">
+Address:{{address}}<br>
+State:{{state}}<br>
 </div>
-<div class="col-sm-5">
+<div class="col-sm-6">
+<table>
+<thead>
+<td>Beer Name</td>
+<td>Style</td>
+<td>ABV</td>
+<td>Popularity</td>
+<td>Rarity</td>
+</thead>
+{% for i in range(20) %}
+<tr>
+<td>{{beername}}</td>
+<td>{{style}}</td>
+<td>{{abv}}</td>
+<td>{{popularity}}</td>
+<td>{{rarity}}</td>
+</tr>
+{% endfor %}
+</table>
+
 </div>
+
 <div class="col-sm-2 sidenav">
       <div>
 Search
