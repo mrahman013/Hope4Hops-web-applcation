@@ -39,9 +39,8 @@ class Beer(db.Model):
     rarity = db.Column(db.String(10))
     # accepts: ['MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN']
     devlivery_day_of_the_week = db.Column(db.String(3))
-
     #beer.brewery
-    brewery_id = db.Column(db.Integer, db.ForeignKey('brewery.id'), nullable=False)
+    brewery_id = db.Column(db.Integer, db.ForeignKey('brewery.id'))
 
     #beer.stores and store.beers
     """
@@ -75,7 +74,8 @@ class Beer(db.Model):
 
     """
     #TODO: test beer.stores query like above
-    stores = db.relationship('Store', secondary=stock, backref=db.backref('beers', lazy='dynamic'))
+    # stores = db.relationship('Store', secondary=stock, backref=db.backref('beers', lazy='dynamic'))
+    stores = db.relationship('Store', secondary=stock, backref=db.backref('beers', lazy=True))
 
     def __init__(self,
                 name,
@@ -99,6 +99,7 @@ class Beer(db.Model):
         self.average_popularity=average_popularity
         self.rarity=rarity
         self.devlivery_day_of_the_week=devlivery_day_of_the_week
+        self.brewery_id=brewery_id
 
     def __repr__(self):
         return '<Beer %r, %r, %r, %r, %r, %r, %r, %r>' % (self.name, self.brewery, self.abv, self.beer_type, self.seasonal, self.retail_cost, self.average_popularity, self.rarity)
@@ -111,14 +112,18 @@ class Brewery(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
     address = db.Column(db.String(50), unique=True, nullable=False)
-    city = db.Column(db.String(50), unique=True, nullable=False)
+    city = db.Column(db.String(50), nullable=False)
     #accepts: state acronyms (i.e. 'NY' | 'NJ' | etc... )
-    state = db.Column(db.String(2), unique=True, nullable=False)
-    zip_code = db.Column(db.String(7), unique=True, nullable=False)
-    lat = db.Column(db.Float, nullable=False)
-    lon = db.Column(db.Float, nullable=False)
+    state = db.Column(db.String(2), nullable=False)
+    zip_code = db.Column(db.String(7), nullable=False)
+    # lat = db.Column(db.Float, nullable=False)
+    # lon = db.Column(db.Float, nullable=False)
+    lat = db.Column(db.Float, unique=True)
+    lon = db.Column(db.Float, unique=True)
     #brewery.beers
-    beers = db.relationship('Brewery', backref='brewery', lazy='dynamic')
+    # beers = db.relationship('Brewery', backref='brewery', lazy='dynamic')
+    beers = db.relationship('Beer', backref='brewery', lazy=True)
+
 
     def __init__(self,
                 name,
@@ -151,11 +156,13 @@ class Storeowner(db.Model):
     name = db.Column(db.String(100), unique=True, nullable=False)
     #one email per one store owner
     email = db.Column(db.String(50), unique=True, nullable=False)
-    phone = db.Column(db.Integer)
+    phone = db.Column(db.Integer, unique=True)
     password = db.Column(db.String(100))
     authenticated = db.Column(db.Boolean, default=False)
     #storeowner.store
-    store = db.relationship('Store', backref='owner', lazy='dynamic')
+    # store = db.relationship('Store', backref='owner', lazy='dynamic')
+    store = db.relationship('Store', backref='owner', lazy=True)
+
 
     def __init__(self,
                 name,
@@ -185,10 +192,12 @@ class Store(db.Model):
     zip_code = db.Column(db.String(7), nullable=False)
     # accepts: ['common' | 'uncommon' | 'rare']
     average_traffic = db.Column(db.String(10))
-    lat = db.Column(db.Float, nullable=False)
-    lon = db.Column(db.Float, nullable=False)
+    # lat = db.Column(db.Float, nullable=False)
+    # lon = db.Column(db.Float, nullable=False)
+    lat = db.Column(db.Float, unique=True)
+    lon = db.Column(db.Float, unique=True)
     #store.owner
-    storeowner_id = db.Column(db.Integer, db.ForeignKey('storeowner.id'), nullable=False)
+    storeowner_id = db.Column(db.Integer, db.ForeignKey('storeowner.id'))
 
     def __init__(self,
                 name,
@@ -206,6 +215,7 @@ class Store(db.Model):
         self.city=city
         self.state=state
         self.zip_code=zip_code
+        self.average_traffic=average_traffic
         self.lat=lat
         self.lon=lon
 
@@ -219,7 +229,7 @@ Customer(name, phone, email)
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
-    phone = db.Column(db.Integer)
+    phone = db.Column(db.Integer, unique=True)
     #one email per one customer
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(100))

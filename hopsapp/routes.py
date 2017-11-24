@@ -6,14 +6,19 @@ from flask_sqlalchemy import SQLAlchemy
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 
 @app.route('/', methods=['GET', 'POST'])
-def home(beername=None, brewery=None, style=None, abv=None, popularity=None, rarity=None):
-    beername="Heady Topper"
-    brewery="The Alchemist"
-    style="IPA"
-    abv="8%"
-    popularity="0"
-    rarity="common"
-    return render_template("home.html", beername=beername,brewery=brewery, style=style, abv=abv, popularity=popularity, rarity=rarity)
+def home():
+    beers = Beer.query.all()
+    for beer in beers:
+        print(beer.name)
+    return render_template("home.html", beers=beers)
+
+    # beername="Heady Topper"
+    # brewery="The Alchemist"
+    # style="IPA"
+    # abv="8%"
+    # popularity="0"
+    # rarity="common"
+    # return render_template("home.html", beername=beername,brewery=brewery, style=style, abv=abv, popularity=popularity, rarity=rarity)
 
 @app.route('/about')
 def about():
