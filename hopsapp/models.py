@@ -39,6 +39,8 @@ class Beer(db.Model):
     rarity = db.Column(db.String(10))
     # accepts: ['MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN']
     devlivery_day_of_the_week = db.Column(db.String(3))
+    total_ratings = db.Column(db.Integer)
+    total_users = db.Column(db.Integer)
     #beer.brewery
     brewery_id = db.Column(db.Integer, db.ForeignKey('brewery.id'))
 
