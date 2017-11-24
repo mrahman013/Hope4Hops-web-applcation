@@ -42,10 +42,8 @@ def beerprofile(beername=None, brewery=None, style=None, abv=None, popularity=No
     return render_template("beerprofile.html", beername=beername,brewery=brewery, style=style, abv=abv, popularity=popularity, rarity=rarity,storename=storename, traffic=traffic,deliveryday=deliveryday)
 
 @app.route('/breweryprofile')
-
-def beerprofile():
-	return render_template("breweryprofile.html")
-
+# def beerprofile():
+# 	return render_template("breweryprofile.html")
 def breweryprofile(beername=None, brewery=None, style=None, abv=None, popularity=None, rarity=None,address=None, state=None):
     beername="Heady Topper"
     brewery="The Alchemist"
