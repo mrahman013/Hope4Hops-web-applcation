@@ -67,9 +67,19 @@ def breweryprofile():
 
 @app.route('/findstore', methods=['GET', 'POST'])
 def findstore():
+    # declaring list to hold all column of stores
+    store_name = []
+    store_address = []
+    store_city = []
+    store_state = []
+    store_zip = []
+    store_avg_traffic = []
+    store_lat = []
+    store_lon = []
+    # geeting post's name
     search = request.args['name']
     store_search = Beer.query.filter_by(name=search)
-    store = store_search.stores
+    
     return render_template("findstore.html", store=store)
 
 @app.route('/storeprofile')
