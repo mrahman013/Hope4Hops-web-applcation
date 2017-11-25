@@ -13,45 +13,55 @@
 <div class="row">
 <div class="col-sm-5">
 <div class="text-left">
-<h1>Beer Name</h1>
-<img src="{{ url_for('static', filename='images/placeholder.jpg') }}" style="width:100%; float:right">
-Brewed By:<span></span><br>
-Style:<span></span><br>
-Alcohol By Volume:<span></span><br>
-Availability:<span></span><br>
-Popularity:<span></span><br>
-Rarity:<span></span><br>
+
+<h1>{{beer.name}}</h1>
+<!-- <img src="{{ url_for('static', filename='beer.beer_image') }}" style="width:100%; float:right"> -->
+<!-- <img src="" style="width:100%; float:right"> -->
+<img src="{{beer.beer_image}}">
+<span>
+Brewed By: {{beer.brewery.name}}<br>
+Style: {{beer.beer_type}}<br>
+Alcohol By Volume: {{beer.abv}}<br>
+
+Popularity: {{beer.average_popularity}}<br>
+Rarity: {{beer.rarity}}<br>
+</span>
 
 </div>
 </div>
 <div class="col-sm-5">
 <table>
 <thead>
-<td>Store Name</td>
-<td>Store Traffic</td>
-<td>Last Shipment</td>
-<td>Next Shipment</td>
+<!-- <td>Store Name</td> -->
+<!-- <td>Store Traffic</td> -->
+<td>Delivery Day</td>
 
 </thead>
+<tr>
+<!-- <td>{{storename}}</td> -->
+<!-- <td>{{traffic}}</td> -->
+<td>{{beer.devlivery_day_of_the_week}}</td>
+
+</tr>
 </table>
 </div>
-<div class="col-sm-2 sidenav">
+<!-- <div class="col-sm-2 sidenav">
       <div>
 Search
-        <form>
+    <form method='POST'>
 
 	<input type="text" name="search" placeholder="Search...">
   <input type="radio" name="searchtype" value="beer" checked> Beer<br>
   <input type="radio" name="searchtype" value="brewery"> Brewery<br>
-  <input type="radio" name="searchtype" value="store"> Store<br>  
+  <input type="radio" name="searchtype" value="store"> Store<br>
       <button type="submit" value="search">
 		<span class="glyphicon glyphicon-search"> Search</span>
       </button>
-     
+
 
     </form>
       </div>
-    </div>
+    </div> -->
 </div>
 </div>
 

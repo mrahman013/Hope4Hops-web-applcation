@@ -21,6 +21,18 @@ class hoptest(unittest.TestCase):
 		response = self.app.get('/register')
 		self.assertEqual(response.status_code, 200)
 		self.assertIn('register', response.data)
+	def test_beerprofile(self):
+		response = self.app.get('/beerprofile')
+		self.assertEqual(response.status_code, 200)
+		self.assertIn('beerprofile', response.data)
+	def test_breweryprofile(self):
+		response = self.app.get('/breweryprofile')
+		self.assertEqual(response.status_code, 200)
+		self.assertIn('breweryprofile', response.data)
+	def test_storeprofile(self):
+		response = self.app.get('/storeprofile')
+		self.assertEqual(response.status_code, 200)
+		self.assertIn('storeprofile', response.data)
 
 if __name__=='__main__':
 	unittest.main()

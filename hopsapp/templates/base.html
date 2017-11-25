@@ -36,12 +36,31 @@
             <li><a href="/contact">Contact</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+
             <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
           </ul>
         </div>
       </div>
     </nav>
     <!-- End of Nav Bar -->
+
+    <div class="col-sm-2 sidenav-nav pull-right">
+       <div>
+ Search
+         <form method="POST">
+
+     <input type="text" name="text_search" placeholder="Search by Name...">
+   <input type="radio" name="searchtype" value="beer" checked> Beer<br>
+   <input type="radio" name="searchtype" value="brewery"> Brewery<br>
+   <input type="radio" name="searchtype" value="store"> Store<br>
+       <button type="submit" value="search">
+         <span class="glyphicon glyphicon-search"> Search</span>
+       </button>
+
+
+     </form>
+       </div>
+     </div>
 
     {% block body %}{% endblock %}
   </body>

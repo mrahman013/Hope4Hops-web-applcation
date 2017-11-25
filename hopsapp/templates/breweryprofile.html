@@ -11,11 +11,35 @@
 <body>
 <div class="container-fluid text-center">
 <div class="row">
-<div class="col-sm-5">
+<div class="col-sm-4">
+
+<h1>{{brewery.name}}</h1>
+Address:{{brewery.address}}<br>
+State:{{brewery.state}}<br>
 </div>
-<div class="col-sm-5">
+<div class="col-sm-6">
+<table>
+<thead>
+<!-- <td>Beer Name</td>
+<td>Style</td>
+<td>ABV</td>
+<td>Popularity</td>
+<td>Rarity</td>
+</thead>
+{% for i in range(20) %}
+<tr>
+<td>{{beername}}</td>
+<td>{{style}}</td>
+<td>{{abv}}</td>
+<td>{{popularity}}</td>
+<td>{{rarity}}</td>
+</tr>
+{% endfor %} -->
+</table>
+
 </div>
-<div class="col-sm-2 sidenav">
+
+<!-- <div class="col-sm-2 sidenav">
       <div>
 Search
         <form>
@@ -23,15 +47,15 @@ Search
 	<input type="text" name="search" placeholder="Search...">
   <input type="radio" name="searchtype" value="beer" checked> Beer<br>
   <input type="radio" name="searchtype" value="brewery"> Brewery<br>
-  <input type="radio" name="searchtype" value="store"> Store<br>  
+  <input type="radio" name="searchtype" value="store"> Store<br>
       <button type="submit" value="search">
 		<span class="glyphicon glyphicon-search"> Search</span>
       </button>
-     
+
 
     </form>
       </div>
-    </div>
+    </div> -->
 </div>
 </div>
 

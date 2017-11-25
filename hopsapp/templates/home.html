@@ -113,12 +113,17 @@
   </a>
 </div>
 </div>
+<<<<<<< HEAD
 
+=======
+</div>
+</div>
+>>>>>>> f2314b8f5b1692c82c7b43bd69f8219496575447
 <hr>
 
 <h2 style="text-align:center">Browse</h2>
 <form>
-Beer Style: 
+Beer Style:
  <select name="style">
     <option value="ale">Ale</option>
     <option value="stout">Stout</option>
@@ -133,7 +138,7 @@ State of Origin:
 <select name="state">
 	<option value="AL">AL</option>
 	<option value="AK">AK</option>
-	<option value="AR">AR</option>	
+	<option value="AR">AR</option>
 	<option value="AZ">AZ</option>
 	<option value="CA">CA</option>
 	<option value="CO">CO</option>
@@ -143,7 +148,7 @@ State of Origin:
 	<option value="FL">FL</option>
 	<option value="GA">GA</option>
 	<option value="HI">HI</option>
-	<option value="IA">IA</option>	
+	<option value="IA">IA</option>
 	<option value="ID">ID</option>
 	<option value="IL">IL</option>
 	<option value="IN">IN</option>
@@ -155,14 +160,14 @@ State of Origin:
 	<option value="ME">ME</option>
 	<option value="MI">MI</option>
 	<option value="MN">MN</option>
-	<option value="MO">MO</option>	
+	<option value="MO">MO</option>
 	<option value="MS">MS</option>
 	<option value="MT">MT</option>
-	<option value="NC">NC</option>	
+	<option value="NC">NC</option>
 	<option value="NE">NE</option>
 	<option value="NH">NH</option>
 	<option value="NJ">NJ</option>
-	<option value="NM">NM</option>			
+	<option value="NM">NM</option>
 	<option value="NV">NV</option>
 	<option value="NY">NY</option>
 	<option value="ND">ND</option>
@@ -179,26 +184,26 @@ State of Origin:
 	<option value="VT">VT</option>
 	<option value="VA">VA</option>
 	<option value="WA">WA</option>
-	<option value="WI">WI</option>	
+	<option value="WI">WI</option>
 	<option value="WV">WV</option>
 	<option value="WY">WY</option>
 </select>
 <brs>
-Rarity: 
-<select name="rarity">		
+Rarity:
+<select name="rarity">
 	<option value="common">Common</option>
-	<option value="uncommon">Uncommon</option>	
+	<option value="uncommon">Uncommon</option>
 	<option value="rare">Rare</option>
 </select>
 <br>
-Availability: 
-<select name="availability">		
+Availability:
+<select name="availability">
 	<option value="winter">Winter</option>
-	<option value="spring">Spring</option>	
+	<option value="spring">Spring</option>
 	<option value="summer">Summer</option>
 	<option value="fall">Fall</option>
 	<option value="none">All Year</option>
-</select>	
+</select>
 <input type="submit">
 </form>
 <table style="text-align:center;margin:auto">
@@ -210,65 +215,35 @@ Availability:
 <td>Popularity</td>
 <td>Rarity</td>
 </thead>
+{% for beer in beers%}
 <tr>
-<td>Beer Name</td>
-<td>Brewery</td>
-<td>Style</td>
-<td>ABV</td>
-<td>Popularity</td>
-<td>Rarity</td>
+<td>{{beer.name}}</td>
+<td>{{beer.brewery.name}}</td>
+<td>{{beer.beer_type}}</td>
+<td>{{beer.abv}}</td>
+<td>{{beer.average_popularity}}</td>
+<td>{{beer.rarity}}</td>
 </tr>
-<tr>
-<td>Beer Name</td>
-<td>Brewery</td>
-<td>Style</td>
-<td>ABV</td>
-<td>Popularity</td>
-<td>Rarity</td>
-</tr>
-<tr>
-<td>Beer Name</td>
-<td>Brewery</td>
-<td>Style</td>
-<td>ABV</td>
-<td>Popularity</td>
-<td>Rarity</td>
-</tr>
-<tr>
-<td>Beer Name</td>
-<td>Brewery</td>
-<td>Style</td>
-<td>ABV</td>
-<td>Popularity</td>
-<td>Rarity</td>
-</tr>
-<tr>
-<td>Beer Name</td>
-<td>Brewery</td>
-<td>Style</td>
-<td>ABV</td>
-<td>Popularity</td>
-<td>Rarity</td>
-</tr>
+{% endfor %}
 </table>
     </div>
-   <div class="col-sm-2 sidenav">
+   <!-- <div class="col-sm-2 sidenav">
       <div>
 Search
-        <form>
+        <form method="POST">
 
-	<input type="text" name="search" placeholder="Search...">
+	<input type="text" name="text_search" placeholder="Search by Name...">
   <input type="radio" name="searchtype" value="beer" checked> Beer<br>
   <input type="radio" name="searchtype" value="brewery"> Brewery<br>
-  <input type="radio" name="searchtype" value="store"> Store<br>  
+  <input type="radio" name="searchtype" value="store"> Store<br>
       <button type="submit" value="search">
 		<span class="glyphicon glyphicon-search"> Search</span>
       </button>
-     
+
 
     </form>
       </div>
-    </div>
+    </div> -->
   </div>
   </div>
 </div>
