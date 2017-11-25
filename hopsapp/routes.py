@@ -4,6 +4,7 @@ from hopsapp import app
 from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
+# from flask_imgur import Imgur
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -31,49 +32,16 @@ def login():
 def register():
     return render_template("register.html")
 
-@app.route('/beerprofile')
+@app.route('/beerprofile', methods=['GET', 'POST'])
 def beerprofile():
     search = request.args['name']
     beer = Beer.query.filter_by(name=search).first()
     return render_template("beerprofile.html",beer=beer)
-    # beername="Heady Topper"
-    # brewery="The Alchemist"
-    # style="IPA"
-    # abv="8%"
-    # popularity="0"
-    # rarity="common"
-    # return render_template("beerprofile.html",
-    #                         beername=beername,
-    #                         brewery=brewery,
-    #                         style=style,
-    #                         abv=abv,
-    #                         popularity=popularity,
-    #                         rarity=rarity,
-                            # storename=storename,
-                            # traffic=traffic,
-                            # deliveryday=deliveryday
-
-    # beername="Heady Topper"
-    # brewery="The Alchemist"
-    # style="IPA"
-    # abv="8%"
-    # popularity="0"
-    # rarity="common"
-    # return render_template("beerprofile.html", beername=beername,brewery=brewery, style=style, abv=abv, popularity=popularity, rarity=rarity,storename=storename, traffic=traffic,deliveryday=deliveryday)
 
 @app.route('/breweryprofile')
 def breweryprofile(brewery_name):
 
     return render_template("breweryprofile.html", )
-
-    # beername="Heady Topper"
-    # brewery="The Alchemist"
-    # style="IPA"
-    # abv="8%"
-    # popularity="0"
-    # rarity="common"
-    # return render_template("breweryprofile.html", beername=beername,brewery=brewery, style=style, abv=abv, popularity=popularity, rarity=rarity, address=address,state=state)
-
 
 @app.route('/storeprofile')
 def storeprofile(beername=None, brewery=None, style=None, abv=None, popularity=None, rarity=None,address=None, state=None, storename=None, traffic=None,deliverday=None):

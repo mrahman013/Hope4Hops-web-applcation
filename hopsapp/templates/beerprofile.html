@@ -15,7 +15,9 @@
 <div class="text-left">
 
 <h1>{{beer.name}}</h1>
-<img src="{{ url_for('static', filename='images/placeholder.jpg') }}" style="width:100%; float:right">
+<!-- <img src="{{ url_for('static', filename='beer.beer_image') }}" style="width:100%; float:right"> -->
+<!-- <img src="" style="width:100%; float:right"> -->
+<img src="{{beer.beer_image}}">
 <span>
 Brewed By: {{beer.brewery.name}}<br>
 Style: {{beer.beer_type}}<br>

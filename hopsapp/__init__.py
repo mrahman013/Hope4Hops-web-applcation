@@ -10,5 +10,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://yjjuylsytqewni:d0d63322c6abd
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
+# from flask_imgur import Imgur
+# app.config["IMGUR_ID"] = "<katiec1029>"
+
 import hopsapp.models
 import hopsapp.routes
