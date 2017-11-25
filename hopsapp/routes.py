@@ -90,14 +90,7 @@ def findstore():
             store_avg_traffic.append(element.average_traffic)
             store_lat.append(element.lat)
             store_lon.append(element.lon)
-    print(store_name)
-    print(store_address)
-    print(store_city)
-    print(store_state)
-    print(store_zip)
-    print(store_avg_traffic)
-    print(store_lat)
-    print(store_lon)
+   
     return render_template("findstore.html")
 
 @app.route('/storeprofile')
