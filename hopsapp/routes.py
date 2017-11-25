@@ -1,13 +1,18 @@
 """Routes for flask app."""  # pylint: disable=cyclic-import
 # import hashlib
 from hopsapp import app
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     beers = Beer.query.all()
+    if request.method == 'POST':
+        searchtype = request.form['searchtype']
+        text_search = request.form['text_search']
+        if searchtype == 'beer':
+            return redirect(url_for('beerprofile', name=text_search))
     return render_template("home.html", beers=beers)
 
 @app.route('/about')
@@ -27,23 +32,27 @@ def register():
     return render_template("register.html")
 
 @app.route('/beerprofile')
-def beerprofile(beer_name):
-    beername="Heady Topper"
-    brewery="The Alchemist"
-    style="IPA"
-    abv="8%"
-    popularity="0"
-    rarity="common"
-    return render_template("beerprofile.html",
-                            beername=beername,
-                            brewery=brewery,
-                            style=style,
-                            abv=abv,
-                            popularity=popularity,
-                            rarity=rarity,
-                            storename=storename,
-                            traffic=traffic,
-                            deliveryday=deliveryday)
+def beerprofile():
+    search = request.args['name']
+    beer = Beer.query.filter_by(name=search).first()
+    return render_template("beerprofile.html",beer=beer)
+    # beername="Heady Topper"
+    # brewery="The Alchemist"
+    # style="IPA"
+    # abv="8%"
+    # popularity="0"
+    # rarity="common"
+    # return render_template("beerprofile.html",
+    #                         beername=beername,
+    #                         brewery=brewery,
+    #                         style=style,
+    #                         abv=abv,
+    #                         popularity=popularity,
+    #                         rarity=rarity,
+                            # storename=storename,
+                            # traffic=traffic,
+                            # deliveryday=deliveryday
+
     # beername="Heady Topper"
     # brewery="The Alchemist"
     # style="IPA"
