@@ -79,8 +79,19 @@ def findstore():
     # geeting post's name
     search = request.args['name']
     store_search = Beer.query.filter_by(name=search)
-    
-    return render_template("findstore.html", store=store)
+    # loop to get data of store and put into their respective list
+    for atrb in store_search:
+        for element in atrb.stores:
+            store_name.append(element.name)
+            store_address.append(element.address)
+            store_city.append(element.city)
+            store_state.append(element.state)
+            store_zip.append(element.zip)
+            store_avg_traffic.append(element.average_traffic)
+            store_lat.append(element.lat)
+            store_lon.append(element.lon)
+    print(store_name)
+    return render_template("findstore.html")
 
 @app.route('/storeprofile')
 def storeprofile(beername=None, brewery=None, style=None, abv=None, popularity=None, rarity=None,address=None, state=None, storename=None, traffic=None,deliverday=None):
