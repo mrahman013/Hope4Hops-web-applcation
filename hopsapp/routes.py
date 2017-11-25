@@ -16,6 +16,9 @@ def home():
             return redirect(url_for('beerprofile', name=text_search))
         if searchtype == 'brewery':
             return redirect (url_for('breweryprofile', name=text_search))
+
+        if searchtype == 'store':
+            return redirect (url_for('findstore', name=text_search))
     return render_template("home.html", beers=beers)
 
 @app.route('/about')
@@ -60,6 +63,14 @@ def breweryprofile():
         if searchtype == 'brewery':
             return redirect(url_for('breweryprofile'), name=text_search)
     return render_template("breweryprofile.html", brewery=brewery)
+
+
+@app.route('/findstore', methods=['GET', 'POST'])
+def findstore():
+    search = request.args['name']
+    store_search = Beer.query.filter_by(name=search)
+    store = store_search.stores
+    return render_template("findstore.html", store=store)
 
 @app.route('/storeprofile')
 def storeprofile(beername=None, brewery=None, style=None, abv=None, popularity=None, rarity=None,address=None, state=None, storename=None, traffic=None,deliverday=None):
