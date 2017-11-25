@@ -14,6 +14,8 @@ def home():
         text_search = request.form['text_search']
         if searchtype == 'beer':
             return redirect(url_for('beerprofile', name=text_search))
+        if searchtype == 'brewery':
+            return redirect (url_for('breweryprofile', name=text_search))
     return render_template("home.html", beers=beers)
 
 @app.route('/about')
@@ -36,12 +38,23 @@ def register():
 def beerprofile():
     search = request.args['name']
     beer = Beer.query.filter_by(name=search).first()
+    print(request.method)
+    if request.method == 'POST':
+        searchtype = request.form['searchtype']
+        text_search = request.form['text_search']
+        if searchtype == 'beer':
+            return redirect(url_for('beerprofile', name=text_search))
+        if searchtype == 'brewery':
+            return redirect (url_for('breweryprofile'), name=text_search)
+
+
     return render_template("beerprofile.html",beer=beer)
 
 @app.route('/breweryprofile')
-def breweryprofile(brewery_name):
-
-    return render_template("breweryprofile.html", )
+def breweryprofile():
+    search = request.args['name']
+    brewery = Brewery.query.filter_by(name=search).first()
+    return render_template("breweryprofile.html", brewery=brewery)
 
 @app.route('/storeprofile')
 def storeprofile(beername=None, brewery=None, style=None, abv=None, popularity=None, rarity=None,address=None, state=None, storename=None, traffic=None,deliverday=None):
@@ -58,6 +71,14 @@ def average_popularity(beer, rating):
 
 """
 
+def search(method):
+    if method == 'POST':
+        searchtype = request.form['searchtype']
+        text_search = request.form['text_search']
+        if searchtype == 'beer':
+            return redirect(url_for('beerprofile', name=text_search))
+        if searchtype == 'brewery':
+            return redirect (url_for('breweryprofile'), name=text_search)
 
 if __name__ == "__main__":
     app.run(debug=True)
