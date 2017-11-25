@@ -38,22 +38,27 @@ def register():
 def beerprofile():
     search = request.args['name']
     beer = Beer.query.filter_by(name=search).first()
-    print(request.method)
     if request.method == 'POST':
         searchtype = request.form['searchtype']
         text_search = request.form['text_search']
         if searchtype == 'beer':
             return redirect(url_for('beerprofile', name=text_search))
         if searchtype == 'brewery':
-            return redirect (url_for('breweryprofile'), name=text_search)
-
+            return redirect (url_for('breweryprofile', name=text_search))
 
     return render_template("beerprofile.html",beer=beer)
 
-@app.route('/breweryprofile')
+@app.route('/breweryprofile', methods=['GET', 'POST'])
 def breweryprofile():
     search = request.args['name']
     brewery = Brewery.query.filter_by(name=search).first()
+    if request.method == 'POST':
+        searchtype = request.form['searchtype']
+        text_search = request.form['text_search']
+        if searchtype == 'beer':
+            return redirect(url_for('beerprofile', name=text_search))
+        if searchtype == 'brewery':
+            return redirect(url_for('breweryprofile'), name=text_search)
     return render_template("breweryprofile.html", brewery=brewery)
 
 @app.route('/storeprofile')

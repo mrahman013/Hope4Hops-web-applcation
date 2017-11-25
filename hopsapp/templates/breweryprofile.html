@@ -13,15 +13,14 @@
 <div class="row">
 <div class="col-sm-4">
 
-<h1>{{brewery}}</h1>
-<img src="{{ url_for('static', filename='images/placeholder.jpg') }}" style="width:100%; float:right">
-Address:{{address}}<br>
-State:{{state}}<br>
+<h1>{{brewery.name}}</h1>
+Address:{{brewery.address}}<br>
+State:{{brewery.state}}<br>
 </div>
 <div class="col-sm-6">
 <table>
 <thead>
-<td>Beer Name</td>
+<!-- <td>Beer Name</td>
 <td>Style</td>
 <td>ABV</td>
 <td>Popularity</td>
@@ -35,12 +34,12 @@ State:{{state}}<br>
 <td>{{popularity}}</td>
 <td>{{rarity}}</td>
 </tr>
-{% endfor %}
+{% endfor %} -->
 </table>
 
 </div>
 
-<div class="col-sm-2 sidenav">
+<!-- <div class="col-sm-2 sidenav">
       <div>
 Search
         <form>
@@ -48,15 +47,15 @@ Search
 	<input type="text" name="search" placeholder="Search...">
   <input type="radio" name="searchtype" value="beer" checked> Beer<br>
   <input type="radio" name="searchtype" value="brewery"> Brewery<br>
-  <input type="radio" name="searchtype" value="store"> Store<br>  
+  <input type="radio" name="searchtype" value="store"> Store<br>
       <button type="submit" value="search">
 		<span class="glyphicon glyphicon-search"> Search</span>
       </button>
-     
+
 
     </form>
       </div>
-    </div>
+    </div> -->
 </div>
 </div>
 
