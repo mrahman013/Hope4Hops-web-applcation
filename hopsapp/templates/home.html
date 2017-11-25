@@ -17,6 +17,8 @@
 <!-- Popular Beer Carousel -->
     <div class="col-sm-8 text-left">
 <h1 style="text-align:center">Welcome to Hope4Hops!</h1>
+<div style="height:500px">
+  <div class="row">
 <div class="col-xs-6">
 <p style="text-align:center">Popular Beers</p>
       <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -31,7 +33,10 @@
   <!-- The slideshow -->
   <div class="carousel-inner">
     <div class="item active">
-      <a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Beer1"></a>
+      <a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Beer"></a>
+      <!-- flask implementation to display p_beer (Only Theoretical!!)
+      <a href="#"><img class="img-responsive" src="{{db.Beer.beer_img}}" alt="{{db.Beer.name}}"></a>
+      {% endif %} -->
       <div class="carousel-caption">
         <h3>Beer 1</h3>
         <p>#1</p>
