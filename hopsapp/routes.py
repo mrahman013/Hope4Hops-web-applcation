@@ -107,14 +107,35 @@ def findstore():
     for i in range(len(store_lat)):
         r = distance(user_lat, user_lon, store_lat[i], store_lon[i])
         distance_from_user.append(r)
-       
     
-    tem2D = [{"name": "store A", "zip": 11219},
-    {"name": "store A", "zip": 11219}]
+    print(store_name)
+    print(store_address)
+    print(store_city)
+    print(store_state)
+    print(store_zip)
+    print(store_avg_traffic)
+    print(store_lat)
+    print(store_lon)
+    print(distance_from_user)
+    # sorting all according to distance
+    distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon = zip(*sorted(zip(distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon)))   
+    print("----------------------------------------------")
+    print(store_name)
+    print(store_address)
+    print(store_city)
+    print(store_state)
+    print(store_zip)
+    print(store_avg_traffic)
+    print(store_lat)
+    print(store_lon)
+    print(distance_from_user)
+
+    # tem2D = [{"name": "store A", "zip": 11219},
+    # {"name": "store A", "zip": 11219}]
     # tem2D.append(store_name)
     # tem2D.append(store_address)
    
-    return render_template("findstore.html", stores = tem2D)
+    return render_template("findstore.html", all_component = zip(store_name,store_address))
 
 
 

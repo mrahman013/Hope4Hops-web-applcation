@@ -9,11 +9,11 @@
 
 <body>
 
-{% for store in stores%}
+{% for name, address in all_component %}
 	
 
-	<h1>{{store.name}}</h1>
-	<h3>{{store.zip}}</h3>
+	<h1>{{name}}</h1>
+	<h3>{{address}}</h3>
 
 {% endfor %}
 
