@@ -36,9 +36,10 @@
       <a href="#"><img class="img-responsive" src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Beer"></a>
       <!-- flask implementation to display beer_c (Only Theoretical!!)
       {% for imager in beer_c %}
-      <a href="#"><img class="img-responsive" src="{{beer_c}}" alt="{{beer}}"></a>
+      <a href="#"><img class="img-responsive" src="{{imager}}" alt="{{beer}}"></a>
       <div class="carousel-caption">
-      {% endif %} -->
+      <h3>"{{beer}}"</h3>
+      {% endfor %} -->
       <a href="#"><img class="img-responsive image" src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Beer1"></a>
       <div class="carousel-caption">
         <h3>Beer 1</h3>
