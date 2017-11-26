@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Hope 4 Hops{% endblock %}
+
+{% block body %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+
+<body>
+
+{% for name, address, city, state, zip, traffic, lat, lon, dist in all_component %}
+	<h5>{{name}}</h5>
+	<p>{{address}}</p>
+	<p>{{city}}, {{state}} {{zip}}</p>
+	<p>Traffic: {{traffic}}  Distance: {{dist}}</p>
+{% endfor %}
+
+
+</body>
+{% endblock %}
