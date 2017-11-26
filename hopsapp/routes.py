@@ -11,9 +11,9 @@ from math import cos, asin, sqrt
 def home():
     print(request.method)
     print(request.form)
-"""Theoretical Code"""
-beer_c=Beer.query.order_by(Beer.average_popularity.desc()).filter_by(Beer.beer_image).limit(3)
-beer_r=Beer.query.order_by(func.random(Beer.rarity)).filter_by(Beer.beer_image).limit(3)
+
+beer_c=Beer.query.order_by(desc(Beer.average_popularity)).limit(3)
+beer_r=Beer.query.filter_by(func.random(rarity='rare')).limit(3)
 
     # if request.method == 'POST':
         # beer_type = request.form['style']
