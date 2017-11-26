@@ -10,6 +10,7 @@ from math import cos, asin, sqrt
 @app.route('/', methods=['GET', 'POST'])
 def home():
     beers = Beer.query.all()
+
     if request.method == 'POST':
         beer_type = request.form['style']
         #refer to the state of the brewery in which the beer originates
@@ -28,14 +29,10 @@ def home():
             return redirect(url_for('beerprofile', name=text_search))
         if searchtype == 'brewery':
             return redirect (url_for('breweryprofile', name=text_search))
-<<<<<<< HEAD
-    return render_template("home.html", beers=beers, beer_c=beer_c)
-=======
 
         if searchtype == 'store':
             return redirect (url_for('findstore', name=text_search))
     return render_template("home.html", beers=beers)
->>>>>>> f53b39ea2b496a8d996b926d7b094f010da8827a
 
 @app.route('/about')
 def about():

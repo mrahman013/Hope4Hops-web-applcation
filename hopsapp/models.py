@@ -78,7 +78,6 @@ class Beer(db.Model):
     #TODO: test beer.stores query like above
     # stores = db.relationship('Store', secondary=stock, backref=db.backref('beers', lazy='dynamic'))
     stores = db.relationship('Store', secondary=stock, backref=db.backref('beers', lazy=True))
-"""
 
     def __init__(self,
                 name,
