@@ -5,7 +5,7 @@ from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 from math import cos, asin, sqrt
-# from flask_imgur import Imgur
+
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -28,37 +28,20 @@ def home():
         # beers = Beer.query.filter(Beer.beer_type==beer_type, Beer.brewery.has(state=state), Beer.seasonal== seasonal, Beer.rarity==rarity)
         # return redirect(url_for('home', beers=beers))
 
+    #search bar on the side
     if request.method == 'POST':
-        beer_type = request.form['style']
-        #refer to the state of the brewery in which the beer originates
-        state = request.form['state']
-        rarity = request.form['rarity']
-        seasonal = request.form['availability']
-        #for checking purposes
-        if seasonal == "None":
-            seasonal = None
-        beers = Beer.query.filter(
-                                    (Beer.beer_type==beer_type)|
-                                    (Beer.brewery.has(state=state))|
-                                    (Beer.seasonal== seasonal)|
-                                    (Beer.rarity==rarity))
-        # beers = Beer.query.filter(Beer.beer_type==beer_type, Beer.brewery.has(state=state), Beer.seasonal== seasonal, Beer.rarity==rarity)
         searchtype = request.form['searchtype']
         text_search = request.form['text_search']
         if searchtype == 'beer':
             return redirect(url_for('beerprofile', name=text_search))
         if searchtype == 'brewery':
             return redirect (url_for('breweryprofile', name=text_search))
+        if searchtype == 'store':
+            return (url_for('storeprofile', name=text_search))
 
     else:
         beers = Beer.query.all()
         return render_template("home.html", beers = beers)
-
-
-
-        if searchtype == 'store':
-            return redirect (url_for('findstore', name=text_search))
-    return render_template("home.html", beers=beers)
 
 @app.route('/about')
 def about():
@@ -78,30 +61,35 @@ def register():
 
 @app.route('/beerprofile', methods=['GET', 'POST'])
 def beerprofile():
-    search = request.args['name']
-    beer = Beer.query.filter_by(name=search).first()
     if request.method == 'POST':
         searchtype = request.form['searchtype']
         text_search = request.form['text_search']
         if searchtype == 'beer':
             return redirect(url_for('beerprofile', name=text_search))
         if searchtype == 'brewery':
-            return redirect (url_for('breweryprofile', name=text_search))
-
-    return render_template("beerprofile.html",beer=beer)
+            return redirect(url_for('breweryprofile', name=text_search))
+        if searchtype == 'store':
+            return redirect(url_for('storeprofile', name=text_search))
+    else:
+        search = request.args['name']
+        beer = Beer.query.filter_by(name=search).first()
+        return render_template("beerprofile.html",beer=beer)
 
 @app.route('/breweryprofile', methods=['GET', 'POST'])
 def breweryprofile():
-    search = request.args['name']
-    brewery = Brewery.query.filter_by(name=search).first()
     if request.method == 'POST':
         searchtype = request.form['searchtype']
         text_search = request.form['text_search']
         if searchtype == 'beer':
             return redirect(url_for('beerprofile', name=text_search))
         if searchtype == 'brewery':
-            return redirect(url_for('breweryprofile'), name=text_search)
-    return render_template("breweryprofile.html", brewery=brewery)
+            return redirect(url_for('breweryprofile', name=text_search))
+        if searchtype == 'store':
+            return redirect(url_for('storeprofile', name=text_search))
+    else:
+        search = request.args['name']
+        brewery = Brewery.query.filter_by(name=search).first()
+        return render_template("breweryprofile.html", brewery=brewery)
 
 
 @app.route('/findstore', methods=['GET', 'POST'])
@@ -159,29 +147,37 @@ def findstore():
 
 
 
-@app.route('/storeprofile')
-def storeprofile(beername=None, brewery=None, style=None, abv=None, popularity=None, rarity=None,address=None, state=None, storename=None, traffic=None,deliverday=None):
-    beername="Heady Topper"
-    brewery="The Alchemist"
-    style="IPA"
-    abv="8%"
-    popularity="0"
-    rarity="common"
-    return render_template("storeprofile.html", beername=beername,brewery=brewery, style=style, abv=abv, popularity=popularity, rarity=rarity, address=address,state=state, storename=storename, traffic=traffic,deliveryday=deliveryday)
+@app.route('/storeprofile', methods=['GET', 'POST'])
+def storeprofile():
+    if request.method == 'POST':
+        searchtype = request.form['searchtype']
+        text_search = request.form['text_search']
+        print(searchtype)
+        print(text_search)
+        if searchtype == 'beer':
+            return redirect(url_for('beerprofile', name=text_search))
+        if searchtype == 'brewery':
+            return redirect(url_for('breweryprofile', name=text_search))
+        if searchtype == 'store':
+            return redirect(url_for('storeprofile', name=text_search))
+    else:
+        search = request.args['name']
+        store = Store.query.filter_by(name=search).first()
+        return render_template("storeprofile.html", store=store)
 
 """
 def average_popularity(beer, rating):
 
 """
 
-def search(method):
-    if method == 'POST':
-        searchtype = request.form['searchtype']
-        text_search = request.form['text_search']
-        if searchtype == 'beer':
-            return redirect(url_for('beerprofile', name=text_search))
-        if searchtype == 'brewery':
-            return redirect (url_for('breweryprofile'), name=text_search)
+# def search(method):
+#     if method == 'POST':
+#         searchtype = request.form['searchtype']
+#         text_search = request.form['text_search']
+#         if searchtype == 'beer':
+#             return redirect(url_for('beerprofile', name=text_search))
+#         if searchtype == 'brewery':
+#             return redirect (url_for('breweryprofile'), name=text_search)
 
 if __name__ == "__main__":
     app.run(debug=True)
