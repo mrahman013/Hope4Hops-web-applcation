@@ -100,9 +100,14 @@ def findstore():
     #finding distance from user to store
     
     def distance(lat1, lon1, lat2, lon2):
+        
+        conv_fac = 0.621371 # conversion factor
         p = 0.017453292519943295     #Pi/180
         a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
-        return 12742 * asin(sqrt(a)) #2*R*asin...
+        kil_m = 12742 * asin(sqrt(a)) #2*R*asin...
+        miles = kil_m * conv_fac
+        miles = float("{0:.1f}".format(miles))
+        return miles
 
     for i in range(len(store_lat)):
         r = distance(user_lat, user_lon, store_lat[i], store_lon[i])
@@ -110,8 +115,7 @@ def findstore():
 
     # sorting all according to distance
     distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon = zip(*sorted(zip(distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon)))   
-    distance_from_user = [ '%.2f' % elem for elem in distance_from_user ]
-
+    
     # tem2D = [{"name": "store A", "zip": 11219},
     # {"name": "store A", "zip": 11219}]
     # tem2D.append(store_name)
