@@ -4,6 +4,7 @@ from hopsapp import app
 from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
+from math import cos, asin, sqrt
 # from flask_imgur import Imgur
 
 @app.route('/', methods=['GET', 'POST'])
@@ -27,7 +28,14 @@ def home():
             return redirect(url_for('beerprofile', name=text_search))
         if searchtype == 'brewery':
             return redirect (url_for('breweryprofile', name=text_search))
+<<<<<<< HEAD
     return render_template("home.html", beers=beers, beer_c=beer_c)
+=======
+
+        if searchtype == 'store':
+            return redirect (url_for('findstore', name=text_search))
+    return render_template("home.html", beers=beers)
+>>>>>>> f53b39ea2b496a8d996b926d7b094f010da8827a
 
 @app.route('/about')
 def about():
@@ -71,6 +79,62 @@ def breweryprofile():
         if searchtype == 'brewery':
             return redirect(url_for('breweryprofile'), name=text_search)
     return render_template("breweryprofile.html", brewery=brewery)
+
+
+@app.route('/findstore', methods=['GET', 'POST'])
+def findstore():
+    
+    #TODO: get user latitude and longitude instead of using hardcoded
+    user_lat = 40.8200471
+    user_lon = -73.9514611
+    # declaring list to hold all column of stores
+    store_name = []
+    store_address = []
+    store_city = []
+    store_state = []
+    store_zip = []
+    store_avg_traffic = []
+    store_lat = []
+    store_lon = []
+    distance_from_user = []
+    # geeting post's name
+    search = request.args['name']
+    store_search = Beer.query.filter_by(name=search)
+    # loop to get data of store and put into their respective list
+    for atrb in store_search:
+        for element in atrb.stores:
+            store_name.append(element.name)
+            store_address.append(element.address)
+            store_city.append(element.city)
+            store_state.append(element.state)
+            store_zip.append(element.zip_code)
+            store_avg_traffic.append(element.average_traffic)
+            store_lat.append(element.lat)
+            store_lon.append(element.lon)
+
+    #finding distance from user to store
+    
+    def distance(lat1, lon1, lat2, lon2):
+        p = 0.017453292519943295     #Pi/180
+        a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
+        return 12742 * asin(sqrt(a)) #2*R*asin...
+
+    for i in range(len(store_lat)):
+        r = distance(user_lat, user_lon, store_lat[i], store_lon[i])
+        distance_from_user.append(r)
+
+    # sorting all according to distance
+    distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon = zip(*sorted(zip(distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon)))   
+    distance_from_user = [ '%.2f' % elem for elem in distance_from_user ]
+
+    # tem2D = [{"name": "store A", "zip": 11219},
+    # {"name": "store A", "zip": 11219}]
+    # tem2D.append(store_name)
+    # tem2D.append(store_address)
+   
+    return render_template("findstore.html", all_component = zip(store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon, distance_from_user))
+
+
 
 @app.route('/storeprofile')
 def storeprofile(beername=None, brewery=None, style=None, abv=None, popularity=None, rarity=None,address=None, state=None, storename=None, traffic=None,deliverday=None):
