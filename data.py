@@ -53,7 +53,6 @@ http://nebula.wsimg.com/3704b82109d165d6516e12154eaced81?AccessKeyId=22E47027FF5
 """
 
 from hopsapp import db
-db.create_all()
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 
 brewery1 = Brewery('The Alchemist', '100 Cottage Rd', 'Stowe', 'VT', '05672', 32.165923, -94.340370)

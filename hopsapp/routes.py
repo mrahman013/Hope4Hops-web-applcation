@@ -5,15 +5,22 @@ from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 from math import cos, asin, sqrt
+from sqlalchemy import desc, func
 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     print(request.method)
     print(request.form)
-
-beer_c=Beer.query.order_by(desc(Beer.average_popularity)).limit(3)
-beer_r=Beer.query.filter_by(func.random(rarity='rare')).limit(3)
+    """Theoretical Code"""
+    beer_c = Beer.query.order_by(desc(Beer.average_popularity)).limit(3)
+    # beer_r = Beer.query.order_by(func.random()).first()
+    beer_r = Beer.query.order_by(func.random()).all()
+    rare_beers = []
+    for b in beer_r:
+        if b.rarity == 'common':
+            rare_beers.append(b)
+    rare_beers = rare_beers[0:3]
 
     # if request.method == 'POST':
         # beer_type = request.form['style']
@@ -45,7 +52,7 @@ beer_r=Beer.query.filter_by(func.random(rarity='rare')).limit(3)
 
     else:
         beers = Beer.query.all()
-        return render_template("home.html", beers = beers)
+        return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers)
 
 @app.route('/about')
 def about():
