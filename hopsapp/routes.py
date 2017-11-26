@@ -135,7 +135,7 @@ def findstore():
     # tem2D.append(store_name)
     # tem2D.append(store_address)
    
-    return render_template("findstore.html", all_component = zip(store_name,store_address))
+    return render_template("findstore.html", all_component = zip(store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon, distance_from_user))
 
 
 
