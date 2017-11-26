@@ -79,11 +79,6 @@ class Beer(db.Model):
     # stores = db.relationship('Store', secondary=stock, backref=db.backref('beers', lazy='dynamic'))
     stores = db.relationship('Store', secondary=stock, backref=db.backref('beers', lazy=True))
 """
-First 3 beer based on popularity (Only Theoretical!!)
-p_beer=db.query.filter_by(db.average_popularity).limit(3)
-for three in p_beer:
-	p[three]=beer.beer_image
-"""
 
     def __init__(self,
                 name,

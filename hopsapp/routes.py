@@ -9,7 +9,6 @@ from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 @app.route('/', methods=['GET', 'POST'])
 def home():
     beers = Beer.query.all()
-
     if request.method == 'POST':
         beer_type = request.form['style']
         #refer to the state of the brewery in which the beer originates
@@ -28,7 +27,7 @@ def home():
             return redirect(url_for('beerprofile', name=text_search))
         if searchtype == 'brewery':
             return redirect (url_for('breweryprofile', name=text_search))
-    return render_template("home.html", beers=beers)
+    return render_template("home.html", beers=beers, beer_c=beer_c)
 
 @app.route('/about')
 def about():
