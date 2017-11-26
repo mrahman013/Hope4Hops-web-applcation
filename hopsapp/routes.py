@@ -81,7 +81,7 @@ def findstore():
     store_avg_traffic = []
     store_lat = []
     store_lon = []
-    
+    distance_from_user = []
     # geeting post's name
     search = request.args['name']
     store_search = Beer.query.filter_by(name=search)
@@ -105,7 +105,9 @@ def findstore():
         return 12742 * asin(sqrt(a)) #2*R*asin...
 
     for i in range(len(store_lat)):
-
+        r = distance(user_lat, user_lon, store_lat[i], store_lon[i])
+        distance_from_user.append(r)
+       
     
     tem2D = [{"name": "store A", "zip": 11219},
     {"name": "store A", "zip": 11219}]
