@@ -5,6 +5,7 @@ from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 from math import cos, asin, sqrt
+from sqlalchemy import desc, func
 
 
 @app.route('/', methods=['GET', 'POST'])
