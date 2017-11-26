@@ -10,6 +10,8 @@ from math import cos, asin, sqrt
 @app.route('/', methods=['GET', 'POST'])
 def home():
     beers = Beer.query.all()
+"""Only Theoretical!!"""
+beer_c=Beer.query.order_by(Beer.average_popularity.desc()).filterby(Beer.beer_image).limit(3)
 
     if request.method == 'POST':
         beer_type = request.form['style']
@@ -133,7 +135,7 @@ def findstore():
 
 
 
-@app.route('/storeprofile')
+@app.route('/storeprofile', methods=['GET', 'POST'])
 def storeprofile(beername=None, brewery=None, style=None, abv=None, popularity=None, rarity=None,address=None, state=None, storename=None, traffic=None,deliverday=None):
     beername="Heady Topper"
     brewery="The Alchemist"
