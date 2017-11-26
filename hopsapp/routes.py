@@ -51,7 +51,7 @@ def home():
 
     else:
         beers = Beer.query.all()
-        return render_template("home.html", beers = beers)
+        return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers)
 
 @app.route('/about')
 def about():
