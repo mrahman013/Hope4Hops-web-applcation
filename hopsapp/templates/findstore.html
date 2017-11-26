@@ -10,14 +10,10 @@
 <body>
 
 {% for name, address, city, state, zip, traffic, lat, lon, dist in all_component %}
-	
-
-	<h3>{{name}}</h3>
-	<h5>{{address}}</h5>
-	<h5>{{city}}, {{state}} {{zip}}</h5>
-	<p>{{traffic}}, {{dist}}</p>
-	<p>{{lat}}, {{lon}}</p>
-
+	<h5>{{name}}</h5>
+	<p>{{address}}</p>
+	<p>{{city}}, {{state}} {{zip}}</p>
+	<p>Traffic: {{traffic}}  Distance: {{dist}}</p>
 {% endfor %}
 
 

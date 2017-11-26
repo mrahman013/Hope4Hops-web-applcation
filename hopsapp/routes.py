@@ -107,15 +107,10 @@ def findstore():
     for i in range(len(store_lat)):
         r = distance(user_lat, user_lon, store_lat[i], store_lon[i])
         distance_from_user.append(r)
-    
-   
-    print(distance_from_user)
+
     # sorting all according to distance
     distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon = zip(*sorted(zip(distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon)))   
     distance_from_user = [ '%.2f' % elem for elem in distance_from_user ]
-    print("----------------------------------------------")
-    
-    print(distance_from_user)
 
     # tem2D = [{"name": "store A", "zip": 11219},
     # {"name": "store A", "zip": 11219}]
