@@ -8,27 +8,50 @@ from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    beers = Beer.query.all()
+    print(request.method)
+    print(request.form)
+    # if request.method == 'POST':
+        # beer_type = request.form['style']
+        # refer to the state of the brewery in which the beer originates
+        # state = request.form['state']
+        # rarity = request.form['rarity']
+        # seasonal = request.form['availability']
+        #for checking purposes
+        # if seasonal == "None":
+            # seasonal = None
+        # beers = Beer.query.filter(
+                                    # (Beer.beer_type==beer_type)|
+                                    # (Beer.brewery.has(state=state))|
+                                    # (Beer.seasonal== seasonal)|
+                                    # (Beer.rarity==rarity))
+        # beers = Beer.query.filter(Beer.beer_type==beer_type, Beer.brewery.has(state=state), Beer.seasonal== seasonal, Beer.rarity==rarity)
+        # return redirect(url_for('home', beers=beers))
 
     if request.method == 'POST':
         beer_type = request.form['style']
         #refer to the state of the brewery in which the beer originates
         state = request.form['state']
         rarity = request.form['rarity']
-        availability = request.form['availability']
-        
-
-
-
-
-    if request.method == 'POST':
+        seasonal = request.form['availability']
+        #for checking purposes
+        if seasonal == "None":
+            seasonal = None
+        beers = Beer.query.filter(
+                                    (Beer.beer_type==beer_type)|
+                                    (Beer.brewery.has(state=state))|
+                                    (Beer.seasonal== seasonal)|
+                                    (Beer.rarity==rarity))
+        # beers = Beer.query.filter(Beer.beer_type==beer_type, Beer.brewery.has(state=state), Beer.seasonal== seasonal, Beer.rarity==rarity)
         searchtype = request.form['searchtype']
         text_search = request.form['text_search']
         if searchtype == 'beer':
             return redirect(url_for('beerprofile', name=text_search))
         if searchtype == 'brewery':
             return redirect (url_for('breweryprofile', name=text_search))
-    return render_template("home.html", beers=beers)
+    else:
+        beers = Beer.query.all()
+        return render_template("home.html", beers = beers)
+
 
 @app.route('/about')
 def about():
