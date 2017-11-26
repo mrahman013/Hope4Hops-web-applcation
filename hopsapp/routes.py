@@ -9,6 +9,18 @@ from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 @app.route('/', methods=['GET', 'POST'])
 def home():
     beers = Beer.query.all()
+
+    if request.method == 'POST':
+        beer_type = request.form['style']
+        #refer to the state of the brewery in which the beer originates
+        state = request.form['state']
+        rarity = request.form['rarity']
+        availability = request.form['availability']
+        
+
+
+
+
     if request.method == 'POST':
         searchtype = request.form['searchtype']
         text_search = request.form['text_search']

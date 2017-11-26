@@ -48,3 +48,10 @@
       }
       .row.content {height:auto;}
     }
+
+    .image {
+      min-height: 500px;
+      max-height: 500px;
+      display:block;
+      margin:auto;
+    }
