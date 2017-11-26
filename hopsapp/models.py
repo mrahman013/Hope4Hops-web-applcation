@@ -158,7 +158,6 @@ class Storeowner(db.Model):
     name = db.Column(db.String(100), unique=True, nullable=False)
     #one email per one store owner
     email = db.Column(db.String(50), unique=True, nullable=False)
-    # phone = db.Column(db.Integer, unique=True)
     #phone number string 20 incase international number
     phone = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(100))
@@ -233,7 +232,6 @@ Customer(name, phone, email)
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
-    # phone = db.Column(db.Integer, unique=True)
     #phone number string 20 incase international number
     phone = db.Column(db.String(50), unique=True)
 
