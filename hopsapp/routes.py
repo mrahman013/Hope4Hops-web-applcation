@@ -89,9 +89,6 @@ def register():
 #     p = beer_users/users
 #
 #     if
-
-
-
 @app.route('/beerprofile', methods=['GET', 'POST'])
 #value for new rating is new_rating
 def beerprofile():
