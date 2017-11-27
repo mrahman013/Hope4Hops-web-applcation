@@ -3,6 +3,7 @@
 from hopsapp import app
 from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from hopsapp import db
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 from math import cos, asin, sqrt
 from sqlalchemy import desc, func
@@ -82,6 +83,15 @@ def login():
 def register():
     return render_template("register.html")
 
+# def rarity_system(beer):
+#     users = Customer.query.all()
+#     beer_users = beer.total_users
+#     p = beer_users/users
+#
+#     if
+
+
+
 @app.route('/beerprofile', methods=['GET', 'POST'])
 #value for new rating is new_rating
 def beerprofile():
@@ -97,7 +107,21 @@ def beerprofile():
             search = request.args['name']
             beer = Beer.query.filter_by(name=search).first()
             distances = distance_from_user(beer)
+
             input_rating = request.form['new_rating']
+            users = beer.total_users + 1 #int
+            ratings = beer.total_ratings + int(float(input_rating)) # int
+            new_average_popularity = ratings/users #float
+
+
+            beer.total_users=users
+            beer.total_ratings=ratings
+            beer.average_popularity = new_average_popularity
+            #we want to determine the rarity after we determine
+            # new_rarity = rarity_system(beer)
+
+            db.session.commit()
+
             return render_template("beerprofile.html", beer=beer, distances=distances)
 
         elif request.form['submit']== "search":
@@ -136,8 +160,6 @@ def storeprofile():
     elif request.method == 'POST':
         searchtype = request.form['searchtype']
         text_search = request.form['text_search']
-        print(searchtype)
-        print(text_search)
         if searchtype == 'beer':
             return redirect(url_for('beerprofile', name=text_search))
         if searchtype == 'brewery':
