@@ -82,6 +82,7 @@ def findstore():
     store_lat = []
     store_lon = []
     distance_from_user = []
+    # db_col = ['name', 'address', 'city', 'state', 'zip', 'avg_traffic', 'lat', 'lon']
     # geeting post's name
     search = request.args['name']
     store_search = Beer.query.filter_by(name=search)
@@ -116,11 +117,6 @@ def findstore():
     # sorting all according to distance
     distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon = zip(*sorted(zip(distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon)))   
     
-    # tem2D = [{"name": "store A", "zip": 11219},
-    # {"name": "store A", "zip": 11219}]
-    # tem2D.append(store_name)
-    # tem2D.append(store_address)
-   
     return render_template("findstore.html", all_component = zip(store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon, distance_from_user))
 
 
