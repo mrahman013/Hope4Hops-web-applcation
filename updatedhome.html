@@ -1,0 +1,347 @@
+<html lang="en">
+<head>
+  <title>Hopes 4 Hops</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    .row.content {height: 450px}
+    .sidenav {
+      padding-top: 25px;
+      background-color: #f1f1f1;
+      height: 195%;
+    }
+    .logo_cls img{
+      margin-top: -12px;
+    }
+
+	.carousel-inner img{
+	 margin: auto;
+	 width: auto;
+	 height: 500px;
+	 min-height: 500px;
+	 max-height: 500px;
+    }
+
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+     #map{
+      height:400px;
+      width:195%;
+    }
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand logo_cls" href="#"><img src="https://raw.githubusercontent.com/minciong/Hope4Hops/max/logo.png?token=AeDh4L0xSsetAeFSft-tJ07bvkzLRHAMks5aBMcNwA%3D%3D" alt="Hope4Hops Logo" height="50" width="60"></img>
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid text-center">
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <p>ADS or more stuff</p>
+    </div>
+
+    <div class="col-sm-8 text-left">
+      <h1 style="text-align:center">Welcome to Hope 4 Hops</h1>
+      <p>Where is your beer? Let us help you find it!</p>
+<div class="col-xs-6">
+<p style="text-align:center">Popular Beers</p>
+      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <a href="#"><img class="img-responsive" src="http://gaia.adage.com/images/bin/image/x-large/Heineken-New-Bottle.jpg" alt="Beer1"></img></a>
+      <div class="carousel-caption">
+        <h3>Beer 1</h3>
+        <p>#1</p>
+      </div>
+    </div>
+    <div class="item">
+      <a href="#"><img class="img-responsive" src="https://www.ocado.com/productImages/531/53122011_0_640x640.jpg?identifier=eac86c1532cf555a9d86b132eedc2529" alt="Beer2"></img></a>
+      <div class="carousel-caption">
+        <h3>Beer 2</h3>
+        <p>#2</p>
+      </div>
+    </div>
+    <div class="item">
+        <a href="#"><img class="img-responsive" src="https://d1osgs5rdqb11o.cloudfront.net/products/main/7572/7572.thm350.jpg" alt="Beer3"></img></a>
+      <div class="carousel-caption">
+        <h3>Beer 3</h3>
+        <p>#3</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
+
+<div class="col-xs-6">
+<p style="text-align:center">Rare Beers</p>
+      <div id="myCarousel2" class="carousel slide" data-ride="carousel">
+
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <a href="#"><img class="img-responsive" src="https://cdn.pastemagazine.com/www/system/images/photo_albums/resolution-beers/large/p-push.png?1384968217" alt="BeerR1"></img></a>
+      <div class="carousel-caption">
+        <h3>Beer R1</h3>
+        <p>#1</p>
+      </div>
+    </div>
+    <div class="item">
+      <a href="#"><img class="img-responsive" src="https://cdn.pastemagazine.com/www/system/images/photo_albums/resolution-beers/large/dinner.jpg?1384968217" alt="BeerR2"></img></a>
+      <div class="carousel-caption">
+        <h3>Beer R2</h3>
+        <p>#2</p>
+      </div>
+    </div>
+    <div class="item">
+        <a href="#"><img class="img-responsive" src="http://drinks.world/wp-content/uploads/2017/03/Attack-of-the-Killer-Hops_HighRes.jpg" alt="BeerR3"></img></a>
+      <div class="carousel-caption">
+        <h3>Beer R3</h3>
+        <p>#3</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel2" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel2" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+</div>
+
+
+
+      <hr>
+
+<h2 style="text-align:center">Browse</h2>
+<form>
+Beer Style: 
+ <select name="style">
+    <option value="ale">Ale</option>
+    <option value="stout">Stout</option>
+    <option value="lager">Lager</option>
+    <option value="ipa">IPA</option>
+    <option value="pilsner">Pilsner</option>
+    <option value="porter">Porter</option>
+    <option value="bitter">Bitter</option>
+    <option value="saison">Saison</option>
+  </select>
+State of Origin:
+<select name="state">
+	<option value="AL">AL</option>
+	<option value="AK">AK</option>
+	<option value="AR">AR</option>	
+	<option value="AZ">AZ</option>
+	<option value="CA">CA</option>
+	<option value="CO">CO</option>
+	<option value="CT">CT</option>
+	<option value="DC">DC</option>
+	<option value="DE">DE</option>
+	<option value="FL">FL</option>
+	<option value="GA">GA</option>
+	<option value="HI">HI</option>
+	<option value="IA">IA</option>	
+	<option value="ID">ID</option>
+	<option value="IL">IL</option>
+	<option value="IN">IN</option>
+	<option value="KS">KS</option>
+	<option value="KY">KY</option>
+	<option value="LA">LA</option>
+	<option value="MA">MA</option>
+	<option value="MD">MD</option>
+	<option value="ME">ME</option>
+	<option value="MI">MI</option>
+	<option value="MN">MN</option>
+	<option value="MO">MO</option>	
+	<option value="MS">MS</option>
+	<option value="MT">MT</option>
+	<option value="NC">NC</option>	
+	<option value="NE">NE</option>
+	<option value="NH">NH</option>
+	<option value="NJ">NJ</option>
+	<option value="NM">NM</option>			
+	<option value="NV">NV</option>
+	<option value="NY">NY</option>
+	<option value="ND">ND</option>
+	<option value="OH">OH</option>
+	<option value="OK">OK</option>
+	<option value="OR">OR</option>
+	<option value="PA">PA</option>
+	<option value="RI">RI</option>
+	<option value="SC">SC</option>
+	<option value="SD">SD</option>
+	<option value="TN">TN</option>
+	<option value="TX">TX</option>
+	<option value="UT">UT</option>
+	<option value="VT">VT</option>
+	<option value="VA">VA</option>
+	<option value="WA">WA</option>
+	<option value="WI">WI</option>	
+	<option value="WV">WV</option>
+	<option value="WY">WY</option>
+</select>
+<brs>
+Rarity: 
+<select name="rarity">		
+	<option value="common">Common</option>
+	<option value="uncommon">Uncommon</option>	
+	<option value="rare">Rare</option>
+</select>
+<br>
+Availability: 
+<select name="availability">		
+	<option value="winter">Winter</option>
+	<option value="spring">Spring</option>	
+	<option value="summer">Summer</option>
+	<option value="fall">Fall</option>
+	<option value="none">All Year</option>
+</select>	
+<input type="submit">
+</form>
+<table style="text-align:center;margin:auto">
+<thead>
+<td>Beer Name</td>
+<td>Brewery</td>
+<td>Style</td>
+<td>ABV</td>
+<td>Popularity</td>
+<td>Rarity</td>
+</thead>
+<tr>
+<td>Beer Name</td>
+<td>Brewery</td>
+<td>Style</td>
+<td>ABV</td>
+<td>Popularity</td>
+<td>Rarity</td>
+</tr>
+<tr>
+<td>Beer Name</td>
+<td>Brewery</td>
+<td>Style</td>
+<td>ABV</td>
+<td>Popularity</td>
+<td>Rarity</td>
+</tr>
+<tr>
+<td>Beer Name</td>
+<td>Brewery</td>
+<td>Style</td>
+<td>ABV</td>
+<td>Popularity</td>
+<td>Rarity</td>
+</tr>
+<tr>
+<td>Beer Name</td>
+<td>Brewery</td>
+<td>Style</td>
+<td>ABV</td>
+<td>Popularity</td>
+<td>Rarity</td>
+</tr>
+<tr>
+<td>Beer Name</td>
+<td>Brewery</td>
+<td>Style</td>
+<td>ABV</td>
+<td>Popularity</td>
+<td>Rarity</td>
+</tr>
+</table>
+    </div>
+   <div class="col-sm-2 sidenav">
+      <div>
+Search
+        <form>
+
+	<input type="text" name="search" placeholder="Search...">
+  <input type="radio" name="searchtype" value="beer" checked> Beer<br>
+  <input type="radio" name="searchtype" value="brewery"> Brewery<br>
+  <input type="radio" name="searchtype" value="store"> Store<br>  
+      <button type="submit" value="search">
+		<span class="glyphicon glyphicon-search"> Search</span>
+      </button>
+     
+
+    </form>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+
+<footer class="container-fluid text-center">
+  <p>Contact or Copyright or w/e</p>
+</footer>
+
+</body>
+</html>
