@@ -43,15 +43,10 @@ def home():
             seasonal = request.form['availability']
             if seasonal=="None":
                 seasonal = None
-            print(seasonal)
-
             beers = Beer.query.join(Brewery).filter_by(state=state).all()
             for b in beers:
                 if (b.beer_type == beer_type) and (b.rarity == rarity) and (b.seasonal == seasonal):
                     beer_list.append(b)
-
-            for b in beer_list:
-                print(b.name)
             beer_c = find_popular_beers()
             rare_beers = find_rare_beers()
             return render_template("home.html", beers=beer_list, beer_c=beer_c, rare_beers=rare_beers)
