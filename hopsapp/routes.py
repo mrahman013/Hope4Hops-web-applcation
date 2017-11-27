@@ -118,6 +118,9 @@ def findstore():
     user_lat = 40.8200471
     user_lon = -73.9514611
     # declaring list to hold all column of stores
+    search = request.args['name']
+    beer = Beer.query.filter_by(name = search)
+
     store_name = []
     store_address = []
     store_city = []
@@ -127,9 +130,8 @@ def findstore():
     store_lat = []
     store_lon = []
     distance_from_user = []
-    # geeting post's name
-    search = request.args['name']
-    store_search = Beer.query.filter_by(name=search)
+    # getting post's name
+
     # loop to get data of store and put into their respective list
     for atrb in store_search:
         for element in atrb.stores:
