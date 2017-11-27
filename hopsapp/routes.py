@@ -56,8 +56,6 @@ def home():
             beer_c = find_popular_beers()
             rare_beers = find_rare_beers()
             return render_template("home.html", beers=beer_list, beer_c=beer_c, rare_beers=rare_beers)
-            # return redirect(url_for('home', beers=beers_list, beer_c=beer_c, rare_beers=rare_beers))
-
         elif request.form['submit'] == 'search':
            searchtype = request.form['searchtype']
            text_search = request.form['text_search']
