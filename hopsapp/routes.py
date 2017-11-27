@@ -19,9 +19,13 @@ def find_rare_beers():
     return rare_beers[0:3]
 
 def distance(lat1, lon1, lat2, lon2):
+    conv_fac = 0.621371 # conversion factor
     p = 0.017453292519943295     #Pi/180
     a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
-    return 12742 * asin(sqrt(a)) #2*R*asin...
+    kil_m = 12742 * asin(sqrt(a)) #2*R*asin...
+    miles = kil_m * conv_fac
+    miles = float("{0:.1f}".format(miles))
+    return miles
 
 @app.route('/', methods=['GET','POST'])
 def home():
