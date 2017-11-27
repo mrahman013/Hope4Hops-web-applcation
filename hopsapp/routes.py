@@ -18,6 +18,11 @@ def find_rare_beers():
             rare_beers.append(b)
     return rare_beers[0:3]
 
+def distance(lat1, lon1, lat2, lon2):
+    p = 0.017453292519943295     #Pi/180
+    a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
+    return 12742 * asin(sqrt(a)) #2*R*asin...
+
 @app.route('/', methods=['GET','POST'])
 def home():
     if request.method == 'GET':
@@ -81,7 +86,19 @@ def register():
 @app.route('/beerprofile', methods=['GET', 'POST'])
 #value for new rating is new_rating
 def beerprofile():
-    if request.method == 'POST':
+    if request.method == 'GET':
+        search = request.args['name']
+        beer = Beer.query.filter_by(name=search).first()
+        #TODO: get user latitude and longitude instead of using hardcoded
+        user_lat = 40.8200471
+        user_lon = -73.9514611
+        distances = []
+        for store in beer.stores:
+            d = distance(user_lat, user_lon, store.lat, store.lon)
+            distances.append(d)
+        return render_template("beerprofile.html",beer=beer,distances = distances)
+
+    elif request.method == 'POST':
         searchtype = request.form['searchtype']
         text_search = request.form['text_search']
         if searchtype == 'beer':
@@ -90,14 +107,15 @@ def beerprofile():
             return redirect(url_for('breweryprofile', name=text_search))
         if searchtype == 'store':
             return redirect(url_for('storeprofile', name=text_search))
-    else:
-        search = request.args['name']
-        beer = Beer.query.filter_by(name=search).first()
-        return render_template("beerprofile.html",beer=beer)
+
 
 @app.route('/breweryprofile', methods=['GET', 'POST'])
 def breweryprofile():
-    if request.method == 'POST':
+    if request.method == 'GET':
+        search = request.args['name']
+        brewery = Brewery.query.filter_by(name=search).first()
+        return render_template("breweryprofile.html", brewery=brewery)
+    elif request.method == 'POST':
         searchtype = request.form['searchtype']
         text_search = request.form['text_search']
         if searchtype == 'beer':
@@ -106,11 +124,24 @@ def breweryprofile():
             return redirect(url_for('breweryprofile', name=text_search))
         if searchtype == 'store':
             return redirect(url_for('storeprofile', name=text_search))
-    else:
-        search = request.args['name']
-        brewery = Brewery.query.filter_by(name=search).first()
-        return render_template("breweryprofile.html", brewery=brewery)
 
+@app.route('/storeprofile', methods=['GET', 'POST'])
+def storeprofile():
+    if request.method == 'GET':
+        search = request.args['name']
+        store = Store.query.filter_by(name=search).first()
+        return render_template("storeprofile.html", store=store)
+    elif request.method == 'POST':
+        searchtype = request.form['searchtype']
+        text_search = request.form['text_search']
+        print(searchtype)
+        print(text_search)
+        if searchtype == 'beer':
+            return redirect(url_for('beerprofile', name=text_search))
+        if searchtype == 'brewery':
+            return redirect(url_for('breweryprofile', name=text_search))
+        if searchtype == 'store':
+            return redirect(url_for('storeprofile', name=text_search))
 
 @app.route('/findstore', methods=['GET', 'POST'])
 def findstore():
@@ -119,7 +150,8 @@ def findstore():
     user_lon = -73.9514611
     # declaring list to hold all column of stores
     search = request.args['name']
-    beer = Beer.query.filter_by(name = search)
+    # beer = Beer.query.filter_by(name = search)
+    store_search = Beer.query.filter_by(name=search)
 
     store_name = []
     store_address = []
@@ -130,7 +162,7 @@ def findstore():
     store_lat = []
     store_lon = []
     distance_from_user = []
-    # getting post's name
+    # geting post's name
 
     # loop to get data of store and put into their respective list
     for atrb in store_search:
@@ -146,11 +178,6 @@ def findstore():
 
     #finding distance from user to store
 
-    def distance(lat1, lon1, lat2, lon2):
-        p = 0.017453292519943295     #Pi/180
-        a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
-        return 12742 * asin(sqrt(a)) #2*R*asin...
-
     for i in range(len(store_lat)):
         r = distance(user_lat, user_lon, store_lat[i], store_lon[i])
         distance_from_user.append(r)
@@ -164,27 +191,8 @@ def findstore():
     # tem2D.append(store_name)
     # tem2D.append(store_address)
 
-    return render_template("findstore.html", all_component = zip(store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon, distance_from_user))
-
-
-
-@app.route('/storeprofile', methods=['GET', 'POST'])
-def storeprofile():
-    if request.method == 'POST':
-        searchtype = request.form['searchtype']
-        text_search = request.form['text_search']
-        print(searchtype)
-        print(text_search)
-        if searchtype == 'beer':
-            return redirect(url_for('beerprofile', name=text_search))
-        if searchtype == 'brewery':
-            return redirect(url_for('breweryprofile', name=text_search))
-        if searchtype == 'store':
-            return redirect(url_for('storeprofile', name=text_search))
-    else:
-        search = request.args['name']
-        store = Store.query.filter_by(name=search).first()
-        return render_template("storeprofile.html", store=store)
+    return render_template("findstore.html")
+    # return render_template("findstore.html", all_component = zip(store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon, distance_from_user))
 
 """
 def average_popularity(beer, rating):
