@@ -20,21 +20,22 @@ State:{{brewery.state}}<br>
 <div class="col-sm-6">
 <table>
 <thead>
-<!-- <td>Beer Name</td>
+
+<td>Beer Name</td>
 <td>Style</td>
 <td>ABV</td>
 <td>Popularity</td>
 <td>Rarity</td>
 </thead>
-{% for i in range(20) %}
+{% for beer in brewery.beers %}
 <tr>
-<td>{{beername}}</td>
-<td>{{style}}</td>
-<td>{{abv}}</td>
-<td>{{popularity}}</td>
-<td>{{rarity}}</td>
+<td>{{beer.name}}</td>
+<td>{{beer.beer_type}}</td>
+<td>{{beer.abv}}</td>
+<td>{{beer.average_popularity}}</td>
+<td>{{beer.rarity}}</td>
 </tr>
-{% endfor %} -->
+{% endfor %}
 </table>
 
 </div>
