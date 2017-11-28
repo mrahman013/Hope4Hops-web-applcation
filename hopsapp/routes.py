@@ -90,8 +90,10 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    
-    return render_template("register.html")
+    if request.method == 'GET':
+        return render_template("register.html")
+
+    # return render_template("register.html")
 
 # def rarity_system(beer):
 #     users = Customer.query.all()
