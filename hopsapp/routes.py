@@ -57,45 +57,60 @@ def distance(lat1, lon1, lat2, lon2):
         return miles
 
 def distance_from_user(beer):
-
+    def distance(lat1, lon1, lat2, lon2):
+        p = 0.017453292519943295     #Pi/180
+        a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
+        return 12742 * asin(sqrt(a)) #2*R*asin...
     #TODO: get user latitude and longitude instead of using hardcoded
     user_lat = 40.8200471
     user_lon = -73.9514611
-
-    store_name = []
-    store_address = []
-    store_city = []
-    store_state = []
-    store_zip = []
-    store_avg_traffic = []
-    store_lat = []
-    store_lon = []
-    distance_from_user = []
-
-
+    distances = []
     for store in beer.stores:
         d = distance(user_lat, user_lon, store.lat, store.lon)
-        # distance_from_user.append((beer,store,d))
-        distance_from_user.append(d) #TODO: replace with line above
-        store_name.append(store.name)
-        store_address.append(store.address)
-        store_city.append(store.city)
-        store_state.append(store.state)
-        store_zip.append(store.zip_code)
-        store_avg_traffic.append(store.average_traffic)
-        store_lat.append(store.lat)
-        store_lon.append(store.lon)
+        distances.append(d)
+    return distances
 
-    #NOTE: this was just for testing to see if we can have (beer, store, d)
-    # for d in distance_from_user:
-    #     print("Beer: ", d[0].name)
-    #     print("Store: ", d[1].name)
-    #     print("Distance: ", d[2])
-    # sorting all according to distance
-    # sorted(student_objects, key=lambda student: student.age)
-    distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon = zip(*sorted(zip(distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon)))
-    all_component = zip(store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon, distance_from_user)
-    return all_component
+
+# def distance_from_user(beer):
+#
+#     #TODO: get user latitude and longitude instead of using hardcoded
+#     user_lat = 40.8200471
+#     user_lon = -73.9514611
+#
+#     store_name = []
+#     store_address = []
+#     store_city = []
+#     store_state = []
+#     store_zip = []
+#     store_avg_traffic = []
+#     store_lat = []
+#     store_lon = []
+#     distance_from_user = []
+#
+#
+#     for store in beer.stores:
+#         d = distance(user_lat, user_lon, store.lat, store.lon)
+#         # distance_from_user.append((beer,store,d))
+#         distance_from_user.append(d) #TODO: replace with line above
+#         store_name.append(store.name)
+#         store_address.append(store.address)
+#         store_city.append(store.city)
+#         store_state.append(store.state)
+#         store_zip.append(store.zip_code)
+#         store_avg_traffic.append(store.average_traffic)
+#         store_lat.append(store.lat)
+#         store_lon.append(store.lon)
+#
+#     #NOTE: this was just for testing to see if we can have (beer, store, d)
+#     # for d in distance_from_user:
+#     #     print("Beer: ", d[0].name)
+#     #     print("Store: ", d[1].name)
+#     #     print("Distance: ", d[2])
+#     # sorting all according to distance
+#     # sorted(student_objects, key=lambda student: student.age)
+#     distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon = zip(*sorted(zip(distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon)))
+#     all_component = zip(store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon, distance_from_user)
+#     return all_component
 
 
 
@@ -138,7 +153,8 @@ def home():
                     beer_list.append(b)
             beer_c = find_popular_beers()
             rare_beers = find_rare_beers()
-            return render_template("home.html", beers=beer_list, beer_c=beer_c, rare_beers=rare_beers)
+            beer_s = staff_beers()
+            return render_template("home.html", beers=beer_list, beer_c=beer_c, rare_beers=rare_beers, beer_s=beer_s)
         elif request.form['submit'] == 'search':
            searchtype = request.form['searchtype']
            text_search = request.form['text_search']
@@ -213,9 +229,10 @@ def beerprofile():
         search = request.args['name']
         beer = Beer.query.filter_by(name=search).first()
 
-        store_component = distance_from_user(beer)
+
+        # store_component = distance_from_user(beer)
         # change made hare
-        return render_template("beerprofile.html",beer=beer,all_component=store_component)
+        # return render_template("beerprofile.html",beer=beer,all_component=store_component)
         distances = distance_from_user(beer)
         return render_template("beerprofile.html",beer=beer,distances=distances)
 
