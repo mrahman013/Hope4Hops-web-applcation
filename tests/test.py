@@ -1,6 +1,7 @@
 import hopsapp
 from hopsapp import app
 import unittest
+from hopsapp.routes import distance
 
 class hoptest(unittest.TestCase):
 	def setUp(self):
@@ -33,6 +34,16 @@ class hoptest(unittest.TestCase):
 		response = self.app.get('/storeprofile')
 		self.assertEqual(response.status_code, 200)
 		self.assertIn('storeprofile', response.data)
+
+	# Testing distance function
+	def test_distance_func(self):
+		self.assertEqual(6.6, distance(40.8200471, -73.9514611, 40.727588,-73.983858))
+
+	# did not work
+	# def test_beerprofile_intigration(self):
+	# 	response = self.app.post('/', data = "Boat", follow_redirects=True)
+	# 	#self.assertIn(b'Boat', response.data)
+	# 	self.assertIn(b'Boat', response.data)
 
 if __name__=='__main__':
 	unittest.main()

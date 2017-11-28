@@ -42,10 +42,7 @@ def staff_beers():
 #         distances.append(d)
 #     return distances
 
-
-
-def distance_from_user(beer):
-    def distance(lat1, lon1, lat2, lon2):
+def distance(lat1, lon1, lat2, lon2):
         conv_fac = 0.621371 # conversion factor
         p = 0.017453292519943295     #Pi/180
         a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
@@ -53,6 +50,9 @@ def distance_from_user(beer):
         miles = kil_m * conv_fac
         miles = float("{0:.1f}".format(miles))
         return miles
+
+def distance_from_user(beer):
+    
     #TODO: get user latitude and longitude instead of using hardcoded
     user_lat = 40.8200471
     user_lon = -73.9514611
