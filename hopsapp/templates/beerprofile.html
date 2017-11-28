@@ -24,8 +24,8 @@
       <!-- <img src="" style="width:100%; float:right"> -->
       <img src="{{beer.beer_image}}"><br>
       <span>
-      Brewed By: {{beer.brewery.name}}<br>
-      Style: {{beer.beer_type}}<br>
+      Brewed By: {{beer.brewery.name.upper()}}<br>
+      Style: {{beer.beer_type.upper()}}<br>
       Alcohol By Volume: {{'%0.2f'| format(beer.abv*100|float)}}%<br>
 
       Popularity: {{beer.average_popularity}}<br>
@@ -42,14 +42,13 @@
       {% for store in beer.stores %}
     <tr>
 
-    <td>{{store.name}}</td>
+    <td>{{store.name.upper()}}</td>
     <td>{{store.average_traffic}}</td>
 
+    <td>{{'%0.2f'| format(distances[loop.index0]|float)}}</td>
 
-    <td>{{distances[loop.index0]}} miles</td>
 
-
-    <td>{{beer.devlivery_day_of_the_week}}</td>
+    <td>{{beer.devlivery_day_of_the_week.upper()}}</td>
 
     </tr>
     {% endfor %}
