@@ -10,6 +10,7 @@ from math import cos, asin, sqrt
 from sqlalchemy import desc, func
 from flask_login import LoginManager, UserMixin, login_user , logout_user , current_user , login_required
 from functools import wraps
+from operator import itemgetter, attrgetter
 # flask-login
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -29,24 +30,6 @@ def find_rare_beers():
 def staff_beers():
     return Beer.query.limit(3)
 
-# def distance_from_user(beer):
-#     def distance(lat1, lon1, lat2, lon2):
-#         conv_fac = 0.621371 # conversion factor
-#         p = 0.017453292519943295     #Pi/180
-#         a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
-#         kil_m = 12742 * asin(sqrt(a)) #2*R*asin...
-#         miles = kil_m * conv_fac
-#         miles = float("{0:.1f}".format(miles))
-#         return miles
-#     #TODO: get user latitude and longitude instead of using hardcoded
-#     user_lat = 40.8200471
-#     user_lon = -73.9514611
-#     distances = []
-#     for store in beer.stores:
-#         d = distance(user_lat, user_lon, store.lat, store.lon)
-#         distances.append(d)
-#     return distances
-
 def distance(lat1, lon1, lat2, lon2):
         conv_fac = 0.621371 # conversion factor
         p = 0.017453292519943295     #Pi/180
@@ -65,55 +48,20 @@ def distance_from_user(beer):
     user_lat = 40.8200471
     user_lon = -73.9514611
     distances = []
+
     for store in beer.stores:
         d = distance(user_lat, user_lon, store.lat, store.lon)
-        distances.append(d)
-    return distances
+        distances.append((beer,store,d))
 
+    #TODO: sort distances by d
+    # distances.sort(key=lambda x: x.d)
+    sorted_distances = sorted(distances, key=itemgetter(2))
+    for d in sorted_distances:
+        print("Beer: ", d[0].name)
+        print("Store: ", d[1].name)
+        print("Distance: ", d[2])
 
-# def distance_from_user(beer):
-#
-#     #TODO: get user latitude and longitude instead of using hardcoded
-#     user_lat = 40.8200471
-#     user_lon = -73.9514611
-#
-#     store_name = []
-#     store_address = []
-#     store_city = []
-#     store_state = []
-#     store_zip = []
-#     store_avg_traffic = []
-#     store_lat = []
-#     store_lon = []
-#     distance_from_user = []
-#
-#
-#     for store in beer.stores:
-#         d = distance(user_lat, user_lon, store.lat, store.lon)
-#         # distance_from_user.append((beer,store,d))
-#         distance_from_user.append(d) #TODO: replace with line above
-#         store_name.append(store.name)
-#         store_address.append(store.address)
-#         store_city.append(store.city)
-#         store_state.append(store.state)
-#         store_zip.append(store.zip_code)
-#         store_avg_traffic.append(store.average_traffic)
-#         store_lat.append(store.lat)
-#         store_lon.append(store.lon)
-#
-#     #NOTE: this was just for testing to see if we can have (beer, store, d)
-#     # for d in distance_from_user:
-#     #     print("Beer: ", d[0].name)
-#     #     print("Store: ", d[1].name)
-#     #     print("Distance: ", d[2])
-#     # sorting all according to distance
-#     # sorted(student_objects, key=lambda student: student.age)
-#     distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon = zip(*sorted(zip(distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon)))
-#     all_component = zip(store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon, distance_from_user)
-#     return all_component
-
-
-
+    return sorted_distances
 
 def login_required(f):
     @wraps(f)
@@ -299,73 +247,6 @@ def storeprofile():
             return redirect(url_for('breweryprofile', name=text_search))
         if searchtype == 'store':
             return redirect(url_for('storeprofile', name=text_search))
-
-# @app.route('/findstore', methods=['GET', 'POST'])
-# def findstore():
-    #TODO: get user latitude and longitude instead of using hardcoded
-    # user_lat = 40.8200471
-    # user_lon = -73.9514611
-    # declaring list to hold all column of stores
-    # search = request.args['name']
-    # beer = Beer.query.filter_by(name = search)
-
-    # store_search = Beer.query.filter_by(name=search)
-
-    # store_name = []
-    # store_address = []
-    # store_city = []
-    # store_state = []
-    # store_zip = []
-    # store_avg_traffic = []
-    # store_lat = []
-    # store_lon = []
-    # distance_from_user = []
-
-    # # db_col = ['name', 'address', 'city', 'state', 'zip', 'avg_traffic', 'lat', 'lon']
-    # # geeting post's name
-    # search = request.args['name']
-    # store_search = Beer.query.filter_by(name=search)
-
-
-
-    # geting post's name
-
-
-    # loop to get data of store and put into their respective list
-    # for atrb in store_search:
-        # for element in atrb.stores:
-            # store_name.append(element.name)
-            # store_address.append(element.address)
-            # store_city.append(element.city)
-            # store_state.append(element.state)
-            # store_zip.append(element.zip_code)
-            # store_avg_traffic.append(element.average_traffic)
-            # store_lat.append(element.lat)
-            # store_lon.append(element.lon)
-
-    # #finding distance from user to store
-    # def distance(lat1, lon1, lat2, lon2):
-
-    #     conv_fac = 0.621371 # conversion factor
-    #     p = 0.017453292519943295     #Pi/180
-    #     a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
-    #     kil_m = 12742 * asin(sqrt(a)) #2*R*asin...
-    #     miles = kil_m * conv_fac
-    #     miles = float("{0:.1f}".format(miles))
-    #     return miles
-
-
-    # for i in range(len(store_lat)):
-        # r = distance(user_lat, user_lon, store_lat[i], store_lon[i])
-        # distance_from_user.append(r)
-
-    # sorting all according to distance
-    #distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon = zip(*sorted(zip(distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon)))
-    #return render_template("findstore.html", all_component = zip(store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon, distance_from_user))
-
-
-    # return render_template("findstore.html")
-    # return render_template("findstore.html", all_component = zip(store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon, distance_from_user))
 
 # def rarity_system(beer):
 #     users = Customer.query.all()
