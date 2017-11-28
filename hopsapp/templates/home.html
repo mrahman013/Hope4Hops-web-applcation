@@ -8,7 +8,6 @@
 </head>
 
 <body>
-
     {% if error %}
       <p><strong>Error:</strong> {{ error }}
       {% endif %}
@@ -21,15 +20,18 @@
        {% endif %}
     {% endwith %}
 
-    <div class="col-sm-2 sidenav">
-          <h6>Staff Recommendations</h6>
+    <div class="col-sm-2 sidenav1">
+          <h6 id="sidefont">Staff Recommendations</h6>
            {% for beer in beer_s %}
-           <p>{{beer.name}}</p>
+           <p id="beer_rec_text">{{beer.name}}</p>
            <a href="/beerprofile?name={{beer.name}}"><img src="{{beer.beer_image}}" class="sideimage img-responsive" alt="{{beer.name}}"></a>
+           <br>
+           <hr>
            {% endfor %}
            <!-- want to make it link to respective beer profiles -->
        </div>
   <div class="col-sm-8 text-left">
+  <br>
   <h1 class="lobby" style="text-align:center">Welcome to Hope4Hops!</h1>
   <div style="height:500px">
 
@@ -38,7 +40,7 @@
  <!-- Want to make links inside carousel for respective beer profiles -->
  <!-- Popular Beer Carousel -->
   <div class="col-xs-6">
-  <p style="text-align:center">Popular Beers</p>
+  <p style="text-align:center" class="text-desc">Popular Beers</p>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
@@ -70,7 +72,7 @@
 
   <!-- Rare Beer Carousel -->
   <div class="col-xs-6">
-  <p style="text-align:center">Rare Beers</p>
+  <p style="text-align:center" class="text-desc">Rare Beers</p>
   <div id="myCarousel2" class="carousel slide" data-ride="carousel">
 
     <!-- Indicators -->
@@ -101,11 +103,12 @@
   </div>
   </div>
   </div>
+</div>
 
 
-    <hr>
-
-    <h2 style="text-align:center">Browse</h2>
+    
+    <div>
+      <h2 id="browse" class="browse-table" style="text-align:center">Browse</h2>
     <form method = "POST">
         Beer Style:
         <select name="style">
@@ -213,6 +216,7 @@
 </tr>
 {% endfor %}
 </table>
+</div>
 
 
 
