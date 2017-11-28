@@ -12,17 +12,13 @@
           <h6>Staff Recommendations</h6>
            {% for beer in beer_s %}
            <p>{{beer.name}}</p>
-           <img src="{{beer.beer_image}}" class="sideimage img-responsive" alt="{{beer.name}}">
+           <a href="/beerprofile?name={{beer.name}}"><img src="{{beer.beer_image}}" class="sideimage img-responsive" alt="{{beer.name}}"></a>
            {% endfor %}
-           <!-- want to make it link to respective beer profiles -->
        </div>
   <div class="col-sm-8 text-left">
   <h1 class="lobby" style="text-align:center">Welcome to Hope4Hops!</h1>
   <div style="height:500px">
 
-
-
- <!-- Want to make links inside carousel for respective beer profiles -->
  <!-- Popular Beer Carousel -->
   <div class="col-xs-6">
   <p style="text-align:center">Popular Beers</p>
@@ -37,7 +33,7 @@
       <div class="carousel-inner">
         {% for beer in beer_c %}
         <div class="item{% if loop.index == 1 %} active{% endif %}">
-          <img src="{{beer.beer_image}}" class="image img-responsive" alt="{{beer.name}}">
+          <a href="/beerprofile?name={{beer.name}}"><img src="{{beer.beer_image}}" class="image img-responsive" alt="{{beer.name}}"></a>
           <div class="carousel-caption"><h3>{{beer.name}}</h3></div>
         </div>
         {% endfor %}
@@ -71,7 +67,7 @@
     <div class="carousel-inner">
       {% for beer in rare_beers %}
       <div class="item{% if loop.index == 1 %} active{% endif %}">
-        <img src="{{beer.beer_image}}" class="image img-responsive" alt="{{beer.name}}">
+        <a href="/beerprofile?name={{beer.name}}"><img src="{{beer.beer_image}}" class="image img-responsive" alt="{{beer.name}}"></a>
         <div class="carousel-caption"><h3>{{beer.name}}</h3></div>
       </div>
       {% endfor %}
