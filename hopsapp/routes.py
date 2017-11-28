@@ -50,7 +50,6 @@ def distance_from_user(beer):
         distances.append((beer,store,d))
 
     sorted_distances = sorted(distances, key=itemgetter(2))
-
     return sorted_distances
 
 def login_required(f):
