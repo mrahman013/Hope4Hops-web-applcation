@@ -21,7 +21,7 @@ def find_rare_beers():
 
 
 def staff_beers():
-    return Beer.query.all.limit(3)
+    return Beer.query.limit(3)
 
 def distance_from_user(beer):
     def distance(lat1, lon1, lat2, lon2):

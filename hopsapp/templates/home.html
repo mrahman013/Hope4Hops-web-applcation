@@ -8,10 +8,19 @@
 </head>
 
 <body>
-
+    <div class="col-sm-2 sidenav">
+          <h6>Staff Recommendations</h6>
+           {% for beer in beer_s %}
+           <p>{{beer.name}}</p>
+           <img src="{{beer.beer_image}}" class="sideimage img-responsive" alt="{{beer.name}}">
+           {% endfor %}
+           <!-- want to make it link to respective beer profiles -->
+       </div>
   <div class="col-sm-8 text-left">
   <h1 class="lobby" style="text-align:center">Welcome to Hope4Hops!</h1>
   <div style="height:500px">
+
+
 
  <!-- Want to make links inside carousel for respective beer profiles -->
  <!-- Popular Beer Carousel -->
