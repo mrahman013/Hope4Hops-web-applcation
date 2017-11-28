@@ -86,6 +86,7 @@ def register():
 # def rarity_system(beer):
 #     users = Customer.query.all()
 #     beer_users = beer.total_users
+    #total_ users_ of oage = query users + beer_users
 #     p = beer_users/users
 #
 #     if
