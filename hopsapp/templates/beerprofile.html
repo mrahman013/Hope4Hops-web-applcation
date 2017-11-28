@@ -30,8 +30,11 @@
 
       Popularity: {{beer.average_popularity}}<br>
       Rarity: {{beer.rarity}}<br>
+
+      <h5>Delivery Day: {{beer.devlivery_day_of_the_week}}</h5>
+    
     </span>
-    <table>
+    <!-- <table>
     <thead>
     <td>Store Name</td>
     <td>Store Traffic</td>
@@ -45,6 +48,19 @@
     <td>{{store.name.upper()}}</td>
     <td>{{store.average_traffic}}</td>
 
+    
+    {% endfor %}
+    {% for d in distances %}
+    <td>{{d}} miles</td>
+        {% endfor %}
+    <td>{{beer.devlivery_day_of_the_week}}</td>
+
+    </tr>
+    </table> -->
+    
+   <p>Tell us how you feel about this brew:</p>
+
+
     <td>{{'%0.2f'| format(distances[loop.index0]|float)}} miles</td>
 
 
@@ -55,16 +71,44 @@
     </table>
 
     <p>Tell us how you feel about this brew:</p>
+
     <form method="POST">
-        <input type="radio" name="new_rating" value="1" /> 1 </label>
-        <input type="radio" name="new_rating" value="2" /> 2 </label>
-        <input type="radio" name="new_rating" value="3" /> 3 </label>
-        <input type="radio" name="new_rating" value="4" /> 4 </label>
-        <input type="radio" name="new_rating" value="5" /> 5 </label>
-        <button type="submit" name="submit" value="rating">
-            <span> Rate</span>
-          </button>
+        <input name="new_rating" type="radio" value="1" /> 1 </label>
+        <input name="new_rating" type="radio" value="2" /> 2 </label>
+        <input name="new_rating" type="radio" value="3" /> 3 </label>
+        <input name="new_rating" type="radio" value="4" /> 4 </label>
+        <input name="new_rating" type="radio" value="5" /> 5 </label>
+        <input type="submit" name="rating_submit" value="rating">
     </form>
+
+
+<h3>Stores Carry this Beer:</h3></br>
+<!-- variable for all content that will be shown on marker -->
+    <script>
+      var markers = [];
+    </script>
+
+    {% for name, address, city, state, zip, traffic, lat, lon, dist in all_component %}
+     <div> 
+      <h5>{{name}}</h5>
+      <p>{{address}}</p>
+      <p>{{city}}, {{state}} {{zip}}</p>
+      <p>Traffic: {{traffic}}  Distance: {{dist}} miles</p>
+      <a href="http://maps.google.com/?q={{lat}},{{lon}}"><button>Direction</button></a>
+    </div>
+    
+
+     <script>
+      var temp = {
+          coords:{lat: {{lat}},lng:{{lon}}},
+              content: '<a href="#"><h4>{{name}}</h4></a><p>{{address}}</p><p><a href="http://maps.google.com/?q={{lat}},{{lon}}">Get Direction</a> | {{dist}} miles</p>'
+        };
+        markers.push(temp);
+      </script>
+
+    {% endfor %}
+
+   
     <!-- </div> -->
 
 
@@ -82,6 +126,78 @@
 
 </div>
 
+
+<!-- Map start here -->
+      <div id="map"></div>
+
+    <script>
+      function initMap(){
+        // Map options
+        var options = {
+          zoom:14,
+          center: markers[0].coords // positonig around shotest distance store
+        }
+
+        // New map
+        var map = new google.maps.Map(document.getElementById('map'), options);
+        var icon_image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+
+      //If user shares location, set that as center
+      if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(function (position) {
+             initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+             map.setCenter(initialLocation);
+         });
+        }
+      else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+    
+      // Loop through markers
+      for(var i = 0;i < markers.length;i++){
+        // Add marker
+        addMarker(markers[i], i);
+      }
+
+      // Marker function
+      function addMarker(props, count){
+        var marker = new google.maps.Marker({
+          position:props.coords,
+          label: (count+1).toString(), // put label on marker
+          map:map,
+          //title: 'Uluru (Ayers Rock)',
+          animation: google.maps.Animation.DROP // drop animation 
+           
+        });
+
+
+        // Check content and add on info windo if exist
+        if(props.content){
+          
+          var infoWindow = new google.maps.InfoWindow({
+            content:props.content
+          });
+
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+        }
+   
+      } // end of addMarker function
+
+    } // End of initMap() function
+
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQa_l6bixK6rBPNKGG8CZMpOHervz24K4&callback=initMap">
+    </script>
+
+
+
+      <p style="text-align:center">Map provided by Google</p>
 
 </body>
 </html>
