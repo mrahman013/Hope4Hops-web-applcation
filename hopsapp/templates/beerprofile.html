@@ -64,7 +64,28 @@
     </form>
 
 <!-- variable for all content that will be shown on marker -->
+    <script>
+      var markers = [];
+    </script>
+
+    {% for name, address, city, state, zip, traffic, lat, lon, dist in all_component %}
+     <div> 
+      <h5>{{name}}</h5>
+      <p>{{address}}</p>
+      <p>{{city}}, {{state}} {{zip}}</p>
+      <p>Traffic: {{traffic}}  Distance: {{dist}} miles</p>
+    </div>
     
+    
+     <script>
+      var temp = {
+          coords:{lat: {{lat}},lng:{{lon}}},
+              content: '<a href="#"><h4>Store D</h4></a><p>Address</p><p><a href="#">Get Direction</a> | {{dist}} miles</p>'
+        };
+        markers.push(temp);
+      </script>
+
+    {% endfor %}
 
    
     <!-- </div> -->
