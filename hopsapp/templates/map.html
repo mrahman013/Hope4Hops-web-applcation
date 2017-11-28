@@ -1,3 +1,12 @@
+{% block content %}
+<html>
+  <head>
+
+  </head>
+  <body>
+
+
+
 <!-- Map start here -->
       <div id="map"></div>
 
@@ -31,7 +40,7 @@
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
         }
-
+        
         
         // Array of marker for mocking
         // TODO: this array will come from database when database will be setup from store address
@@ -335,3 +344,7 @@
 
       <p style="text-align:center">Map provided by Google</p>
 
+
+  </body>
+</html>
+{% endblock %}
