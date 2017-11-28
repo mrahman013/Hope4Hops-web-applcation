@@ -26,7 +26,7 @@
       <span>
       Brewed By: {{beer.brewery.name}}<br>
       Style: {{beer.beer_type}}<br>
-      Alcohol By Volume: {{beer.abv*100}}%<br>
+      Alcohol By Volume: {{'%0.2f'| format(beer.abv*100|float)}}%<br>
 
       Popularity: {{beer.average_popularity}}<br>
       Rarity: {{beer.rarity}}<br>

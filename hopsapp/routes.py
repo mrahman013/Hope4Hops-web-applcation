@@ -85,6 +85,7 @@ def home():
         elif request.form['submit'] == 'search':
            searchtype = request.form['searchtype']
            text_search = request.form['text_search']
+           print(text_search)
            if searchtype == 'beer':
                return redirect(url_for('beerprofile', name=text_search))
            if searchtype == 'brewery':
@@ -154,6 +155,7 @@ def beerprofile():
     if request.method == 'GET':
         search = request.args['name']
         beer = Beer.query.filter_by(name=search).first()
+        print(beer)
         distances = distance_from_user(beer)
         return render_template("beerprofile.html",beer=beer,distances=distances)
 
