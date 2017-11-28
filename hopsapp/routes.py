@@ -26,6 +26,7 @@ def staff_beers():
 
 def distance_from_user(beer):
     def distance(lat1, lon1, lat2, lon2):
+        conv_fac = 0.621371 # conversion factor
         p = 0.017453292519943295     #Pi/180
         a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
         kil_m = 12742 * asin(sqrt(a)) #2*R*asin...
@@ -52,7 +53,7 @@ def home():
         beer_s = staff_beers()
         return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers, beer_s=beer_s)
 
-        return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers)
+        # return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers)
 
     elif request.method == 'POST':
         if request.form['submit'] == 'browse':
@@ -115,6 +116,7 @@ def beerprofile():
         beer = Beer.query.filter_by(name=search).first()
         distances = distance_from_user(beer)
         return render_template("beerprofile.html",beer=beer,distances=distances)
+        
 
     elif request.method == 'POST':
         print(request.form)
