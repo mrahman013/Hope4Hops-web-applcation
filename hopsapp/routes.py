@@ -155,7 +155,6 @@ def beerprofile():
     if request.method == 'GET':
         search = request.args['name']
         beer = Beer.query.filter_by(name=search).first()
-        print(beer)
         distances = distance_from_user(beer)
         return render_template("beerprofile.html",beer=beer,distances=distances)
 
