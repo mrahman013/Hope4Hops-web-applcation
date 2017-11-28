@@ -241,6 +241,23 @@ class Customer(db.Model):
     password = db.Column(db.String(100))
     authenticated = db.Column(db.Boolean, default=True)
 
+   # Flask-Login integration
+    def is_authenticated(self):
+        return True
+
+    def is_active(self): # line 37
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return self.id
+
+    # Required for administrative interface
+    def __unicode__(self):
+        return self.username
+
     def __init__(self, name, phone, email, password, **kwargs):
         super(Customer, self).__init__(**kwargs)
         self.name = name

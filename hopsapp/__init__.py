@@ -11,8 +11,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.secret_key = 'HGTYNVK123LOL908973'
 db = SQLAlchemy(app)
 
-# from flask_imgur import Imgur
-# app.config["IMGUR_ID"] = "<katiec1029>"
+import flask_login
+login_manager = flask_login.LoginManager()
+login_manager.init_app(app)
+
 
 import hopsapp.models
 import hopsapp.routes

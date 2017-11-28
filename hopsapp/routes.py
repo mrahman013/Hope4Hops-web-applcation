@@ -1,12 +1,19 @@
 """Routes for flask app."""  # pylint: disable=cyclic-import
 # import hashlib
 from hopsapp import app
-from flask import render_template, request, redirect, url_for, flash
+# from flask import render_template, request, redirect, url_for, flash
+from flask import session, request, flash, url_for, redirect, render_template, abort ,g
 from flask_sqlalchemy import SQLAlchemy
 from hopsapp import db
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 from math import cos, asin, sqrt
 from sqlalchemy import desc, func
+from flask_login import LoginManager, UserMixin, login_user , logout_user , current_user , login_required
+from functools import wraps
+# flask-login
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
 
 def find_popular_beers():
     return Beer.query.order_by(desc(Beer.average_popularity)).limit(3)
@@ -84,9 +91,31 @@ def about():
 def contact():
     return render_template("contact.html")
 
-@app.route('/login')
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Customer.query.get(user_id)
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template("login.html")
+    if request.method == 'GET':
+        return render_template('login.html')
+    elif request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        customer = Customer.query.filter_by(email=email, password=password).first()
+        if customer is None:
+            error = 'Failed Login Attempt'
+            return render_template('login.html', error=error)
+        login_user(customer)
+        flash('Logged in successfully')
+        return redirect(url_for('home'))
+
+@app.route('/logout', methods=['GET'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -105,11 +134,11 @@ def register():
             try:
                 db.session.add(new_customer)
                 db.session.commit()
-                flash('Welcome to Hope4Hops ', name)
-                return redirect(url_for('/'))
+                flash('Cheers! ' + name)
+                return redirect(url_for('home'))
             except:
-                flash('Ooops! We apologize! There was an error in your attempt to register.')
-                return render_template("register.html")
+                error = 'Ooops! We apologize! There was an error in your attempt to register.'
+                return redirect(url_for('home'))
 
 
 # def rarity_system(beer):
@@ -194,10 +223,15 @@ def storeprofile():
             return redirect(url_for('storeprofile', name=text_search))
 
 
-"""
-def average_popularity(beer, rating):
-
-"""
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash("You need to login first")
+            return redirect(url_for('login'))
+    return wrap
 
 if __name__ == "__main__":
     app.run(debug=True)
