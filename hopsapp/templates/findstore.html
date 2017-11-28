@@ -8,12 +8,25 @@
 </head>
 
 <body>
+<script>
+  var markers = [];
+</script>
 
 {% for name, address, city, state, zip, traffic, lat, lon, dist in all_component %}
 	<h5>{{name}}</h5>
 	<p>{{address}}</p>
 	<p>{{city}}, {{state}} {{zip}}</p>
 	<p>Traffic: {{traffic}}  Distance: {{dist}} miles</p>
+
+  <script>
+  
+  var temp = {
+      coords:{lat: {{lat}},lng:{{lon}}},
+          content: '<a href="#"><h4>Store D</h4></a><p>Address</p><p><a href="#">Get Direction</a> | {{dist}} miles</p>'
+    };
+    markers.push(temp);
+  </script>
+
 {% endfor %}
 
 
@@ -57,12 +70,12 @@
         // TODO: this array will come from database when database will be setup from store address
         //
         
-        var markers = [
-        {
-          coords:{lat:40.801866,lng:-73.967432},
-          content: '<a href="#"><h4>Store A</h4></a><p>Address</p><p><a href="#">Get Direction</a> | 0.0 miles</p>'
-        }
-      ];
+      //   var markers = [
+      //   {
+      //     coords:{lat:40.801866,lng:-73.967432},
+      //     content: '<a href="#"><h4>Store A</h4></a><p>Address</p><p><a href="#">Get Direction</a> | 0.0 miles</p>'
+      //   }
+      // ];
 
 
 
