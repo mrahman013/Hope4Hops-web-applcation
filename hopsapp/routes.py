@@ -19,6 +19,10 @@ def find_rare_beers():
             rare_beers.append(b)
     return rare_beers[0:3]
 
+
+def staff_beers():
+    return Beer.query.all.limit(3)
+
 def distance_from_user(beer):
     def distance(lat1, lon1, lat2, lon2):
         p = 0.017453292519943295     #Pi/180
@@ -39,7 +43,12 @@ def home():
         beers = Beer.query.order_by(Beer.brewery_id)
         beer_c = find_popular_beers()
         rare_beers = find_rare_beers()
+
+        beer_s = staff_beers()
+        return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers, beer_s=beer_s)
+
         return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers)
+
     elif request.method == 'POST':
         if request.form['submit'] == 'browse':
             beer_list = []
