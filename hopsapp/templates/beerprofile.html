@@ -79,13 +79,14 @@
       <p>{{address}}</p>
       <p>{{city}}, {{state}} {{zip}}</p>
       <p>Traffic: {{traffic}}  Distance: {{dist}} miles</p>
+      <a href="http://maps.google.com/?q={{lat}},{{lon}}"><button>Direction</button></a>
     </div>
     
 
      <script>
       var temp = {
           coords:{lat: {{lat}},lng:{{lon}}},
-              content: '<a href="#"><h4>{{name}}</h4></a><p>{{address}}</p><p><a href="#">Get Direction</a> | {{dist}} miles</p>'
+              content: '<a href="#"><h4>{{name}}</h4></a><p>{{address}}</p><p><a href="http://maps.google.com/?q={{lat}},{{lon}}">Get Direction</a> | {{dist}} miles</p>'
         };
         markers.push(temp);
       </script>
