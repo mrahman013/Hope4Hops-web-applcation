@@ -1,7 +1,7 @@
 """Routes for flask app."""  # pylint: disable=cyclic-import
 # import hashlib
 from hopsapp import app
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from hopsapp import db
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
@@ -92,8 +92,25 @@ def login():
 def register():
     if request.method == 'GET':
         return render_template("register.html")
+    elif request.method == 'POST':
+        if request.form['submit']=="register":
+            if request.form['confirm_password'] != request.form['password']:
+                flash('Passwords DO NOT Match')
+                return render_template("register.html")
+            name = request.form['name']
+            phone = request.form['phone']
+            email = request.form['email']
+            password = request.form['password']
+            new_customer = Customer(name=name, phone=phone, email=email, password=password)
+            try:
+                db.session.add(new_customer)
+                db.session.commit()
+                flash('Welcome to Hope4Hops ', name)
+                return redirect(url_for('/'))
+            except:
+                flash('Ooops! We apologize! There was an error in your attempt to register.')
+                return render_template("register.html")
 
-    # return render_template("register.html")
 
 # def rarity_system(beer):
 #     users = Customer.query.all()
@@ -112,7 +129,6 @@ def beerprofile():
         return render_template("beerprofile.html",beer=beer,distances=distances)
 
     elif request.method == 'POST':
-        print(request.form)
         if request.form['submit']=="rating":
             search = request.args['name']
             beer = Beer.query.filter_by(name=search).first()
@@ -177,56 +193,6 @@ def storeprofile():
         if searchtype == 'store':
             return redirect(url_for('storeprofile', name=text_search))
 
-# @app.route('/findstore', methods=['GET', 'POST'])
-# def findstore():
-    #TODO: get user latitude and longitude instead of using hardcoded
-    # user_lat = 40.8200471
-    # user_lon = -73.9514611
-    # declaring list to hold all column of stores
-    # search = request.args['name']
-    # beer = Beer.query.filter_by(name = search)
-    # store_search = Beer.query.filter_by(name=search)
-#
-    # store_name = []
-    # store_address = []
-    # store_city = []
-    # store_state = []
-    # store_zip = []
-    # store_avg_traffic = []
-    # store_lat = []
-    # store_lon = []
-    # distance_from_user = []
-    # geting post's name
-
-    # loop to get data of store and put into their respective list
-    # for atrb in store_search:
-        # for element in atrb.stores:
-            # store_name.append(element.name)
-            # store_address.append(element.address)
-            # store_city.append(element.city)
-            # store_state.append(element.state)
-            # store_zip.append(element.zip_code)
-            # store_avg_traffic.append(element.average_traffic)
-            # store_lat.append(element.lat)
-            # store_lon.append(element.lon)
-
-    #finding distance from user to store
-
-    # for i in range(len(store_lat)):
-        # r = distance(user_lat, user_lon, store_lat[i], store_lon[i])
-        # distance_from_user.append(r)
-
-    # sorting all according to distance
-    # distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon = zip(*sorted(zip(distance_from_user, store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon)))
-    # distance_from_user = [ '%.2f' % elem for elem in distance_from_user ]
-
-    # tem2D = [{"name": "store A", "zip": 11219},
-    # {"name": "store A", "zip": 11219}]
-    # tem2D.append(store_name)
-    # tem2D.append(store_address)
-
-    # return render_template("findstore.html")
-    # return render_template("findstore.html", all_component = zip(store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon, distance_from_user))
 
 """
 def average_popularity(beer, rating):
