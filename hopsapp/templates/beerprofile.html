@@ -26,7 +26,7 @@
       <span>
       Brewed By: {{beer.brewery.name}}<br>
       Style: {{beer.beer_type}}<br>
-      Alcohol By Volume: {{beer.abv}}<br>
+      Alcohol By Volume: {{beer.abv*100}}%<br>
 
       Popularity: {{beer.average_popularity}}<br>
       Rarity: {{beer.rarity}}<br>
@@ -39,17 +39,20 @@
     <td>Delivery Day</td>
 
     </thead>
-    <tr>
       {% for store in beer.stores %}
+    <tr>
+
     <td>{{store.name}}</td>
     <td>{{store.average_traffic}}</td>
-    {% endfor %}
-    {% for d in distances %}
-    <td>{{d}} miles</td>
-        {% endfor %}
+
+
+    <td>{{distances[loop.index0]}} miles</td>
+
+
     <td>{{beer.devlivery_day_of_the_week}}</td>
 
     </tr>
+    {% endfor %}
     </table>
 
     <p>Tell us how you feel about this brew:</p>
