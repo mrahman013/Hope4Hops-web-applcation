@@ -1,12 +1,19 @@
 """Routes for flask app."""  # pylint: disable=cyclic-import
 # import hashlib
 from hopsapp import app
-from flask import render_template, request, redirect, url_for
+# from flask import render_template, request, redirect, url_for, flash
+from flask import session, request, flash, url_for, redirect, render_template, abort ,g
 from flask_sqlalchemy import SQLAlchemy
 from hopsapp import db
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 from math import cos, asin, sqrt
 from sqlalchemy import desc, func
+from flask_login import LoginManager, UserMixin, login_user , logout_user , current_user , login_required
+from functools import wraps
+# flask-login
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
 
 def find_popular_beers():
     return Beer.query.order_by(desc(Beer.average_popularity)).limit(3)
@@ -18,8 +25,6 @@ def find_rare_beers():
         if b.rarity == 'rare':
             rare_beers.append(b)
     return rare_beers[0:3]
-
-
 
 def staff_beers():
     return Beer.query.limit(3)
@@ -87,6 +92,16 @@ def distance_from_user(beer):
 
 
 
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash("You need to login first")
+            return redirect(url_for('login'))
+    return wrap
+
 @app.route('/', methods=['GET','POST'])
 def home():
     if request.method == 'GET':
@@ -119,6 +134,7 @@ def home():
         elif request.form['submit'] == 'search':
            searchtype = request.form['searchtype']
            text_search = request.form['text_search']
+           print(text_search)
            if searchtype == 'beer':
                return redirect(url_for('beerprofile', name=text_search))
            if searchtype == 'brewery':
@@ -134,37 +150,70 @@ def about():
 def contact():
     return render_template("contact.html")
 
-@app.route('/login')
+@login_manager.user_loader
+def load_user(user_id):
+    return Customer.query.get(user_id)
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template("login.html")
+    if request.method == 'GET':
+        return render_template('login.html')
+    elif request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        customer = Customer.query.filter_by(email=email, password=password).first()
+        if customer is None:
+            error = 'Failed Login Attempt'
+            return render_template('login.html', error=error)
+        login_user(customer)
+        flash('Logged in successfully')
+        return redirect(url_for('home'))
+
+@app.route('/logout', methods=['GET'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
         return render_template("register.html")
+    elif request.method == 'POST':
+        if request.form['submit']=="register":
+            if request.form['confirm_password'] != request.form['password']:
+                flash('Passwords DO NOT Match')
+                return render_template("register.html")
+            name = request.form['name']
+            phone = request.form['phone']
+            email = request.form['email']
+            password = request.form['password']
+            new_customer = Customer(name=name, phone=phone, email=email, password=password)
+            try:
+                db.session.add(new_customer)
+                db.session.commit()
+                flash('Cheers! ' + name)
+                return redirect(url_for('home'))
+            except:
+                error = 'Ooops! We apologize! There was an error in your attempt to register.'
+                return redirect(url_for('home'))
 
-    # return render_template("register.html")
-
-# def rarity_system(beer):
-#     users = Customer.query.all()
-#     beer_users = beer.total_users
-    #total_ users_ of oage = query users + beer_users
-#     p = beer_users/users
-#
-#     if
 @app.route('/beerprofile', methods=['GET', 'POST'])
 #value for new rating is new_rating
 def beerprofile():
     if request.method == 'GET':
         search = request.args['name']
         beer = Beer.query.filter_by(name=search).first()
+
         store_component = distance_from_user(beer)
         # change made hare
         return render_template("beerprofile.html",beer=beer,all_component=store_component)
         
+        print(beer)
+        distances = distance_from_user(beer)
+        return render_template("beerprofile.html",beer=beer,distances=distances)
 
     elif request.method == 'POST':
-        print(request.form)
         if request.form['submit']=="rating":
             search = request.args['name']
             beer = Beer.query.filter_by(name=search).first()
@@ -195,7 +244,6 @@ def beerprofile():
                 return redirect(url_for('breweryprofile', name=text_search))
             if searchtype == 'store':
                 return redirect(url_for('storeprofile', name=text_search))
-
 
 @app.route('/breweryprofile', methods=['GET', 'POST'])
 def breweryprofile():
@@ -296,10 +344,12 @@ def storeprofile():
     # return render_template("findstore.html")
     # return render_template("findstore.html", all_component = zip(store_name, store_address, store_city, store_state, store_zip, store_avg_traffic, store_lat, store_lon, distance_from_user))
 
-"""
-def average_popularity(beer, rating):
+# def rarity_system(beer):
+#     users = Customer.query.all()
+#     beer_users = beer.total_users
+    #total_ users_ of oage = query users + beer_users
+#     p = beer_users/users
 
-"""
 
 if __name__ == "__main__":
     app.run(debug=True)

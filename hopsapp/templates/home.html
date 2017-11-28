@@ -8,6 +8,19 @@
 </head>
 
 <body>
+
+    {% if error %}
+      <p><strong>Error:</strong> {{ error }}
+      {% endif %}
+
+    {% with messages = get_flashed_messages() %}
+       {% if messages %}
+          {% for message in messages %}
+             {{ message }}
+          {% endfor %}
+       {% endif %}
+    {% endwith %}
+
     <div class="col-sm-2 sidenav">
           <h6>Staff Recommendations</h6>
            {% for beer in beer_s %}
@@ -191,12 +204,12 @@
 
 {% for beer in beers%}
 <tr>
-<td>{{beer.name}}</td>
-<td>{{beer.brewery.name}}</td>
-<td>{{beer.beer_type}}</td>
-<td>{{beer.abv}}</td>
+<td>{{beer.name.upper()}}</td>
+<td>{{beer.brewery.name.upper()}}</td>
+<td>{{beer.beer_type.upper()}}</td>
+<td>{{'%0.2f'| format(beer.abv*100|float)}}%</td>
 <td>{{beer.average_popularity}}</td>
-<td>{{beer.rarity}}</td>
+<td>{{beer.rarity.upper()}}</td>
 </tr>
 {% endfor %}
 </table>

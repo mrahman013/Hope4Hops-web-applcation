@@ -9,11 +9,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="{{ url_for('static', filename='js/googleapi.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
-
-    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/skeleton.css') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/nlogo.png') }}">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -38,6 +37,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
               <li><a href="/register">Register</a></li>
+              <li><a href="/logout">Logout</a></li>
             <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 
           </ul>

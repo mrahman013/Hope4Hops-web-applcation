@@ -22,11 +22,11 @@
       <h1>{{beer.name}}</h1>
       <!-- <img src="{{ url_for('static', filename='beer.beer_image') }}" style="width:100%; float:right"> -->
       <!-- <img src="" style="width:100%; float:right"> -->
-      <img src="{{beer.beer_image}}">
+      <img src="{{beer.beer_image}}"><br>
       <span>
-      Brewed By: {{beer.brewery.name}}<br>
-      Style: {{beer.beer_type}}<br>
-      Alcohol By Volume: {{beer.abv}}<br>
+      Brewed By: {{beer.brewery.name.upper()}}<br>
+      Style: {{beer.beer_type.upper()}}<br>
+      Alcohol By Volume: {{'%0.2f'| format(beer.abv*100|float)}}%<br>
 
       Popularity: {{beer.average_popularity}}<br>
       Rarity: {{beer.rarity}}<br>
@@ -42,10 +42,12 @@
     <td>Delivery Day</td>
 
     </thead>
-    <tr>
       {% for store in beer.stores %}
-    <td>{{store.name}}</td>
+    <tr>
+
+    <td>{{store.name.upper()}}</td>
     <td>{{store.average_traffic}}</td>
+
     
     {% endfor %}
     {% for d in distances %}
@@ -57,6 +59,19 @@
     </table> -->
     
    <p>Tell us how you feel about this brew:</p>
+
+
+    <td>{{'%0.2f'| format(distances[loop.index0]|float)}} miles</td>
+
+
+    <td>{{beer.devlivery_day_of_the_week.upper()}}</td>
+
+    </tr>
+    {% endfor %}
+    </table>
+
+    <p>Tell us how you feel about this brew:</p>
+
     <form method="POST">
         <input name="new_rating" type="radio" value="1" /> 1 </label>
         <input name="new_rating" type="radio" value="2" /> 2 </label>
