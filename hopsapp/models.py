@@ -33,6 +33,7 @@ class Beer(db.Model):
     # retail cost per unit (can or bottle)
     retail_cost = db.Column(db.Float)
     # default value will be 0
+    # TODO: refers to ratings to be exact but I do not want to tackle that problem at 11:54 pm 
     average_popularity = db.Column(db.Float)
     # accepts: ['common' | 'uncommon' | 'rare']
     # default value for entries will be 'common'
