@@ -63,7 +63,7 @@ def home():
         beer_s = staff_beers()
         return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers, beer_s=beer_s)
 
-        return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers)
+        # return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers)
 
     elif request.method == 'POST':
         if request.form['submit'] == 'browse':
