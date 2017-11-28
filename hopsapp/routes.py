@@ -40,10 +40,6 @@ def distance(lat1, lon1, lat2, lon2):
         return miles
 
 def distance_from_user(beer):
-    def distance(lat1, lon1, lat2, lon2):
-        p = 0.017453292519943295     #Pi/180
-        a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
-        return 12742 * asin(sqrt(a)) #2*R*asin...
     #TODO: get user latitude and longitude instead of using hardcoded
     user_lat = 40.8200471
     user_lon = -73.9514611
@@ -53,13 +49,7 @@ def distance_from_user(beer):
         d = distance(user_lat, user_lon, store.lat, store.lon)
         distances.append((beer,store,d))
 
-    #TODO: sort distances by d
-    # distances.sort(key=lambda x: x.d)
     sorted_distances = sorted(distances, key=itemgetter(2))
-    for d in sorted_distances:
-        print("Beer: ", d[0].name)
-        print("Store: ", d[1].name)
-        print("Distance: ", d[2])
 
     return sorted_distances
 

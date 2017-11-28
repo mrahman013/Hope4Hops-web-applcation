@@ -39,13 +39,13 @@
     <td>Delivery Day</td>
 
     </thead>
-      {% for store in beer.stores %}
+      {% for item in distances %}
     <tr>
 
-    <td>{{store.name.upper()}}</td>
-    <td>{{store.average_traffic}}</td>
+    <td>{{item[1].name.upper()}}</td>
+    <td>{{item[1].average_traffic}}</td>
 
-    <td>{{'%0.2f'| format(distances[loop.index0]|float)}} miles</td>
+    <td>{{'%0.2f'| format(item[2]|float)}} miles</td>
 
 
     <td>{{beer.devlivery_day_of_the_week.upper()}}</td>
