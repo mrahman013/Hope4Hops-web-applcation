@@ -26,7 +26,6 @@ def find_rare_beers():
             rare_beers.append(b)
     return rare_beers[0:3]
 
-
 def staff_beers():
     return Beer.query.limit(3)
 
@@ -43,6 +42,16 @@ def distance_from_user(beer):
         d = distance(user_lat, user_lon, store.lat, store.lon)
         distances.append(d)
     return distances
+
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash("You need to login first")
+            return redirect(url_for('login'))
+    return wrap
 
 @app.route('/', methods=['GET','POST'])
 def home():
@@ -90,7 +99,6 @@ def about():
 @app.route('/contact')
 def contact():
     return render_template("contact.html")
-
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -140,14 +148,6 @@ def register():
                 error = 'Ooops! We apologize! There was an error in your attempt to register.'
                 return redirect(url_for('home'))
 
-
-# def rarity_system(beer):
-#     users = Customer.query.all()
-#     beer_users = beer.total_users
-    #total_ users_ of oage = query users + beer_users
-#     p = beer_users/users
-#
-#     if
 @app.route('/beerprofile', methods=['GET', 'POST'])
 #value for new rating is new_rating
 def beerprofile():
@@ -189,7 +189,6 @@ def beerprofile():
             if searchtype == 'store':
                 return redirect(url_for('storeprofile', name=text_search))
 
-
 @app.route('/breweryprofile', methods=['GET', 'POST'])
 def breweryprofile():
     if request.method == 'GET':
@@ -222,16 +221,12 @@ def storeprofile():
         if searchtype == 'store':
             return redirect(url_for('storeprofile', name=text_search))
 
+# def rarity_system(beer):
+#     users = Customer.query.all()
+#     beer_users = beer.total_users
+    #total_ users_ of oage = query users + beer_users
+#     p = beer_users/users
 
-def login_required(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if 'logged_in' in session:
-            return f(*args, **kwargs)
-        else:
-            flash("You need to login first")
-            return redirect(url_for('login'))
-    return wrap
 
 if __name__ == "__main__":
     app.run(debug=True)
