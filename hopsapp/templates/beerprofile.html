@@ -76,7 +76,7 @@
       <p>Traffic: {{traffic}}  Distance: {{dist}} miles</p>
     </div>
     
-    
+
      <script>
       var temp = {
           coords:{lat: {{lat}},lng:{{lon}}},
@@ -114,19 +114,12 @@
         // Map options
         var options = {
           zoom:14,
-          center:{lat: 40.8200471, lng: -73.9514611}
+          center: markers[0].coords // positonig around shotest distance store
         }
 
         // New map
         var map = new google.maps.Map(document.getElementById('map'), options);
         var icon_image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-
-      // Add marker
-        // var marker = new google.maps.Marker({
-        //   position:{lat:40.8200471,lng:-73.9514611},
-        //   map:map,
-        //   icon: icon_image
-        // });
 
       //If user shares location, set that as center
       if (navigator.geolocation) {
