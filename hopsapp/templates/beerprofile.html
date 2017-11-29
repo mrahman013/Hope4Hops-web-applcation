@@ -24,7 +24,8 @@
       <!-- <img src="" style="width:100%; float:right"> -->
       <img src="{{beer.beer_image}}"><br>
       <span>
-      Brewed By: {{beer.brewery.name.upper()}}<br>
+
+      Brewed By: <a href="/breweryprofile?name={{beer.brewery.name}}">{{beer.brewery.name.upper()}}</a><br>
       Style: {{beer.beer_type.upper()}}<br>
       Alcohol By Volume: {{'%0.2f'| format(beer.abv*100|float)}}%<br>
 
@@ -46,12 +47,16 @@
     </thead>
       {% for item in distances %}
     <tr>
-    <td>{{item[1].name.upper()}}</td>
+
+
+
+    <td><a href="/storeprofile?name={{item[1].name}}">{{item[1].name.upper()}}</a></td>
     <td>{{item[1].average_traffic}}</td>
     <td>{{beer.devlivery_day_of_the_week.upper()}}</td>
     <td>{{'%0.2f'| format(item[2]|float)}} miles</td>
     <td><a href="http://maps.google.com/?q={{item[1].lat}},{{item[1].lon}}"><button>Direction</button></a></td>
     </tr>
+
 
     <script>
       var temp = {

@@ -43,6 +43,11 @@
       display:block;
       margin:auto;
     }
+    
+    tr:hover{
+      background-color:#CCCCCC;
+      border-style:solid:
+}
 
 #sidefont {
   font-family: Spectral SC;
@@ -63,3 +68,4 @@
   font-family: Spectral SC;
   font-size: 24px;
 }
+
