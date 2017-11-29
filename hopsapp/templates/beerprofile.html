@@ -22,11 +22,12 @@
       <h1>{{beer.name}}</h1>
       <!-- <img src="{{ url_for('static', filename='beer.beer_image') }}" style="width:100%; float:right"> -->
       <!-- <img src="" style="width:100%; float:right"> -->
-      <img src="{{beer.beer_image}}">
+      <img src="{{beer.beer_image}}"><br>
       <span>
-      Brewed By: <a href="/breweryprofile?name={{beer.brewery.name}}">{{beer.brewery.name}}</a><br>
-      Style: {{beer.beer_type}}<br>
-      Alcohol By Volume: {{beer.abv*100}}%<br>
+
+      Brewed By: <a href="/breweryprofile?name={{beer.brewery.name}}">{{beer.brewery.name.upper()}}</a><br>
+      Style: {{beer.beer_type.upper()}}<br>
+      Alcohol By Volume: {{'%0.2f'| format(beer.abv*100|float)}}%<br>
 
       Popularity: {{beer.average_popularity}}<br>
       Rarity: {{beer.rarity}}<br>
@@ -35,21 +36,36 @@
     <thead>
     <td>Store Name</td>
     <td>Store Traffic</td>
-    <td>Distance From User</td>
     <td>Delivery Day</td>
+    <td>Distance From User</td>
+    <td>Let's Go!</td>
+
+    <script>
+      var markers = [];
+    </script>
 
     </thead>
-      {% for store in beer.stores %}
+      {% for item in distances %}
     <tr>
 
-    <td><a href="/storeprofile?name={{store.name}}">{{store.name}}</a></td>
-    <td>{{store.average_traffic}}</td>
+
+    <td><a href="/storeprofile?name={{item[1].name}}">{{item[1].name.upper()}}</a></td>
+    <td>{{item[1].average_traffic}}</td>
+    <td>{{beer.devlivery_day_of_the_week.upper()}}</td>
+    <td>{{'%0.2f'| format(item[2]|float)}} miles</td>
+    <td><a href="http://maps.google.com/?q={{item[1].lat}},{{item[1].lon}}"><button>Direction</button></a></td>
 
 
-    <td>{{distances[loop.index0]}} miles</td>
+
+    <script>
+      var temp = {
+          coords:{lat: {{item[1].lat}},lng:{{item[1].lon}}},
+              content: '<a href="#"><h4>{{item[1].name.upper()}}</h4></a><p>{{item[1].address}}</p><p>{{item[1].city}}, {{item[1].state}}</p><p><a href="http://maps.google.com/?q={{item[1].lat}},{{item[1].lon}}">Get Direction</a> | {{item[2]}} miles</p>'
+        };
+        markers.push(temp);
+      </script>
 
 
-    <td>{{beer.devlivery_day_of_the_week}}</td>
 
     </tr>
     {% endfor %}
@@ -79,6 +95,78 @@
 
 
   </div>
+
+  <!-- Map start here -->
+        <div id="map"></div>
+
+      <script>
+        function initMap(){
+          // Map options
+          var options = {
+            zoom:14,
+            center: markers[0].coords // positonig around shotest distance store
+          }
+
+          // New map
+          var map = new google.maps.Map(document.getElementById('map'), options);
+          var icon_image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+
+        //If user shares location, set that as center
+        if (navigator.geolocation) {
+           navigator.geolocation.getCurrentPosition(function (position) {
+               initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+               map.setCenter(initialLocation);
+           });
+          }
+        else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+          }
+
+
+        // Loop through markers
+        for(var i = 0;i < markers.length;i++){
+          // Add marker
+          addMarker(markers[i], i);
+        }
+
+        // Marker function
+        function addMarker(props, count){
+          var marker = new google.maps.Marker({
+            position:props.coords,
+            label: (count+1).toString(), // put label on marker
+            map:map,
+            //title: 'Uluru (Ayers Rock)',
+            animation: google.maps.Animation.DROP // drop animation
+
+          });
+
+
+          // Check content and add on info windo if exist
+          if(props.content){
+
+            var infoWindow = new google.maps.InfoWindow({
+              content:props.content
+            });
+
+            marker.addListener('click', function(){
+              infoWindow.open(map, marker);
+            });
+          }
+
+        } // end of addMarker function
+
+      } // End of initMap() function
+
+      </script>
+
+      <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQa_l6bixK6rBPNKGG8CZMpOHervz24K4&callback=initMap">
+      </script>
+
+
+
+        <p style="text-align:center">Map provided by Google</p>
 
 
 </div>

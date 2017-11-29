@@ -10,6 +10,7 @@ from math import cos, asin, sqrt
 from sqlalchemy import desc, func
 from flask_login import LoginManager, UserMixin, login_user , logout_user , current_user , login_required
 from functools import wraps
+from operator import itemgetter, attrgetter
 # flask-login
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -29,19 +30,27 @@ def find_rare_beers():
 def staff_beers():
     return Beer.query.limit(3)
 
-def distance_from_user(beer):
-    def distance(lat1, lon1, lat2, lon2):
+def distance(lat1, lon1, lat2, lon2):
+        conv_fac = 0.621371 # conversion factor
         p = 0.017453292519943295     #Pi/180
         a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
-        return 12742 * asin(sqrt(a)) #2*R*asin...
+        kil_m = 12742 * asin(sqrt(a)) #2*R*asin...
+        miles = kil_m * conv_fac
+        miles = float("{0:.1f}".format(miles))
+        return miles
+
+def distance_from_user(beer):
     #TODO: get user latitude and longitude instead of using hardcoded
     user_lat = 40.8200471
     user_lon = -73.9514611
     distances = []
+
     for store in beer.stores:
         d = distance(user_lat, user_lon, store.lat, store.lon)
-        distances.append(d)
-    return distances
+        distances.append((beer,store,d))
+
+    sorted_distances = sorted(distances, key=itemgetter(2))
+    return sorted_distances
 
 def login_required(f):
     @wraps(f)
@@ -63,7 +72,7 @@ def home():
         beer_s = staff_beers()
         return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers, beer_s=beer_s)
 
-        return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers)
+        # return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers)
 
     elif request.method == 'POST':
         if request.form['submit'] == 'browse':
@@ -81,10 +90,12 @@ def home():
                     beer_list.append(b)
             beer_c = find_popular_beers()
             rare_beers = find_rare_beers()
-            return render_template("home.html", beers=beer_list, beer_c=beer_c, rare_beers=rare_beers)
+            beer_s = staff_beers()
+            return render_template("home.html", beers=beer_list, beer_c=beer_c, rare_beers=rare_beers, beer_s=beer_s)
         elif request.form['submit'] == 'search':
            searchtype = request.form['searchtype']
            text_search = request.form['text_search']
+           print(text_search)
            if searchtype == 'beer':
                return redirect(url_for('beerprofile', name=text_search))
            if searchtype == 'brewery':
@@ -154,6 +165,11 @@ def beerprofile():
     if request.method == 'GET':
         search = request.args['name']
         beer = Beer.query.filter_by(name=search).first()
+
+
+        # store_component = distance_from_user(beer)
+        # change made hare
+        # return render_template("beerprofile.html",beer=beer,all_component=store_component)
         distances = distance_from_user(beer)
         return render_template("beerprofile.html",beer=beer,distances=distances)
 

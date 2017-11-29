@@ -8,7 +8,6 @@
 </head>
 
 <body>
-
     {% if error %}
       <p><strong>Error:</strong> {{ error }}
       {% endif %}
@@ -21,15 +20,18 @@
        {% endif %}
     {% endwith %}
 
-    <div class="col-sm-2 sidenav">
-          <h6>Staff Recommendations</h6>
+    <div class="col-sm-2 sidenav1">
+          <h6 id="sidefont">Staff Recommendations</h6>
            {% for beer in beer_s %}
-           <p>{{beer.name}}</p>
+           <p id="beer_rec_text">{{beer.name}}</p>
            <a href="/beerprofile?name={{beer.name}}"><img src="{{beer.beer_image}}" class="sideimage img-responsive" alt="{{beer.name}}"></a>
+           <br>
+           <hr>
            {% endfor %}
            <!-- want to make it link to respective beer profiles -->
        </div>
   <div class="col-sm-8 text-left">
+  <br>
   <h1 class="lobby" style="text-align:center">Welcome to Hope4Hops!</h1>
   <div style="height:500px">
 
@@ -38,7 +40,7 @@
  <!-- Want to make links inside carousel for respective beer profiles -->
  <!-- Popular Beer Carousel -->
   <div class="col-xs-6">
-  <p style="text-align:center">Popular Beers</p>
+  <p style="text-align:center" class="text-desc">Popular Beers</p>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
@@ -70,7 +72,7 @@
 
   <!-- Rare Beer Carousel -->
   <div class="col-xs-6">
-  <p style="text-align:center">Rare Beers</p>
+  <p style="text-align:center" class="text-desc">Rare Beers</p>
   <div id="myCarousel2" class="carousel slide" data-ride="carousel">
 
     <!-- Indicators -->
@@ -101,22 +103,23 @@
   </div>
   </div>
   </div>
+</div>
 
 
-    <hr>
-
-    <h2 style="text-align:center">Browse</h2>
+    
+    <div>
+      <h2 id="browse" class="browse-table" style="text-align:center">Browse</h2>
     <form method = "POST">
         Beer Style:
         <select name="style">
-            <option value="Ale">Ale</option>
-            <option value="Stout">Stout</option>
-            <option value="Lager">Lager</option>
+            <option value="ALE">Ale</option>
+            <option value="STOUT">Stout</option>
+            <option value="LAGER">Lager</option>
             <option value="IPA">IPA</option>
-            <option value="Stout">Pilsner</option>
-            <option value="porter">Porter</option>
-            <option value="bitter">Bitter</option>
-            <option value="saison">Saison</option>
+            <option value="PILSNER">Pilsner</option>
+            <option value="PORTER">Porter</option>
+            <option value="BITTER">Bitter</option>
+            <option value="SAISON">Saison</option>
         </select>
         State of Origin:
         <select name="state">
@@ -198,21 +201,26 @@
 <td>Brewery</td>
 <td>Style</td>
 <td>ABV</td>
-<td>Popularity</td>
+<td>Average Rating</td>
 <td>Rarity</td>
 </thead>
 
 {% for beer in beers%}
 <tr>
-<td><a href="/beerprofile?name={{beer.name}}">{{beer.name}}</a></td>
-<td><a href="/breweryprofile?name={{beer.brewery.name}}">{{beer.brewery.name}}</td>
-<td>{{beer.beer_type}}</td>
-<td>{{beer.abv*100}}%</td>
+
+
+
+<td><a href="/beerprofile?name={{beer.name}}">{{beer.name.upper()}}</a></td>
+<td><a href="/breweryprofile?name={{beer.brewery.name}}">{{beer.brewery.name.upper()}}</a></td>
+<td>{{beer.beer_type.upper()}}</td>
+<td>{{'%0.2f'| format(beer.abv*100|float)}}%</td>
+
 <td>{{beer.average_popularity}}</td>
-<td>{{beer.rarity}}</td>
+<td>{{beer.rarity.upper()}}</td>
 </tr>
 {% endfor %}
 </table>
+</div>
 
 
 
