@@ -39,6 +39,10 @@
     <td>Distance From User</td>
     <td>Let's Go!</td>
 
+    <script>
+      var markers = [];
+    </script>
+
     </thead>
       {% for item in distances %}
     <tr>
@@ -50,7 +54,13 @@
     <td><a href="http://maps.google.com/?q={{item[1].lat}},{{item[1].lon}}"><button>Direction</button></a></td>
 
 
-
+    <script>
+      var temp = {
+          coords:{lat: {{item[1].lat}},lng:{{item[1].lon}}},
+              content: '<a href="#"><h4>{{item[1].name.upper()}}</h4></a><p>{{item[1].address}}</p><p>{{item[1].city}}, {{item[1].state}}</p><p><a href="http://maps.google.com/?q={{item[1].lat}},{{item[1].lon}}">Get Direction</a> | {{item[2]}} miles</p>'
+        };
+        markers.push(temp);
+      </script>
 
 
 
