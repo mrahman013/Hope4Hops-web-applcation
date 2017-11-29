@@ -24,7 +24,7 @@
       <!-- <img src="" style="width:100%; float:right"> -->
       <img src="{{beer.beer_image}}">
       <span>
-      Brewed By: {{beer.brewery.name}}<br>
+      Brewed By: <a href="/breweryprofile?name={{beer.brewery.name}}">{{beer.brewery.name}}</a><br>
       Style: {{beer.beer_type}}<br>
       Alcohol By Volume: {{beer.abv*100}}%<br>
 
@@ -42,7 +42,7 @@
       {% for store in beer.stores %}
     <tr>
 
-    <td>{{store.name}}</td>
+    <td><a href="/storeprofile?name={{store.name}}">{{store.name}}</a></td>
     <td>{{store.average_traffic}}</td>
 
 
