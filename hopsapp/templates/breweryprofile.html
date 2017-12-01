@@ -33,7 +33,7 @@ State:{{brewery.state}}<br>
 <td>{{beer.beer_type}}</td>
 <td>{{'%0.2f'| format(beer.abv*100|float)}}%</td>
 <td>{{beer.average_popularity}}</td>
-<td>{{beer.rarity}}</td>
+<td>{{beer.rarity.upper()}}</td>
 </tr>
 {% endfor %}
 </table>
