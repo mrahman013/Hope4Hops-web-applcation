@@ -27,13 +27,13 @@ Traffic: {{store.traffic}}
 <td>Rarity</td>
 <td>Delivery Day</td>
 </thead>
-{% for i in range(20) %}
+{% for beer in store.beers %}
 <tr>
-<td>{{beername}}</td>
-<td>{{brewery}}</td>
-<td>{{popularity}}</td>
-<td>{{rarity}}</td>
-<td>{{deliveryday}}</td>
+<td><a href="/beerprofile?name={{beer.name}}">{{beer.name}}</a></td>
+<td><a href="/breweryprofile?name={{beer.brewery.name}}">{{beer.brewery.name}}</a></td>
+<td>{{beer.average_popularity}}</td>
+<td>{{beer.rarity.upper()}}</td>
+<td>{{beer.devlivery_day_of_the_week.upper()}}</td>
 </tr>
 {% endfor %}
 </table>
