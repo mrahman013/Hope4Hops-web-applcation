@@ -1,5 +1,8 @@
 Requirements
 ============
+
+This is a list of requirements in order to run the website locally.
+
 alembic==0.9.6
 
 appnope==0.1.0
