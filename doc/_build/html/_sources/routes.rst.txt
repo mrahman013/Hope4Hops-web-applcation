@@ -1,6 +1,8 @@
 Routes
 ======
 
+This page is dedicated to the routes module for our web application. This renders the templates for our web site visuals, and allows us to bring the backend to the front end in the form of jinja2 variables
+
 Hope4Hops Pages
 ---------------
 
@@ -56,7 +58,7 @@ Hope4Hops Pages
 
    Renders the brewery profile template using the search bar function
 
-.. http:get:: /storeprofile?name=(String: store_name)¶
+.. http:get:: /storeprofile?name=(String:store_name)
 
    Renders the brewery profile page, listing beers that the store sells, along with the beer's popularity, rarity and when it normally arrives in the store
 
@@ -85,7 +87,7 @@ Helper Functions
 
 .. py:function:: distance_from_user(beer)
 
-   Returns a list of distances of store addresses from the user
+   Takes in a beer and returns a list of distances of store addresses from the user that sell beer in question
 
 .. py:function:: login_required(f)
 
@@ -93,5 +95,5 @@ Helper Functions
 
 .. py:function:: load_user(user_id)
 
-   Sets a customer to the current user.
+   Sets a customer to the current user using input user_id.
 

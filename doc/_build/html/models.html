@@ -33,6 +33,9 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
           <a href="routes.html" title="Routes"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">Hope4Hops 3.4.0 documentation</a> &#187;</li> 
@@ -46,6 +49,135 @@
             
   <div class="section" id="models">
 <h1>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h1>
+<p>This page is dedicated to models.py, which formats our backend database. It holds the Beer, Brewery and Store Classes, as well as the Store Owner and Customer classes, each of which represents a table in our database and each of which contain methods and attributes.</p>
+<div class="section" id="beer">
+<h2>Beer<a class="headerlink" href="#beer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Beer">
+<em class="property">class </em><code class="descname">Beer</code><span class="sig-paren">(</span><em>db.Model</em><span class="sig-paren">)</span><a class="headerlink" href="#Beer" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="Beer.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>self</em>, <em>name</em>, <em>beer_image</em>, <em>abv</em>, <em>beer_type</em>, <em>seasonal</em>, <em>retail_cost</em>, <em>average_popularity</em>, <em>rarity</em>, <em>devlivery_day_of_the_week</em>, <em>brewery_id</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#Beer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a beer object and sets up its attributes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Beer.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#Beer.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the beer object as a string with all its attributes such that it can be accessed by query.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="brewery">
+<h2>Brewery<a class="headerlink" href="#brewery" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Brewery">
+<em class="property">class </em><code class="descname">Brewery</code><span class="sig-paren">(</span><em>db.Model</em><span class="sig-paren">)</span><a class="headerlink" href="#Brewery" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="Brewery.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>self</em>, <em>name</em>, <em>address</em>, <em>city</em>, <em>state</em>, <em>zip_code</em>, <em>lat</em>, <em>lon</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#Brewery.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a brewery object and sets up its name, address and its latitude and longitude as attributes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Brewery.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#Brewery.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the brewery object as a string with all its attributes such that it can be accessed by query.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="store">
+<h2>Store<a class="headerlink" href="#store" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Store">
+<em class="property">class </em><code class="descname">Store</code><span class="sig-paren">(</span><em>db.Model</em><span class="sig-paren">)</span><a class="headerlink" href="#Store" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="Store.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>self</em>, <em>name</em>, <em>address</em>, <em>city</em>, <em>state</em>, <em>zip_code</em>, <em>average_traffic</em>, <em>lat</em>, <em>lon</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#Store.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a store object and sets up its name, address and its latitude and longitude as attributes. It also has an average traffic attribute that customers can use to determine if theyre likely to get their product at that location.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Store.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#Store.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the store object as a string with all its attributes such that it can be accessed by query.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="store-owner">
+<h2>Store Owner<a class="headerlink" href="#store-owner" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Storeowner">
+<em class="property">class </em><code class="descname">Storeowner</code><span class="sig-paren">(</span><em>db.Model</em><span class="sig-paren">)</span><a class="headerlink" href="#Storeowner" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="Storeowner.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>self</em>, <em>name</em>, <em>email</em>, <em>phone</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#Storeowner.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a storeowner object and sets up its name and contact information as attributes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Storeowner.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#Storeowner.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the store owner object as a string with all its attributes such that it can be accessed by query.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="customer">
+<h2>Customer<a class="headerlink" href="#customer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Customer">
+<em class="property">class </em><code class="descname">Customer</code><span class="sig-paren">(</span><em>db.Model</em><span class="sig-paren">)</span><a class="headerlink" href="#Customer" title="Permalink to this definition">¶</a></dt>
+<dt>
+<code class="descname">.. py:method:: __init__(self, name, phone, email, password, **kwargs)</code></dt>
+<dd><blockquote>
+<div>Creates a customer object and sets up its name and user information as attributes.</div></blockquote>
+<dl class="method">
+<dt id="Customer.__repr__">
+<code class="descname">__repr__</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#Customer.__repr__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the customer object as a string with all its attributes such that it can be accessed by query.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Customer.__unicode__">
+<code class="descname">__unicode__</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#Customer.__unicode__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the customer’s username</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Customer.is_authenticated">
+<code class="descname">is_authenticated</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#Customer.is_authenticated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true to show that a user has input his correct login information</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Customer.is_active">
+<code class="descname">is_active</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#Customer.is_active" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true to show activity</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Customer.is_anonymous">
+<code class="descname">is_anonymous</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Customer.is_anonymous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns false because anonymous is a status given to users not logged in</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Customer.get_id">
+<code class="descname">get_id</code><span class="sig-paren">(</span><em>self</em><span class="sig-paren">)</span><a class="headerlink" href="#Customer.get_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the user’s id</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -77,6 +209,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
         <li class="right" >
           <a href="routes.html" title="Routes"
              >previous</a> |</li>

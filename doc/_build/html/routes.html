@@ -53,6 +53,7 @@
             
   <div class="section" id="routes">
 <h1>Routes<a class="headerlink" href="#routes" title="Permalink to this headline">¶</a></h1>
+<p>This page is dedicated to the routes module for our web application. This renders the templates for our web site visuals, and allows us to bring the backend to the front end in the form of jinja2 variables</p>
 <div class="section" id="hope4hops-pages">
 <h2>Hope4Hops Pages<a class="headerlink" href="#hope4hops-pages" title="Permalink to this headline">¶</a></h2>
 <dl class="get">
@@ -134,8 +135,8 @@
 </dd></dl>
 
 <dl class="get">
-<dt id="get--storeprofile?name=(String- store_name)¶">
-<code class="descname">GET </code><code class="descname">/storeprofile?name=(String: store_name)¶</code><a class="headerlink" href="#get--storeprofile?name=(String- store_name)¶" title="Permalink to this definition">¶</a></dt>
+<dt id="get--storeprofile?name=(String-store_name)">
+<code class="descname">GET </code><code class="descname">/storeprofile?name=</code><span class="sig-paren">(</span><em class="property">String: </em><em>store_name</em><span class="sig-paren">)</span><a class="headerlink" href="#get--storeprofile?name=(String-store_name)" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renders the brewery profile page, listing beers that the store sells, along with the beer’s popularity, rarity and when it normally arrives in the store</p>
 </dd></dl>
 
@@ -175,7 +176,7 @@
 <dl class="function">
 <dt id="distance_from_user">
 <code class="descname">distance_from_user</code><span class="sig-paren">(</span><em>beer</em><span class="sig-paren">)</span><a class="headerlink" href="#distance_from_user" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list of distances of store addresses from the user</p>
+<dd><p>Takes in a beer and returns a list of distances of store addresses from the user that sell beer in question</p>
 </dd></dl>
 
 <dl class="function">
@@ -187,7 +188,7 @@
 <dl class="function">
 <dt id="load_user">
 <code class="descname">load_user</code><span class="sig-paren">(</span><em>user_id</em><span class="sig-paren">)</span><a class="headerlink" href="#load_user" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets a customer to the current user.</p>
+<dd><p>Sets a customer to the current user using input user_id.</p>
 </dd></dl>
 
 </div>
