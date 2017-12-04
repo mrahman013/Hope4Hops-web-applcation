@@ -207,10 +207,14 @@
 
 {% for beer in beers%}
 <tr>
-<td>{{beer.name.upper()}}</td>
-<td>{{beer.brewery.name.upper()}}</td>
+
+
+
+<td><a href="/beerprofile?name={{beer.name}}">{{beer.name.upper()}}</a></td>
+<td><a href="/breweryprofile?name={{beer.brewery.name}}">{{beer.brewery.name.upper()}}</a></td>
 <td>{{beer.beer_type.upper()}}</td>
 <td>{{'%0.2f'| format(beer.abv*100|float)}}%</td>
+
 <td>{{beer.average_popularity}}</td>
 <td>{{beer.rarity.upper()}}</td>
 </tr>
