@@ -35,6 +35,31 @@ class hoptest(unittest.TestCase):
 	# 	self.assertEqual(response.status_code, 200)
 	# 	self.assertIn('storeprofile', response.data)
 
+	def test_contact(self):
+		response = self.app.get('/contact')
+		self.assertEqual(response.status_code, 200)
+
+	# testing if home is getting beer name from database and showing on page when page load
+	def test_home_beer_name(self):
+		response = self.app.get('/')
+		self.assertIn(b'HEADY TOPPER', response.data)
+
+	# testing if home is getting Brewery name from database and showing on page when page load
+	def test_home_brewery_name(self):
+		response = self.app.get('/')
+		self.assertIn(b'CARTON', response.data)
+
+	# testing if home is getting beer style from database and showing on page when page load
+	def test_home_beer_style(self):
+		response = self.app.get('/')
+		self.assertIn(b'ALE', response.data)	
+	
+	# testing if home is getting beer ABV, rating, rarity from database and showing on page when page load
+	def test_home_beer_others_content(self):
+		response = self.app.get('/')
+		self.assertIn(b'6.00%', response.data)			
+		self.assertIn(b'0.0', response.data)			
+		self.assertIn(b'COMMON', response.data)			
 	# Testing distance function
 	def test_distance_func(self):
 		self.assertEqual(6.6, distance(40.8200471, -73.9514611, 40.727588,-73.983858))
