@@ -33,7 +33,7 @@ class Beer(db.Model):
     # retail cost per unit (can or bottle)
     retail_cost = db.Column(db.Float)
     # default value will be 0
-    # TODO: refers to ratings to be exact but I do not want to tackle that problem at 11:54 pm 
+    # TODO: refers to ratings to be exact but I do not want to tackle that problem at 11:54 pm
     average_popularity = db.Column(db.Float)
     # accepts: ['common' | 'uncommon' | 'rare']
     # default value for entries will be 'common'
@@ -239,7 +239,24 @@ class Customer(db.Model):
     #one email per one customer
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(100))
-    authenticated = db.Column(db.Boolean, default=False)
+    authenticated = db.Column(db.Boolean, default=True)
+
+   # Flask-Login integration
+    def is_authenticated(self):
+        return True
+
+    def is_active(self): # line 37
+        return True
+
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return self.id
+
+    # Required for administrative interface
+    def __unicode__(self):
+        return self.username
 
     def __init__(self, name, phone, email, password, **kwargs):
         super(Customer, self).__init__(**kwargs)

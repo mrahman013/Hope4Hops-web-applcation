@@ -29,11 +29,11 @@ State:{{brewery.state}}<br>
 </thead>
 {% for beer in brewery.beers %}
 <tr>
-<td>{{beer.name}}</td>
+<td><a href="/beerprofile?name={{beer.name}}">{{beer.name}}</a></td>
 <td>{{beer.beer_type}}</td>
-<td>{{beer.abv}}</td>
+<td>{{'%0.2f'| format(beer.abv*100|float)}}%</td>
 <td>{{beer.average_popularity}}</td>
-<td>{{beer.rarity}}</td>
+<td>{{beer.rarity.upper()}}</td>
 </tr>
 {% endfor %}
 </table>

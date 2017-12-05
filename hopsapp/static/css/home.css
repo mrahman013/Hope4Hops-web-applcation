@@ -7,23 +7,10 @@
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 450px}
 
-    /* Set gray background color and 100% height */
-    .sidenav {
-      padding-top: 20px;
-      background-color: #f1f1f1;
-      height: 200%;
-    }
-
     .lobby{
       font-family:Lobster;
     }
 
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
 
     .logo_cls img{
       margin-top: -12px;
@@ -55,3 +42,29 @@
       max-height: 300px;
       display:block;
       margin:auto;
+    }
+
+    tr:hover{
+      background-color:#CCCCCC;
+      border-style:solid:
+}
+
+#sidefont {
+  font-family: Spectral SC;
+  font-size: 20px;
+}
+
+#beer_rec_text {
+  font-family: Spectral SC;
+  font-size: 18px;
+}
+
+#browse {
+  font-family: Spectral SC;
+  margin-top: 90px;
+}
+
+.text-desc {
+  font-family: Spectral SC;
+  font-size: 24px;
+}

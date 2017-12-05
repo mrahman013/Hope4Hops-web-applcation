@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="{{ url_for('static', filename='js/googleapi.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
-
-    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/skeleton.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/nlogo.png') }}">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Spectral SC" rel="stylesheet" type="text/css">
   </head>
 
   <body>
@@ -37,8 +38,10 @@
             <li><a href="/contact">Contact</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-
+              <li><a href="/register">Register</a></li>
+              <li><a href="/logout">Logout</a></li>
             <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
           </ul>
         </div>
       </div>
@@ -47,7 +50,7 @@
 
 <div class="container-fluid text-center">
         <!-- <div class="row content"> -->
-	           
+
 
     <div class="col-sm-2 sidenav pull-right">
        <div>
@@ -70,7 +73,7 @@
 
 
     {% block body %}{% endblock %}
-
+<!-- Footer margin -250px left and right to expand -->
     <footer class="container-fluid text-center">
       <p>Property of Hope4Hops: <a href="/contact">Contact Us</a></p>
     </footer>
