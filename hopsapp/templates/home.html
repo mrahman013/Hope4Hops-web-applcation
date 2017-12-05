@@ -23,18 +23,12 @@
     <div class="col-sm-2 sidenav1">
           <h6 id="sidefont">Staff Recommendations</h6>
            {% for beer in beer_s %}
-<<<<<<< HEAD
-           <p>{{beer.name}}</p>
-           <a href="/beerprofile?name={{beer.name}}"><img src="{{beer.beer_image}}" class="sideimage img-responsive" alt="{{beer.name}}"></a>
-           {% endfor %}
-=======
            <p id="beer_rec_text">{{beer.name}}</p>
            <a href="/beerprofile?name={{beer.name}}"><img src="{{beer.beer_image}}" class="sideimage img-responsive" alt="{{beer.name}}"></a>
            <br>
            <hr>
            {% endfor %}
            <!-- Beers Link to respective profiles -->
->>>>>>> 0697ce1c759cf4d32bbd80fe34c66c1b1df370c0
        </div>
   <div class="col-sm-8 text-left">
   <br>
