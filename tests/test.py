@@ -34,14 +34,12 @@ class hoptest(unittest.TestCase):
 		response = self.app.get('/storeprofile')
 		self.assertEqual(response.status_code, 200)
 		self.assertIn('storeprofile', response.data)
-
-
-
-# All test below are passed
-
 	def test_contact(self):
 		response = self.app.get('/contact')
 		self.assertEqual(response.status_code, 200)
+		self.assertIn('contact', response.data)
+
+# All test below are passed
 
 	# testing if home is getting beer name from database and showing on page when page load
 	def test_home_beer_name(self):
@@ -83,6 +81,28 @@ class hoptest(unittest.TestCase):
 	# 	response = self.app.post('/', data = "Boat", follow_redirects=True)
 	# 	#self.assertIn(b'Boat', response.data)
 	# 	self.assertIn(b'Boat', response.data)
+
+	#have not tested yet
+	def test_user_register(self):
+		response=self.get('/register')
+		self.assertIn(b'johndoe@gmail.com', response.data)
+		self.assertIn(b'Password123', response.data)
+		self.assertIn(b'Password123', response.data)
+
+	#def test_bad_user_register(self):
+	#	response=self.get('/register')
+#		self.assertIn(b'Ooops! We apologize! There was an #error in your attempt to register.', response.data)
+
+
+	#def test_find_popular_beer_query(self):
+	#	expected=["Boat","Circus Boy", "07XX"]
+	#	result=self.Beer.query.order_by(desc(Beer.average_popularity#)).limit(3)
+
+#		self.assertEqual(result, expected)
+#
+#	def test_find_rare_beer_query(self):
+		
+
 
 if __name__=='__main__':
 	unittest.main()
