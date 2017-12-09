@@ -40,8 +40,9 @@ def distance(lat1, lon1, lat2, lon2):
         return miles
 
 def distance_from_user(beer, coord):
-    
+
     coordinate = coord.split(' ')
+    print(coordinate)
     user_lat = float(coordinate[0])
     user_lon = float(coordinate[1])
 
@@ -99,7 +100,6 @@ def home():
            text_search = request.form['text_search']
            # coordinates added
            coordinates = request.form['location']
-           print(coordinates)
            print(text_search)
            if searchtype == 'beer':
                return redirect(url_for('beerprofile', name=text_search, coord = coordinates))
@@ -184,7 +184,8 @@ def beerprofile():
         if request.form['submit']=="rating":
             search = request.args['name']
             beer = Beer.query.filter_by(name=search).first()
-            distances = distance_from_user(beer)
+            coord = request.args['coord']
+            distances = distance_from_user(beer, coord)
 
             input_rating = request.form['new_rating']
             users = beer.total_users + 1 #int
@@ -205,8 +206,9 @@ def beerprofile():
         elif request.form['submit']== "search":
             searchtype = request.form['searchtype']
             text_search = request.form['text_search']
+            coordinates = request.form['location']
             if searchtype == 'beer':
-                return redirect(url_for('beerprofile', name=text_search))
+                return redirect(url_for('beerprofile', name=text_search, coord = coordinates))
             if searchtype == 'brewery':
                 return redirect(url_for('breweryprofile', name=text_search))
             if searchtype == 'store':

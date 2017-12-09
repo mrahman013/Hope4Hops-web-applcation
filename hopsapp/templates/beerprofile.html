@@ -99,17 +99,17 @@
             var map = new google.maps.Map(document.getElementById('map'), options);
             var icon_image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
 
-          //If user shares location, set that as center
-          if (navigator.geolocation) {
-             navigator.geolocation.getCurrentPosition(function (position) {
-                 initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                 map.setCenter(initialLocation);
-             });
-            }
-          else {
-              // Browser doesn't support Geolocation
-              handleLocationError(false, infoWindow, map.getCenter());
-            }
+          // //If user shares location, set that as center
+          // if (navigator.geolocation) {
+          //    navigator.geolocation.getCurrentPosition(function (position) {
+          //        initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          //        map.setCenter(initialLocation);
+          //    });
+          //   }
+          // else {
+          //     // Browser doesn't support Geolocation
+          //     handleLocationError(false, infoWindow, map.getCenter());
+          //   }
 
 
           // Loop through markers
