@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Hope 4 Hops{% endblock %}
+{% block title %}Hope 4 Hops | Beer Profiles{% endblock %}
 
 {% block body %}
 <head>
@@ -19,7 +19,7 @@
 
       <!-- <div class="text-left"> -->
 
-      <h1>{{beer.name}}</h1>
+      <h1 id="fontbeer">{{beer.name}}</h1>
       <!-- <img src="{{ url_for('static', filename='beer.beer_image') }}" style="width:100%; float:right"> -->
       <!-- <img src="" style="width:100%; float:right"> -->
       <img src="{{beer.beer_image}}"><br>

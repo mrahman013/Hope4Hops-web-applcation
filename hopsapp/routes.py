@@ -237,6 +237,25 @@ def storeprofile():
         if searchtype == 'store':
             return redirect(url_for('storeprofile', name=text_search))
 
+#Error handler
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html'), 404
+
+@app.errorhandler(405)
+def not_found_error(error):
+    return render_template('405.html'), 405
+
+@app.errorhandler(400)
+def not_found_error(error):
+    return render_template('400.html'), 400
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    db.session.rollback()
+    return render_template('500.html'), 500
+
 # def rarity_system(beer):
 #     users = Customer.query.all()
 #     beer_users = beer.total_users

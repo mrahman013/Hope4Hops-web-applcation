@@ -34,14 +34,31 @@ class hoptest(unittest.TestCase):
 		response = self.app.get('/storeprofile')
 		self.assertEqual(response.status_code, 200)
 		self.assertIn('storeprofile', response.data)
+	def test_contact(self):
+		response = self.app.get('/contact')
+		self.assertEqual(response.status_code, 200)
+		self.assertIn('contact', response.data)
+	def test_error_404(self):
+		response = self.app.get('/404')
+		self.assertEqual(response.status_code, 200)
+		self.assertIn('contact', response.data)
+	def test_error_400(self):
+		response = self.app.get('/400')
+		self.assertEqual(response.status_code, 200)
+		self.assertIn('contact', response.data)
+	def test_error_405(self):
+		response = self.app.get('/405')
+		self.assertEqual(response.status_code, 200)
+		self.assertIn('contact', response.data)
+	def test_error_500(self):
+		response = self.app.get('/500')
+		self.assertEqual(response.status_code, 200)
+		self.assertIn('contact', response.data)
+
 
 
 
 # All test below are passed
-
-	def test_contact(self):
-		response = self.app.get('/contact')
-		self.assertEqual(response.status_code, 200)
 
 	# testing if home is getting beer name from database and showing on page when page load
 	def test_home_beer_name(self):
@@ -83,6 +100,38 @@ class hoptest(unittest.TestCase):
 	# 	response = self.app.post('/', data = "Boat", follow_redirects=True)
 	# 	#self.assertIn(b'Boat', response.data)
 	# 	self.assertIn(b'Boat', response.data)
+
+	#have not tested yet
+	def test_user_register(self):
+		with self.client:
+		response=self.get('/register')
+		self.assertIn(b'johndoe@gmail.com', response.data)
+		self.assertIn(b'Password123', response.data)
+		self.assertIn(b'Password123', response.data)
+
+	def test_bad_user_register(self):
+		response=self.get('/register')
+		self.assertIn(b'Ooops! We apologize! There was an #error in your attempt to register.', response.data)
+	
+	def test_login(self):
+		response=self.post('/login',{email:'johndoe@gmail.com',passw#ord:'Password123',confirm:'Password123'})		self.assertEquals(response, 'johndoe@gmail.com')
+
+
+	def test_find_popular_beer_query(self):
+		expected=['07XX','Boat','Circus Boy']
+		result=self.Beer.query.order_by(desc(Beer.average_popularity#)).limit(3)
+
+		self.assertEqual(result, expected)
+
+	def test_find_rare_beer_query(self):
+		expected=['SNEAKBOX','SIM-NOTIC IMPERIAL IPA','Art #Hope Ale']
+		result=self.Beer.query.order_by(Beer.rarity).limit(3)
+		self.assertEqual(result,expected)
+	
+	def test_staff_beer_query(self):
+		expected=['Heady Topper', 'SNEAKBOX', 'Feast of #Fools']
+		result=self.Beer.query.limit(3)
+		self.assertEqual(result, expected)
 
 if __name__=='__main__':
 	unittest.main()
