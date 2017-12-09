@@ -15,6 +15,12 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/nlogo.png') }}">
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Spectral SC" rel="stylesheet" type="text/css">
+    
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  
   </head>
 
   <body>
@@ -61,6 +67,9 @@
    <input type="radio" name="searchtype" value="beer" checked> Beer<br>
    <input type="radio" name="searchtype" value="brewery"> Brewery<br>
    <input type="radio" name="searchtype" value="store"> Store<br>
+  <!-- cordinates of location input -->
+   <input type="hidden" id = "location" name="location" value=""/>
+
        <button type="submit" name="submit" value="search">
          <span class="glyphicon glyphicon-search"> Search</span>
        </button>
@@ -77,6 +86,23 @@
     <footer class="container-fluid text-center">
       <p>Property of Hope4Hops: <a href="/contact">Contact Us</a></p>
     </footer>
+
+
+<!-- location staff -->
+<script>
+  // Only change code below this line.
+  
+  if (navigator.geolocation) {
+navigator.geolocation.getCurrentPosition(function(position) {
+// $("#data").html("latitude: " + position.coords.latitude + "<br>longitude: " + position.coords.longitude);
+// $('#location').val(position.coords.latitude+' '+position.coords.longitude);
+document.getElementById('location').value = position.coords.latitude+' '+position.coords.longitude;
+//document.getElementById("geolocation").submit();
+});
+}
+  
+  // Only change code above this line.
+</script>
 
   </body>
 </html>
