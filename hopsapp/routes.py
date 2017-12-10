@@ -2,7 +2,7 @@
 # import hashlib
 from hopsapp import app
 # from flask import render_template, request, redirect, url_for, flash
-from flask import session, request, flash, url_for, redirect, render_template, abort ,g
+from flask import session, request, flash, url_for, redirect, render_template, abort, g
 from flask_sqlalchemy import SQLAlchemy
 from hopsapp import db
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
