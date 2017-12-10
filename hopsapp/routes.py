@@ -8,7 +8,7 @@ from hopsapp import db
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 from math import cos, asin, sqrt
 from sqlalchemy import desc, func
-from flask_login import LoginManager, UserMixin, login_user , logout_user , current_user , login_required
+from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required #pylint: disable=line-too-long
 from functools import wraps
 from operator import itemgetter, attrgetter
 import requests, json
@@ -32,13 +32,13 @@ def staff_beers():
     return Beer.query.limit(3)
 
 def distance(lat1, lon1, lat2, lon2):
-        conv_fac = 0.621371 # conversion factor
-        p = 0.017453292519943295     #Pi/180
-        a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
-        kil_m = 12742 * asin(sqrt(a)) #2*R*asin...
-        miles = kil_m * conv_fac
-        miles = float("{0:.1f}".format(miles))
-        return miles
+    conv_fac = 0.621371 # conversion factor
+    p = 0.017453292519943295     #Pi/180
+    a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2 #pylint: disable=line-too-long
+    kil_m = 12742 * asin(sqrt(a)) #2*R*asin...
+    miles = kil_m * conv_fac
+    miles = float("{0:.1f}".format(miles))
+    return miles
 
 def distance_from_user(beer):
 
@@ -55,7 +55,7 @@ def distance_from_user(beer):
 
     for store in beer.stores:
         d = distance(user_lat, user_lon, store.lat, store.lon)
-        distances.append((beer,store,d))
+        distances.append((beer, store, d))
 
     sorted_distances = sorted(distances, key=itemgetter(2))
     return sorted_distances
@@ -70,7 +70,7 @@ def login_required(f):
             return redirect(url_for('login'))
     return wrap
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'GET':
         beers = Beer.query.order_by(Beer.brewery_id)
@@ -78,7 +78,7 @@ def home():
         rare_beers = find_rare_beers()
 
         beer_s = staff_beers()
-        return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers, beer_s=beer_s)
+        return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers, beer_s=beer_s)#pylint: disable=line-too-long
 
         # return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers)
 
@@ -90,7 +90,7 @@ def home():
             state = request.form['state']
             rarity = request.form['rarity']
             seasonal = request.form['availability']
-            if seasonal=="None":
+            if seasonal == "None":
                 seasonal = None
             beers = Beer.query.join(Brewery).filter_by(state=state).all()
             for b in beers:
@@ -99,20 +99,20 @@ def home():
             beer_c = find_popular_beers()
             rare_beers = find_rare_beers()
             beer_s = staff_beers()
-            return render_template("home.html", beers=beer_list, beer_c=beer_c, rare_beers=rare_beers, beer_s=beer_s)
+            return render_template("home.html", beers=beer_list, beer_c=beer_c, rare_beers=rare_beers, beer_s=beer_s)#pylint: disable=line-too-long
         elif request.form['submit'] == 'search':
-           searchtype = request.form['searchtype']
-           text_search = request.form['text_search']
-           # coordinates added
-           # coordinates = request.form['location']
-           print(text_search)
-           if searchtype == 'beer':
+            searchtype = request.form['searchtype']
+            text_search = request.form['text_search']
+            # coordinates added
+            # coordinates = request.form['location']
+            print(text_search)
+            if searchtype == 'beer':
                #return redirect(url_for('beerprofile', name=text_search, coord = coordinates))
-               return redirect(url_for('beerprofile', name=text_search))
-           if searchtype == 'brewery':
-               return redirect (url_for('breweryprofile', name=text_search))
-           if searchtype == 'store':
-               return (url_for('storeprofile', name=text_search))
+                return redirect(url_for('beerprofile', name=text_search))
+            if searchtype == 'brewery':
+                return redirect(url_for('breweryprofile', name=text_search))
+            if searchtype == 'store':
+                return redirect(url_for('storeprofile', name=text_search))
 
 @app.route('/about')
 def about():
@@ -152,7 +152,7 @@ def register():
     if request.method == 'GET':
         return render_template("register.html")
     elif request.method == 'POST':
-        if request.form['submit']=="register":
+        if request.form['submit'] == "register":
             if request.form['confirm_password'] != request.form['password']:
                 flash('Passwords DO NOT Match')
                 return render_template("register.html")
@@ -184,10 +184,10 @@ def beerprofile():
         # return render_template("beerprofile.html",beer=beer,all_component=store_component)
         distances = distance_from_user(beer)
         #distances = distance_from_user(beer, coord)
-        return render_template("beerprofile.html",beer=beer,distances=distances)
+        return render_template("beerprofile.html", beer=beer, distances=distances)
 
     elif request.method == 'POST':
-        if request.form['submit']=="rating":
+        if request.form['submit'] == "rating":
             search = request.args['name']
             beer = Beer.query.filter_by(name=search).first()
             # coord = request.args['coord']
@@ -200,8 +200,8 @@ def beerprofile():
             new_average_popularity = ratings/users #float
 
 
-            beer.total_users=users
-            beer.total_ratings=ratings
+            beer.total_users = users
+            beer.total_ratings = ratings
             beer.average_popularity = new_average_popularity
             #we want to determine the rarity after we determine
             # new_rarity = rarity_system(beer)
@@ -210,7 +210,7 @@ def beerprofile():
 
             return render_template("beerprofile.html", beer=beer, distances=distances)
 
-        elif request.form['submit']== "search":
+        elif request.form['submit'] == "search":
             searchtype = request.form['searchtype']
             text_search = request.form['text_search']
             # coordinates = request.form['location']
