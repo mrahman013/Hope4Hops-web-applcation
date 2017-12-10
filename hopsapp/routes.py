@@ -28,6 +28,30 @@ def find_rare_beers():
             rare_beers.append(b)
     return rare_beers[0:3]
 
+#TODO: finish this to reduce code
+# def new_rating(beer):
+#     users = beer.total_users + 1 #int
+#     ratings = beer.total_ratings + int(float(input_rating)) # int
+#     new_average_popularity = ratings/users #float
+
+#create a percentage of users that rate this beer
+#if more than 50% of users have had the beer, it is considered common
+#between 25% and 50% is considered uncommon
+# less than 25% is consdiered rare
+def rarity_system(beer):
+    users = len(Customer.query.all())
+    beer_users = beer.total_users
+    total_users = users + beer_users
+    #precent
+    p = beer_users/total_users
+    if 0.5 < p <= 1:
+        return "common"
+    elif 0.25 <= p <= 0.5 :
+        return "uncommon"
+    elif p < 0.25:
+        return "rare"
+
+
 def staff_beers():
     return Beer.query.limit(3)
 
@@ -195,6 +219,7 @@ def beerprofile():
             distances = distance_from_user(beer)
 
             input_rating = request.form['new_rating']
+
             users = beer.total_users + 1 #int
             ratings = beer.total_ratings + int(float(input_rating)) # int
             new_average_popularity = ratings/users #float
@@ -203,8 +228,10 @@ def beerprofile():
             beer.total_users=users
             beer.total_ratings=ratings
             beer.average_popularity = new_average_popularity
-            #we want to determine the rarity after we determine
-            # new_rarity = rarity_system(beer)
+            beer.rarity = rarity_system(beer)
+
+            #TODO: fix this line so that we don't need all these lines of code
+            # beer.average_popularity = new_rating(beer)
 
             db.session.commit()
 
@@ -258,11 +285,24 @@ def storeprofile():
         if searchtype == 'store':
             return redirect(url_for('storeprofile', name=text_search))
 
-# def rarity_system(beer):
-#     users = Customer.query.all()
-#     beer_users = beer.total_users
-    #total_ users_ of oage = query users + beer_users
-#     p = beer_users/users
+#Error handler
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('404.html'), 404
+
+@app.errorhandler(405)
+def not_found_error(error):
+    return render_template('405.html'), 405
+
+@app.errorhandler(400)
+def not_found_error(error):
+    return render_template('400.html'), 400
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    db.session.rollback()
+    return render_template('500.html'), 500
 
 
 if __name__ == "__main__":
