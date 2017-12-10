@@ -11,6 +11,7 @@ from sqlalchemy import desc, func
 from flask_login import LoginManager, UserMixin, login_user , logout_user , current_user , login_required
 from functools import wraps
 from operator import itemgetter, attrgetter
+import requests, json
 # flask-login
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -39,11 +40,16 @@ def distance(lat1, lon1, lat2, lon2):
         miles = float("{0:.1f}".format(miles))
         return miles
 
-def distance_from_user(beer, coord):
+def distance_from_user(beer):
 
-    coordinate = coord.split(' ')
-    user_lat = float(coordinate[0])
-    user_lon = float(coordinate[1])
+    # coordinate = coord.split(' ')
+    # user_lat = float(coordinate[0])
+    # user_lon = float(coordinate[1])
+    send_url = 'http://freegeoip.net/json'
+    r = requests.get(send_url)
+    j = json.loads(r.text)
+    user_lat = j['latitude']
+    user_lon = j['longitude']
 
     distances = []
 
@@ -98,10 +104,11 @@ def home():
            searchtype = request.form['searchtype']
            text_search = request.form['text_search']
            # coordinates added
-           coordinates = request.form['location']
+           # coordinates = request.form['location']
            print(text_search)
            if searchtype == 'beer':
-               return redirect(url_for('beerprofile', name=text_search, coord = coordinates))
+               #return redirect(url_for('beerprofile', name=text_search, coord = coordinates))
+               return redirect(url_for('beerprofile', name=text_search))
            if searchtype == 'brewery':
                return redirect (url_for('breweryprofile', name=text_search))
            if searchtype == 'store':
@@ -169,22 +176,23 @@ def beerprofile():
     if request.method == 'GET':
         search = request.args['name']
         beer = Beer.query.filter_by(name=search).first()
-        coord = request.args['coord']
+        # coord = request.args['coord']
 
-        print('coord from beerprofile: '+ str(coord))
+        # print('coord from beerprofile: '+ str(coord))
         # store_component = distance_from_user(beer)
         # change made hare
         # return render_template("beerprofile.html",beer=beer,all_component=store_component)
-        #distances = distance_from_user(beer)
-        distances = distance_from_user(beer, coord)
+        distances = distance_from_user(beer)
+        #distances = distance_from_user(beer, coord)
         return render_template("beerprofile.html",beer=beer,distances=distances)
 
     elif request.method == 'POST':
         if request.form['submit']=="rating":
             search = request.args['name']
             beer = Beer.query.filter_by(name=search).first()
-            coord = request.args['coord']
-            distances = distance_from_user(beer, coord)
+            # coord = request.args['coord']
+            # distances = distance_from_user(beer, coord)
+            distances = distance_from_user(beer)
 
             input_rating = request.form['new_rating']
             users = beer.total_users + 1 #int
@@ -205,9 +213,10 @@ def beerprofile():
         elif request.form['submit']== "search":
             searchtype = request.form['searchtype']
             text_search = request.form['text_search']
-            coordinates = request.form['location']
+            # coordinates = request.form['location']
             if searchtype == 'beer':
-                return redirect(url_for('beerprofile', name=text_search, coord = coordinates))
+                #return redirect(url_for('beerprofile', name=text_search, coord = coordinates))
+                return redirect(url_for('beerprofile', name=text_search))
             if searchtype == 'brewery':
                 return redirect(url_for('breweryprofile', name=text_search))
             if searchtype == 'store':
@@ -222,9 +231,10 @@ def breweryprofile():
     elif request.method == 'POST':
         searchtype = request.form['searchtype']
         text_search = request.form['text_search']
-        coordinates = request.form['location']
+        #coordinates = request.form['location']
         if searchtype == 'beer':
-            return redirect(url_for('beerprofile', name=text_search, coord = coordinates))
+            #return redirect(url_for('beerprofile', name=text_search, coord = coordinates))
+            return redirect(url_for('beerprofile', name=text_search))
         if searchtype == 'brewery':
             return redirect(url_for('breweryprofile', name=text_search))
         if searchtype == 'store':
@@ -239,9 +249,10 @@ def storeprofile():
     elif request.method == 'POST':
         searchtype = request.form['searchtype']
         text_search = request.form['text_search']
-        coordinates = request.form['location']
+        #coordinates = request.form['location']
         if searchtype == 'beer':
-            return redirect(url_for('beerprofile', name=text_search, coord = coordinates))
+            #return redirect(url_for('beerprofile', name=text_search, coord = coordinates))
+            return redirect(url_for('beerprofile', name=text_search))
         if searchtype == 'brewery':
             return redirect(url_for('breweryprofile', name=text_search))
         if searchtype == 'store':
