@@ -27,6 +27,30 @@ def find_rare_beers():
             rare_beers.append(b)
     return rare_beers[0:3]
 
+#TODO: finish this to reduce code
+# def new_rating(beer):
+#     users = beer.total_users + 1 #int
+#     ratings = beer.total_ratings + int(float(input_rating)) # int
+#     new_average_popularity = ratings/users #float
+
+#create a percentage of users that rate this beer
+#if more than 50% of users have had the beer, it is considered common
+#between 25% and 50% is considered uncommon
+# less than 25% is consdiered rare
+def rarity_system(beer):
+    users = Customer.query.all()
+    beer_users = beer.total_users
+    total_users = users + beer_users
+    #precent
+    p = beer_users/total_users
+    if 0.5 < p <= 1:
+        return "common"
+    elif 0.25 <= p <= 0.5 :
+        return "uncommon"
+    elif p < 0.25:
+        return "rare"
+
+
 def staff_beers():
     return Beer.query.limit(3)
 
@@ -171,7 +195,7 @@ def beerprofile():
         beer = Beer.query.filter_by(name=search).first()
         coord = request.args['coord']
 
-        print('coord from beerprofile: '+ str(coord))
+        # print('coord from beerprofile: '+ str(coord))
         # store_component = distance_from_user(beer)
         # change made hare
         # return render_template("beerprofile.html",beer=beer,all_component=store_component)
@@ -187,6 +211,7 @@ def beerprofile():
             distances = distance_from_user(beer, coord)
 
             input_rating = request.form['new_rating']
+
             users = beer.total_users + 1 #int
             ratings = beer.total_ratings + int(float(input_rating)) # int
             new_average_popularity = ratings/users #float
@@ -195,8 +220,10 @@ def beerprofile():
             beer.total_users=users
             beer.total_ratings=ratings
             beer.average_popularity = new_average_popularity
-            #we want to determine the rarity after we determine
-            # new_rarity = rarity_system(beer)
+            beer.rarity = rarity_system(beer)
+
+            #TODO: fix this line so that we don't need all these lines of code
+            # beer.average_popularity = new_rating(beer)
 
             db.session.commit()
 
@@ -265,12 +292,6 @@ def not_found_error(error):
 def internal_error(error):
     db.session.rollback()
     return render_template('500.html'), 500
-
-# def rarity_system(beer):
-#     users = Customer.query.all()
-#     beer_users = beer.total_users
-    #total_ users_ of oage = query users + beer_users
-#     p = beer_users/users
 
 
 if __name__ == "__main__":
