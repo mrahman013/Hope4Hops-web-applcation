@@ -38,7 +38,7 @@ def find_rare_beers():
 #between 25% and 50% is considered uncommon
 # less than 25% is consdiered rare
 def rarity_system(beer):
-    users = Customer.query.all()
+    users = len(Customer.query.all())
     beer_users = beer.total_users
     total_users = users + beer_users
     #precent
