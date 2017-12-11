@@ -1,3 +1,8 @@
+""" store data that are pushed on db """
+# included unused Customer and Storeowner incase need later and they have relation
+# pylint: disable=unused-import
+from hopsapp import db
+from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 """
 Beer(name, abv, beer_type, seasonal, retail_cost, average_popularity, rarity, brewery)
 Brewery(name, address, city, state, zip_code)
@@ -29,7 +34,7 @@ To add entries to stock:
         store2.beers.append(beer3)
 
 """
-
+# pylint: disable=line-too-long, invalid-name, no-member
 """
 Note: links to beer imgs
 https://cdn.beeradvocate.com/im/beers/16814.jpg (Heady Topper)
@@ -52,8 +57,7 @@ http://newjerseycraftbeer.com/wp-content/uploads/gravity_forms/5-48b61b129df756a
 http://nebula.wsimg.com/3704b82109d165d6516e12154eaced81?AccessKeyId=22E47027FF5B90820C12&disposition=0&alloworigin=1 (SIM-NOTIC)
 """
 
-from hopsapp import db
-from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
+
 
 brewery1 = Brewery('The Alchemist', '100 Cottage Rd', 'Stowe', 'VT', '05672', 32.165923, -94.340370)
 brewery2 = Brewery('Carton Brewing Company', '6 E Washington Ave', 'Atlantic Highlands', 'NJ', '07716', 40.411777, -74.038177)
@@ -91,9 +95,9 @@ beer13 = Beer('Mother Lager', 'https://i.imgur.com/UQ5c5OK.png', 0.05, 'Lager', 
 beer14 = Beer('Art Hop Ale', 'https://i.imgur.com/uI6HYaM.png', 0.072, 'Pilsner', 'autumn', 2.50, 0, 'common', 'THU', brewery_id=4)
 
 beer15 = Beer('EAST COAST LAGER', 'https://i.imgur.com/08cDEC8.png', 0.042, 'Lager', None, 1.50, 0, 'common', 'SAT', brewery_id=5)
-beer16 = Beer('AMERICAN PALE ALE', 'https://i.imgur.com/EAmWqua.png?1', 0.055, 'Ale', None, 1.74,  0, 'common', 'WED', brewery_id=5)
-beer17 = Beer('JERSEY SUMMER BREAKFAST ALE', 'https://i.imgur.com/E3Lu02z.jpg?1', 0.05, 'Ale', 'summer', 1.75,  0, 'common', 'WED', brewery_id=5)
-beer18 = Beer('SIM-NOTIC IMPERIAL IPA', 'https://i.imgur.com/5r0Hb0O.jpg', 0.082, 'IPA', 'spring', 3.50,  0, 'common', 'TUE', brewery_id=5)
+beer16 = Beer('AMERICAN PALE ALE', 'https://i.imgur.com/EAmWqua.png?1', 0.055, 'Ale', None, 1.74, 0, 'common', 'WED', brewery_id=5)
+beer17 = Beer('JERSEY SUMMER BREAKFAST ALE', 'https://i.imgur.com/E3Lu02z.jpg?1', 0.05, 'Ale', 'summer', 1.75, 0, 'common', 'WED', brewery_id=5)
+beer18 = Beer('SIM-NOTIC IMPERIAL IPA', 'https://i.imgur.com/5r0Hb0O.jpg', 0.082, 'IPA', 'spring', 3.50, 0, 'common', 'TUE', brewery_id=5)
 
 db.session.add(beer1)
 db.session.add(beer2)
@@ -115,7 +119,7 @@ db.session.add(beer17)
 db.session.add(beer18)
 db.session.commit()
 
-#TODO: add lats + lons
+
 store1 = Store('Good Beer', '422 E 9th St', 'New York', 'NY', '10009', 0, 40.727588, -73.983858)
 store2 = Store('Top Hops', '94 Orchard St', 'New York', 'NY', '10002', 0, 40.718403, -73.989943)
 store3 = Store('New Beer Distributors', '167 Chrystie St', 'New York', 'NY', '10002', 0, 40.720793, -73.997962)
@@ -125,7 +129,6 @@ db.session.add(store1)
 db.session.add(store2)
 db.session.add(store3)
 db.session.add(store4)
-db.session.add(store5)
 db.session.commit()
 
 store1.beers.append(beer1)
