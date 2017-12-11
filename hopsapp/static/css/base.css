@@ -12,8 +12,11 @@ footer {
   height: 200%;
 }
 
+/*height:2295px; for max height*/
 .sidenav1{
   padding-top: 20px;
   background-color: #f1f1f1;
-  height: 200%;
+  height: auto;
+  word-wrap:break-word;
+  margin-left: -13px;
 }
