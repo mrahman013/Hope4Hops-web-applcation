@@ -14,9 +14,9 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, curren
 
 
 
-#pylint: disable=no-member
+
 # flask-login
-#pylint: disable=invalid-name
+#pylint: disable=no-member
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
@@ -34,9 +34,9 @@ def find_rare_beers():
     """
     beer_r = Beer.query.order_by(func.random()).all()
     rare_beers = []
-    for b in beer_r:
-        if b.rarity == 'rare':
-            rare_beers.append(b)
+    for beer in beer_r:
+        if beer.rarity == 'rare':
+            rare_beers.append(beer)
     return rare_beers[0:3]
 
 def staff_beers():
@@ -50,9 +50,9 @@ def distance(lat1, lon1, lat2, lon2):
     This method is used to find distance between 2 coordinates and retund distance in miles
     """
     conv_fac = 0.621371 # conversion factor
-    p = 0.017453292519943295     #Pi/180
-    a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2 #pylint: disable=line-too-long
-    kil_m = 12742 * asin(sqrt(a)) #2*R*asin...
+    pi_red = 0.017453292519943295     #Pi/180
+    reulst_dis = 0.5 - cos((lat2 - lat1) * pi_red)/2 + cos(lat1 * pi_red) * cos(lat2 * pi_red) * (1 - cos((lon2 - lon1) * pi_red)) / 2 #pylint: disable=line-too-long
+    kil_m = 12742 * asin(sqrt(reulst_dis))
     miles = kil_m * conv_fac
     miles = float("{0:.1f}".format(miles))
     return miles
@@ -67,16 +67,16 @@ def distance_from_user(beer):
     # user_lat = float(coordinate[0])
     # user_lon = float(coordinate[1])
     send_url = 'http://freegeoip.net/json'
-    r = requests.get(send_url)
-    j = json.loads(r.text)
+    req = requests.get(send_url)
+    j = json.loads(req.text)
     user_lat = j['latitude']
     user_lon = j['longitude']
 
     distances = []
 
     for store in beer.stores:
-        d = distance(user_lat, user_lon, store.lat, store.lon)
-        distances.append((beer, store, d))
+        dist = distance(user_lat, user_lon, store.lat, store.lon)
+        distances.append((beer, store, dist))
 
     sorted_distances = sorted(distances, key=itemgetter(2))
     return sorted_distances
