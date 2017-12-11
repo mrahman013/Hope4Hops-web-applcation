@@ -1,26 +1,37 @@
-"""Routes for flask app."""  # pylint: disable=cyclic-import
+"""Routes for flask app."""  # pylint: disable=cyclic-import, unused-import
 # import hashlib
-from hopsapp import app
-# from flask import render_template, request, redirect, url_for, flash
-from flask import session, request, flash, url_for, redirect, render_template, abort, g
-from flask_sqlalchemy import SQLAlchemy
-from hopsapp import db
-from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 from math import cos, asin, sqrt
-from sqlalchemy import desc, func
-from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required #pylint: disable=line-too-long
 from functools import wraps
 from operator import itemgetter, attrgetter
-import requests, json
+import json
+import requests
+from flask import session, request, flash, url_for, redirect, render_template, abort, g
+from flask_sqlalchemy import SQLAlchemy
+from hopsapp import db, app
+from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
+from sqlalchemy import desc, func
+from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required #pylint: disable=line-too-long
+
+
+
+#pylint: disable=no-member
 # flask-login
+#pylint: disable=invalid-name
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 
 def find_popular_beers():
+    """
+    This method is used to query beer's average popularity
+    """
     return Beer.query.order_by(desc(Beer.average_popularity)).limit(3)
 
 def find_rare_beers():
+    """
+    This method is used to query rare beer. It return list with 3 rare beer that is found
+    from database
+    """
     beer_r = Beer.query.order_by(func.random()).all()
     rare_beers = []
     for b in beer_r:
@@ -29,9 +40,15 @@ def find_rare_beers():
     return rare_beers[0:3]
 
 def staff_beers():
+    """
+    This method is used to return 3 beer
+    """
     return Beer.query.limit(3)
 
 def distance(lat1, lon1, lat2, lon2):
+    """
+    This method is used to find distance between 2 coordinates and retund distance in miles
+    """
     conv_fac = 0.621371 # conversion factor
     p = 0.017453292519943295     #Pi/180
     a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2 #pylint: disable=line-too-long
@@ -41,7 +58,11 @@ def distance(lat1, lon1, lat2, lon2):
     return miles
 
 def distance_from_user(beer):
-
+    """
+    This method is used to calculate distace from user to each store that carry
+    specific beer that user seached for and return list of store, beer and distance from user to
+    those stores sorted by distance
+    """
     # coordinate = coord.split(' ')
     # user_lat = float(coordinate[0])
     # user_lon = float(coordinate[1])
@@ -61,8 +82,16 @@ def distance_from_user(beer):
     return sorted_distances
 
 def login_required(f):
+    """
+    This method is used to call wrap function which has instruction what to do when user
+    loged in or not
+    """
     @wraps(f)
     def wrap(*args, **kwargs):
+        """
+        This method is used to make sure user is loggen in and if not alert to login and
+        redirect to login page
+        """
         if 'logged_in' in session:
             return f(*args, **kwargs)
         else:
@@ -72,6 +101,11 @@ def login_required(f):
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    """
+    This method has defination of what do on landig page includes featching all beer info and
+    show on home page when lending, query specifc and shown on home page when requested by user,
+    redirect to appropiate routes when user search for beer, bewery or store
+    """
     if request.method == 'GET':
         beers = Beer.query.order_by(Beer.brewery_id)
         beer_c = find_popular_beers()
@@ -116,18 +150,30 @@ def home():
 
 @app.route('/about')
 def about():
+    """
+    This method render about page and disply it
+    """
     return render_template("about.html")
 
 @app.route('/contact')
 def contact():
+    """
+    This method render contact page
+    """
     return render_template("contact.html")
 
 @login_manager.user_loader
 def load_user(user_id):
+    """
+    This method used to query using user_id and return it
+    """
     return Customer.query.get(user_id)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    This method handle login
+    """
     if request.method == 'GET':
         return render_template('login.html')
     elif request.method == 'POST':
@@ -144,11 +190,18 @@ def login():
 @app.route('/logout', methods=['GET'])
 @login_required
 def logout():
+    """
+    This method is used to logout. It redirect to login page afrer logout
+    """
     logout_user()
     return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """
+    This method is used to handle registration of new user. It takes all necessary info of
+    user and try to put on customer table if don't exist
+    """
     if request.method == 'GET':
         return render_template("register.html")
     elif request.method == 'POST':
@@ -166,13 +219,19 @@ def register():
                 db.session.commit()
                 flash('Cheers! ' + name)
                 return redirect(url_for('home'))
+            #pylint: disable=bare-except
             except:
-                error = 'Ooops! We apologize! There was an error in your attempt to register.'
+                error = 'Ooops! We apologize! There was an error in your attempt to register.'#pylint: disable=unused-variable
                 return redirect(url_for('home'))
 
 @app.route('/beerprofile', methods=['GET', 'POST'])
 #value for new rating is new_rating
 def beerprofile():
+    """
+    This method is used to show info about specfc beer's info includes distance of each store
+    that carry this beer, store info, beer info. It also take care new beer rating submit by
+    user
+    """
     if request.method == 'GET':
         search = request.args['name']
         beer = Beer.query.filter_by(name=search).first()
@@ -224,6 +283,10 @@ def beerprofile():
 
 @app.route('/breweryprofile', methods=['GET', 'POST'])
 def breweryprofile():
+    """
+    This method is used to show info about specfc bewery info includes all beers they produce and
+    their style, ABV, popularity and rarity
+    """
     if request.method == 'GET':
         search = request.args['name']
         brewery = Brewery.query.filter_by(name=search).first()
@@ -242,6 +305,10 @@ def breweryprofile():
 
 @app.route('/storeprofile', methods=['GET', 'POST'])
 def storeprofile():
+    """
+    This method is used to show info about specfc store's info includes all beers they carry and
+    their style, ABV, popularity and rarity
+    """
     if request.method == 'GET':
         search = request.args['name']
         store = Store.query.filter_by(name=search).first()
