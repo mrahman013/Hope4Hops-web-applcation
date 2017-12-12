@@ -194,7 +194,16 @@ class TestAcceptBeerProfile(unittest.TestCase):
 		self.assertIn(b'Popularity: 4.0', response.data)
 		self.assertIn(b'Rarity: COMMON', response.data)
 
-
+	def test_beerprofile_all_info_on_table_thread(self):
+		table = self.soup.table
+		self.assertTrue(table)
+		items_td = table.thead.find_all('td')
+		self.assertEqual(5, len(items_td))
+		# list of td for check
+		list_td = ['Store Name', 'Store Traffic', 'Delivery Day', 'Distance From User', 'Let\'s Go!']
+		for item, ele_list in zip(items_td, list_td):
+			self.assertEqual(item.text.strip(), ele_list)
+			
 
 if __name__=='__main__':
 	unittest.main()
