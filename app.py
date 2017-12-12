@@ -1,6 +1,9 @@
+"""
+This module execute flask app and turn on debugger
+"""
 from hopsapp import app as application
 
 
 if __name__ == "__main__":
-	application.debug = True
-	application.run()
+    application.debug = True
+    application.run()
