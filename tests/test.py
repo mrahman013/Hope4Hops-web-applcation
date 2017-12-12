@@ -62,7 +62,6 @@ class hoptest(unittest.TestCase):
 
 # All test below are passed
 
-<<<<<<< HEAD
 	# testing if home is getting beer name from database and showing on page when page load
 	def test_home_beer_name(self):
 		response = self.app.get('/')
@@ -155,7 +154,7 @@ class hoptest(unittest.TestCase):
 		expected=['Heady Topper', 'SNEAKBOX', 'Feast of Fools']
 		result=self.Beer.query.limit(3)
 		self.assertEqual(result, expected)
-=======
+
     # testing if home is getting beer name from database and showing on page when page load
     def test_home_beer_name(self):
         response = self.app.get('/')
@@ -248,7 +247,6 @@ class hoptest(unittest.TestCase):
         expected=['Heady Topper', 'SNEAKBOX', 'Feast of Fools']
         result=self.Beer.query.limit(3)
         self.assertEqual(result, expected)
->>>>>>> ba743a57de8f76973e9ee934c3e2ed4165205bc1
 
 if __name__=='__main__':
     unittest.main()
