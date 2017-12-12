@@ -33,15 +33,15 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
+            <li {% if request.path == '/' %}class="active"{% endif %}><a href="/">Home</a></li>
+            <li {% if request.path == '/about' %}class="active"{% endif %}><a href="/about">About</a></li>
 
-            <li><a href="/contact">Contact</a></li>
+            <li {% if request.path == '/contact' %}class="active"{% endif %}><a href="/contact">Contact</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-              <li><a href="/register">Register</a></li>
-              <li><a href="/logout">Logout</a></li>
-            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              <li {% if request.path == '/register' %}class="active"{% endif %}><a href="/register">Register</a></li>
+              <li {% if request.path == '/logout' %}class="active"{% endif %}><a href="/logout">Logout</a></li>
+            <li {% if request.path == '/login' %}class="active"{% endif %}><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 
           </ul>
         </div>
@@ -53,7 +53,7 @@
         <!-- <div class="row content"> -->
 
 
-    <div class="col-sm-2 sidenav pull-right">
+    <div class="col-sm-2 sidenav pull-right col-xs-12">
        <div>
  Search
          <form method="POST">
@@ -73,12 +73,14 @@
      </div>
 
 
-
     {% block body %}{% endblock %}
 <!-- Footer margin -250px left and right to expand -->
-    <footer class="container-fluid text-center">
+<div class="row">
+  <footer class="container-fluid text-center">
       <p>Property of Hope4Hops: <a href="/contact">Contact Us</a></p>
     </footer>
+</div>
+    
 
   </body>
 </html>
