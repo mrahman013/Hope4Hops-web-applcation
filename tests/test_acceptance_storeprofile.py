@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 
 
-class TestAcceptBeerProfile(unittest.TestCase):
+class TestAcceptStoreProfile(unittest.TestCase):
     """
     This class test all component of storeprofile when user search for beer
     """
