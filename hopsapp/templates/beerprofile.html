@@ -7,6 +7,11 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/beerprofile.css') }}">
 
+<style>
+  .beer_info{
+    line-height: 1px;
+  }
+</style>
 </head>
 
 
@@ -23,14 +28,14 @@
       <!-- <img src="{{ url_for('static', filename='beer.beer_image') }}" style="width:100%; float:right"> -->
       <!-- <img src="" style="width:100%; float:right"> -->
       <img src="{{beer.beer_image}}"><br>
-      <span>
+      <span class = "beer_info">
 
-      Brewed By: <a href="/breweryprofile?name={{beer.brewery.name}}">{{beer.brewery.name.upper()}}</a><br>
-      Style: {{beer.beer_type.upper()}}<br>
-      Alcohol By Volume: {{'%0.2f'| format(beer.abv*100|float)}}%<br>
+      <p>Brewed By: <a href="/breweryprofile?name={{beer.brewery.name}}">{{beer.brewery.name.upper()}}</a></p>
+      <p>Style: {{beer.beer_type.upper()}}</p>
+      <p>Alcohol By Volume: {{'%0.2f'| format(beer.abv*100|float)}}%</p>
 
-      Popularity: {{beer.average_popularity}}<br>
-      Rarity: {{beer.rarity.upper()}}<br>
+      <p>Popularity: {{beer.average_popularity}}</p>
+      <p>Rarity: {{beer.rarity.upper()}}</p>
     </span>
     <table>
     <thead>
