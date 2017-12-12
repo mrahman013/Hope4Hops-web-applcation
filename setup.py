@@ -1,3 +1,4 @@
+""" setup for hopsapp """
 from setuptools import setup
 
 setup(
