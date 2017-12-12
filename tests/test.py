@@ -113,28 +113,28 @@ class hoptest(unittest.TestCase):
 
 	#Testing registers
 	def test_user_register(self):
-		response=self.register('johndoe123@gmail.com','Password123','Password123')
+		response=self.register_check('johndoe123@gmail.com','Password123','Password123')
 		self.assertEqual(response.status_code, 200)
 		self.assertIn(b'Cheers!', response.data)
 
 	def test_bad_user_register(self):
-		response=self.register('badexample','Password123','notthesame')
+		response=self.register_check('badexample','Password123','notthesame')
 		self.assertIn(b'Ooops! We apologize! There was an error in your attempt to register.', response.data)
 
 	#Not tested
 	def test_bad_register_dupe(self):
-		response=self.register('johndoe123@gmail.com','Password123','Password123')
+		response=self.register_check('johndoe123@gmail.com','Password123','Password123')
 		self.assertEqual(response.status_code,200)
 		response=self.register('johndoe123@gmail.com','Pass1word123','Pass1word123')
-		self.assertIn(b'Ooops! We apologize! There was an error in your attempt to register.', response.data))
+		self.assertIn(b'Ooops! We apologize! There was an error in your attempt to register.', response.data)
 
 	def test_login(self):
-		response=self.login('johndoe@gmail.com','Password123')
+		response=self.login_check('johndoe@gmail.com','Password123')
 		self.assertEquals(response.status_code, 200)
 		self.assertIn(b'Logged in successfully',response.data)
 
 	def test_bad_login(self):
-		response=self.login('johndoe@gmail.com','passWord321')
+		response=self.login_check('johndoe@gmail.com','passWord321')
 		self.assertIn(b'Failed Login Attempt',response.data)
 
 	def test_find_popular_beer_query(self):
