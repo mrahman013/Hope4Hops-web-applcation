@@ -4,27 +4,45 @@
 
 {% block body %}
 <head>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/register.css') }}">
-  <style type="text/css">
+  <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/register.css') }}"> -->
+  <!-- <style type="text/css">
     body{
         background: url({{ url_for('static', filename='images/beer_for_login_page.jpg') }}) no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;}
-  </style>
+  </style> -->
 </head>
 
 <div class="container custom_css">
 	<h2>Add Beer</h2>
 	<form method="POST">
         <input type="text" name="beer_name"/> Beer Name</label><br>
-        <input type="text" name="beer_image"/> Beer Image Link</label><br>
+        <input type="text" name="beer_brewery"/> Brewery </label><br>
         <input type="text" name="beer_abv"/> ABV </label><br>
-        <input type="text" name="beer_type"/> Beer Type</label><br>
-        <input type="text" name="beer_seasonal"/> Seasonal? </label><br>
+        <select name="beer_type">
+            <option value="STOUT">Stout</option>
+            <option value="LAGER">Lager</option>
+            <option value="IPA">IPA</option>
+            <option value="PILSNER">Pilsner</option>
+            <option value="PORTER">Porter</option>
+            <option value="BITTER">Bitter</option>
+            <option value="SAISON">Saison</option>
+        </select> Beer Type<br>
+        <select name="beer_seasonal">
+            <option value="None">All Year</option>
+            <option value="winter">Winter</option>
+            <option value="spring">Spring</option>
+            <option value="summer">Summer</option>
+            <option value="autumn">Winter</option>
+        </select> Season<br>
         <input type="text" name="beer_retail_cost"/> Retail Cost </label><br>
-	  <button type="submit" name="submit" value="register" class="btn btn-primary">Register</button>
+        <input type="text" name="beer_image"/> Beer Image Link</label><br>
+
+
+
+	  <button type="submit" name="submit" value="submit" class="btn btn-primary">Submit</button>
 	</form>
 </div>
 {% endblock %}

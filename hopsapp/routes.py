@@ -243,20 +243,38 @@ def register():
             if request.form['confirm_password'] != request.form['password']:
                 flash('Passwords DO NOT Match')
                 return render_template("register.html")
-            name = request.form['name']
-            phone = request.form['phone']
-            email = request.form['email']
-            password = request.form['password']
-            new_customer = Customer(name=name, phone=phone, email=email, password=password)
-            try:
-                db.session.add(new_customer)
-                db.session.commit()
-                flash('Cheers! ' + name)
-                return redirect(url_for('home'))
-            #pylint: disable=bare-except
-            except:
-                error = 'Ooops! We apologize! There was an error in your attempt to register.'#pylint: disable=unused-variable
-                return redirect(url_for('home'))
+            usertype = request.form['usertype']
+            if usertype == "customer":
+                name = request.form['name']
+                phone = request.form['phone']
+                email = request.form['email']
+                password = request.form['password']
+                new_customer = Customer(name=name, phone=phone, email=email, password=password)
+                try:
+                    db.session.add(new_customer)
+                    db.session.commit()
+                    flash('Cheers! ' + name)
+                    return redirect(url_for('home'))
+                #pylint: disable=bare-except
+                except:
+                    error = 'Ooops! We apologize! There was an error in your attempt to register.'#pylint: disable=unused-variable
+                    return redirect(url_for('home'))
+            elif usertype == "storeowner":
+                name = request.form['name']
+                phone = request.form['phone']
+                email = request.form['email']
+                password = request.form['password']
+                print(password)
+                new_storeowner = Storeowner(name=name, phone=phone, email=email, password=password)
+                try:
+                    db.session.add(new_storeowner)
+                    db.session.commit()
+                    flash('Cheers! ' + name)
+                    return redirect(url_for('home'))
+                #pylint: disable=bare-except
+                except:
+                    error = 'Ooops! We apologize! There was an error in your attempt to register.'#pylint: disable=unused-variable
+                    return redirect(url_for('home'))
 
 @app.route('/beerprofile', methods=['GET', 'POST'])
 #value for new rating is new_rating
@@ -363,11 +381,23 @@ def storeprofile():
             return redirect(url_for('storeprofile', name=text_search))
 
 @app.route('/addbeer', methods=['GET', 'POST'])
+#assume storeowner
 def add_beer():
     """
     store owner privilege access only
     add a beer to a store by a store owner
     """
+
+    """
+    we have the storeowner, get the store_id from the store owner id
+    get the beer name, & brewery (check if they exist, if not create new)
+    get teh rest of the info
+
+    db.session.add(newbeer)
+    db.session.commit()
+
+    """
+
     return render_template("addbeer.html")
 
 

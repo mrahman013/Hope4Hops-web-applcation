@@ -179,6 +179,7 @@ class Storeowner(db.Model):
                  name,
                  email,
                  phone,
+                 password,
                  **kwargs):
         super(Storeowner, self).__init__(**kwargs)
         self.name = name
