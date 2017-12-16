@@ -10,6 +10,26 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 </head>
 
+<div class="col-sm-2 sidenav pull-right col-xs-12">
+   <div>
+Search
+     <form method="POST">
+
+ <input type="text" name="text_search" placeholder="Search by Name..."><br>
+<input type="radio" name="searchtype" value="beer" checked> Beer<br>
+<input type="radio" name="searchtype" value="brewery"> Brewery<br>
+<input type="radio" name="searchtype" value="store"> Store<br>
+
+   <button type="submit" name="submit" value="search">
+     <span class="glyphicon glyphicon-search"> Search</span>
+   </button>
+
+
+ </form>
+   </div>
+ </div>
+
+
 
     {% if error %}
       <p><strong>Error:</strong> {{ error }}
@@ -224,7 +244,7 @@
 
 
 
-<!-- 
+<!--
 // <script>
 //   // Only change code below this line.
 //   var a = ''
@@ -236,9 +256,9 @@
 // //document.getElementById("geolocation").submit();
 //  a='http://yahoo.com'
 // });
-// }  
+// }
 // $('.a_tag').attr('href',a);
- 
+
 //   // Only change code above this line.
 // </script>
  -->

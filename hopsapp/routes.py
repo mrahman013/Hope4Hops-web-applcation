@@ -5,14 +5,13 @@ from functools import wraps
 from operator import itemgetter, attrgetter
 import json
 import requests
-from flask import session, request, flash, url_for, redirect, render_template, abort, g
+from flask import session, request, Response, flash, url_for, redirect, render_template, abort, g
 from flask_sqlalchemy import SQLAlchemy
 from hopsapp import db, app
 from hopsapp.models import Beer, Brewery, Store, Customer, Storeowner
 from sqlalchemy import desc, func
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required #pylint: disable=line-too-long
-
-
+from flask_principal import Principal, Permission, RoleNeed
 
 
 # flask-login
@@ -20,6 +19,14 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, curren
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
+
+#flask-principal
+principals = Principal(app)
+#flask-permissions
+# perms = Permissions(app, db, current_user)
+
+# Create a permission with a single Need, in this case a RoleNeed.
+storeowner_permission = Permission(RoleNeed('storeowner'))
 
 def find_popular_beers():
     """
@@ -354,6 +361,15 @@ def storeprofile():
             return redirect(url_for('breweryprofile', name=text_search))
         if searchtype == 'store':
             return redirect(url_for('storeprofile', name=text_search))
+
+@app.route('/addbeer', methods=['GET', 'POST'])
+def add_beer():
+    """
+    store owner privilege access only
+    add a beer to a store by a store owner
+    """
+    return render_template("addbeer.html")
+
 
 #Error handler
 @app.errorhandler(404)
