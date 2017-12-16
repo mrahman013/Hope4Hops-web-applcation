@@ -72,7 +72,6 @@ def rarity_system(beer):
     elif per < 0.25:
         return "rare"
 
-
 def staff_beers():
     """
     This method is used to return 3 beer
@@ -211,16 +210,27 @@ def login():
     if request.method == 'GET':
         return render_template('login.html')
     elif request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        customer = Customer.query.filter_by(email=email, password=password).first()
-        if customer is None:
-            error = 'Failed Login Attempt'
-            return render_template('login.html', error=error)
-        login_user(customer)
-        flash('Logged in successfully')
-        return redirect(url_for('home'))
-
+        usertype = request.form['usertype']
+        if usertype == "customer":
+            email = request.form['email']
+            password = request.form['password']
+            customer = Customer.query.filter_by(email=email, password=password).first_or_404()
+            if customer is None:
+                error = 'Failed Login Attempt'
+                return render_template('login.html', error=error)
+            login_user(customer)
+            flash('Logged in successfully')
+            return redirect(url_for('home'))
+        elif usertype == "Storeowner":
+            email = request.form['email']
+            password = request.form['password']
+            storeowner = Storeowner.query.filter_by(email=email, password=password).first_or_404()
+            if storeowner is None:
+                error = 'Failed Login Attempt'
+                return render_template('login.html', error=error)
+            login_user(storeowner)
+            flash('Logged in successfully')
+            return redirect(url_for('home'))
 @app.route('/logout', methods=['GET'])
 @login_required
 def logout():
@@ -286,7 +296,7 @@ def beerprofile():
     """
     if request.method == 'GET':
         search = request.args['name']
-        beer = Beer.query.filter_by(name=search).first()
+        beer = Beer.query.filter_by(name=search).first_or_404()
         # coord = request.args['coord']
 
         # print('coord from beerprofile: '+ str(coord))
@@ -300,7 +310,7 @@ def beerprofile():
     elif request.method == 'POST':
         if request.form['submit'] == "rating":
             search = request.args['name']
-            beer = Beer.query.filter_by(name=search).first()
+            beer = Beer.query.filter_by(name=search).first_or_404()
             # coord = request.args['coord']
             # distances = distance_from_user(beer, coord)
             distances = distance_from_user(beer)
@@ -344,7 +354,7 @@ def breweryprofile():
     """
     if request.method == 'GET':
         search = request.args['name']
-        brewery = Brewery.query.filter_by(name=search).first()
+        brewery = Brewery.query.filter_by(name=search).first_or_404()
         return render_template("breweryprofile.html", brewery=brewery)
     elif request.method == 'POST':
         searchtype = request.form['searchtype']
@@ -366,7 +376,7 @@ def storeprofile():
     """
     if request.method == 'GET':
         search = request.args['name']
-        store = Store.query.filter_by(name=search).first()
+        store = Store.query.filter_by(name=search).first_or_404()
         return render_template("storeprofile.html", store=store)
     elif request.method == 'POST':
         searchtype = request.form['searchtype']
@@ -409,20 +419,19 @@ def not_found_error(error):
     """
     return render_template('404.html'), 404
 
-@app.errorhandler(405)
-def not_found_error(error):
-    """
-    handle not found error code status 405
-    """
-    return render_template('405.html'), 405
-
-@app.errorhandler(400)
-def not_found_error(error):
-    """
-    handle not found error code status 400
-    """
-    return render_template('400.html'), 400
-
+# @app.errorhandler(405)
+# def not_found_error(error):
+#     """
+#     handle not found error code status 405
+#     """
+#     return render_template('405.html'), 405
+#
+# @app.errorhandler(400)
+# def not_found_error(error):
+#     """
+#     handle not found error code status 400
+#     """
+#     return render_template('400.html'), 400
 
 @app.errorhandler(500)
 def internal_error(error):
