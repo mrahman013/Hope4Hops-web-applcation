@@ -18,7 +18,6 @@ stock = db.Table('stock',
                  db.Column('store_id', db.Integer, db.ForeignKey('store.id'))
                 )
 
-
 class Beer(db.Model):
     """
     Beer Model
@@ -114,7 +113,6 @@ class Beer(db.Model):
     def __repr__(self):
         return '<Beer %r, %r, %r, %r, %r, %r, %r, %r>' % (self.name, self.brewery, self.abv, self.beer_type, self.seasonal, self.retail_cost, self.average_popularity, self.rarity) #pylint: disable=line-too-long
 
-
 class Brewery(db.Model):
     """
     Brewery Model
@@ -157,7 +155,6 @@ class Brewery(db.Model):
 
     def __repr__(self):
         return '<Brewery %r, %r, %r, %r, %r, %r>' % (self.name, self.address, self.city, self.state, self.zip_code, self.beers) #pylint: disable=line-too-long
-
 
 class Storeowner(db.Model):
     """
@@ -230,7 +227,6 @@ class Storeowner(db.Model):
 
     def __repr__(self):
         return '<StoreOwner %r, %r, %r, %r>' % (self.name, self.phone, self.email, self.store)
-
 
 class Store(db.Model):
     """
