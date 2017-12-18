@@ -422,6 +422,14 @@ def add_beer():
         beer_name = request.form['beer_name']
 
         #TODO: check if we have beer on file
+        if Beer.query.filter_by(name=beer_name):
+            beer = Beer.query.filter_by(name=beer_name).first()
+            beer_store = request.form['beer_store']
+            store = Store.query.filter_by(name=beer_store).first()
+            store.beers.append(beer)
+            db.session.commit()
+            flash('Beer added uccessfully to your store' + current_user.name)
+            return redirect(url_for('home'))
 
         beer_brewery = request.form['beer_brewery']
         beer_abv = request.form['beer_abv']
