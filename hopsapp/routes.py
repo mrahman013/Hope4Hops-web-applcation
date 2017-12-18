@@ -409,6 +409,10 @@ def add_beer():
 
     return render_template("addbeer.html")
 
+@app.route('/addstore', methods=['GET', 'POST'])
+def add_store():
+    return render_template("addstore.html")
+
 #Error handler
 @app.errorhandler(404)
 def not_found_error(error):

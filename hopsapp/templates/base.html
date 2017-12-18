@@ -39,6 +39,8 @@
             <li {% if request.path == '/contact' %}class="active"{% endif %}><a href="/contact">Contact</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+              <li {% if request.path == '/addbeer' %}class="active"{% endif %}><a href="/addbeer">Add Beer</a></li>
+              <li {% if request.path == '/addstore' %}class="active"{% endif %}><a href="/addstore">Add Store</a></li>
               <li {% if request.path == '/register' %}class="active"{% endif %}><a href="/register">Register</a></li>
               <li {% if request.path == '/logout' %}class="active"{% endif %}><a href="/logout">Logout</a></li>
             <li {% if request.path == '/login' %}class="active"{% endif %}><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
