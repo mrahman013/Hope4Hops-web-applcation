@@ -221,7 +221,7 @@ def login():
             login_user(customer)
             flash('Logged in successfully')
             return redirect(url_for('home'))
-        elif usertype == "Storeowner":
+        elif usertype == "storeowner":
             email = request.form['email']
             password = request.form['password']
             storeowner = Storeowner.query.filter_by(email=email, password=password).first_or_404()
@@ -231,6 +231,7 @@ def login():
             login_user(storeowner)
             flash('Logged in successfully')
             return redirect(url_for('home'))
+
 @app.route('/logout', methods=['GET'])
 @login_required
 def logout():

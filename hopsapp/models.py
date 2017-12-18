@@ -174,6 +174,34 @@ class Storeowner(db.Model):
     # store = db.relationship('Store', backref='owner', lazy='dynamic')
     store = db.relationship('Store', backref='owner', lazy=True)
 
+   # Flask-Login integration
+    def is_authenticated(self):
+        """
+        return true for authenticated
+        """
+        return True
+
+    def is_active(self): # line 37
+        """
+        return true for active
+        """
+        return True
+
+    def is_anonymous(self):
+        """
+        return False
+        """
+        return False
+
+    def get_id(self):
+        """
+        return id of user
+        """
+        return self.id
+
+    # Required for administrative interface
+    def __unicode__(self):
+        return self.name
 
     def __init__(self,
                  name,
@@ -187,8 +215,9 @@ class Storeowner(db.Model):
         self.phone = phone
         self.password = password
 
+
     def __repr__(self):
-        return '<StoreOwner %r, %r, %r, %r>' % (self.name, self.phone, self.email, self.stores)
+        return '<StoreOwner %r, %r, %r, %r>' % (self.name, self.phone, self.email, self.store)
 
 
 class Store(db.Model):
@@ -278,7 +307,7 @@ class Customer(db.Model):
 
     # Required for administrative interface
     def __unicode__(self):
-        return self.username
+        return self.name
 
     def __init__(self, name, phone, email, password, **kwargs):
         super(Customer, self).__init__(**kwargs)
