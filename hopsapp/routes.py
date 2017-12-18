@@ -23,10 +23,11 @@ login_manager.login_view = "login"
 #flask-principal
 principals = Principal(app)
 #flask-permissions
-# perms = Permissions(app, db, current_user)
+perms = Permission(app, db, current_user)
 
 # Create a permission with a single Need, in this case a RoleNeed.
-storeowner_permission = Permission(RoleNeed('storeowner'))
+# storeowner_permission = Permission(RoleNeed('storeowner'))
+# print('storeowner_permission ', storeowner_permission)
 
 def find_popular_beers():
     """
@@ -143,11 +144,8 @@ def home():
         beers = Beer.query.order_by(Beer.brewery_id)
         beer_c = find_popular_beers()
         rare_beers = find_rare_beers()
-
         beer_s = staff_beers()
         return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers, beer_s=beer_s)#pylint: disable=line-too-long
-
-        # return render_template("home.html", beers=beers, beer_c=beer_c, rare_beers=rare_beers)
 
     elif request.method == 'POST':
         if request.form['submit'] == 'browse':
@@ -214,22 +212,22 @@ def login():
         if usertype == "customer":
             email = request.form['email']
             password = request.form['password']
-            customer = Customer.query.filter_by(email=email, password=password).first_or_404()
+            customer = Customer.query.filter_by(email=email, password=password).first()
             if customer is None:
                 error = 'Failed Login Attempt'
                 return render_template('login.html', error=error)
             login_user(customer)
-            flash('Logged in successfully')
+            flash('Welcome ' + customer.name)
             return redirect(url_for('home'))
         elif usertype == "storeowner":
             email = request.form['email']
             password = request.form['password']
-            storeowner = Storeowner.query.filter_by(email=email, password=password).first_or_404()
+            storeowner = Storeowner.query.filter_by(email=email, password=password).first()
             if storeowner is None:
                 error = 'Failed Login Attempt'
                 return render_template('login.html', error=error)
             login_user(storeowner)
-            flash('Logged in successfully')
+            flash('Welcome ' + storeowner.name)
             return redirect(url_for('home'))
 
 @app.route('/logout', methods=['GET'])
@@ -297,23 +295,15 @@ def beerprofile():
     """
     if request.method == 'GET':
         search = request.args['name']
-        beer = Beer.query.filter_by(name=search).first_or_404()
-        # coord = request.args['coord']
+        beer = Beer.query.filter_by(name=search).first()
 
-        # print('coord from beerprofile: '+ str(coord))
-        # store_component = distance_from_user(beer)
-        # change made hare
-        # return render_template("beerprofile.html",beer=beer,all_component=store_component)
         distances = distance_from_user(beer)
-        #distances = distance_from_user(beer, coord)
         return render_template("beerprofile.html", beer=beer, distances=distances)
 
     elif request.method == 'POST':
         if request.form['submit'] == "rating":
             search = request.args['name']
-            beer = Beer.query.filter_by(name=search).first_or_404()
-            # coord = request.args['coord']
-            # distances = distance_from_user(beer, coord)
+            beer = Beer.query.filter_by(name=search).first()
             distances = distance_from_user(beer)
 
             input_rating = request.form['new_rating']
@@ -322,14 +312,10 @@ def beerprofile():
             ratings = beer.total_ratings + int(float(input_rating)) # int
             new_average_popularity = ratings/users #float
 
-
             beer.total_users = users
             beer.total_ratings = ratings
             beer.average_popularity = new_average_popularity
             beer.rarity = rarity_system(beer)
-
-            #fix this line so that we don't need all these lines of code
-            # beer.average_popularity = new_rating(beer)
 
             db.session.commit()
 
@@ -338,9 +324,7 @@ def beerprofile():
         elif request.form['submit'] == "search":
             searchtype = request.form['searchtype']
             text_search = request.form['text_search']
-            # coordinates = request.form['location']
             if searchtype == 'beer':
-                #return redirect(url_for('beerprofile', name=text_search, coord = coordinates))
                 return redirect(url_for('beerprofile', name=text_search))
             if searchtype == 'brewery':
                 return redirect(url_for('breweryprofile', name=text_search))
@@ -355,14 +339,12 @@ def breweryprofile():
     """
     if request.method == 'GET':
         search = request.args['name']
-        brewery = Brewery.query.filter_by(name=search).first_or_404()
+        brewery = Brewery.query.filter_by(name=search).first()
         return render_template("breweryprofile.html", brewery=brewery)
     elif request.method == 'POST':
         searchtype = request.form['searchtype']
         text_search = request.form['text_search']
-        #coordinates = request.form['location']
         if searchtype == 'beer':
-            #return redirect(url_for('beerprofile', name=text_search, coord = coordinates))
             return redirect(url_for('beerprofile', name=text_search))
         if searchtype == 'brewery':
             return redirect(url_for('breweryprofile', name=text_search))
@@ -377,14 +359,12 @@ def storeprofile():
     """
     if request.method == 'GET':
         search = request.args['name']
-        store = Store.query.filter_by(name=search).first_or_404()
+        store = Store.query.filter_by(name=search).first()
         return render_template("storeprofile.html", store=store)
     elif request.method == 'POST':
         searchtype = request.form['searchtype']
         text_search = request.form['text_search']
-        #coordinates = request.form['location']
         if searchtype == 'beer':
-            #return redirect(url_for('beerprofile', name=text_search, coord = coordinates))
             return redirect(url_for('beerprofile', name=text_search))
         if searchtype == 'brewery':
             return redirect(url_for('breweryprofile', name=text_search))
@@ -392,7 +372,8 @@ def storeprofile():
             return redirect(url_for('storeprofile', name=text_search))
 
 @app.route('/addbeer', methods=['GET', 'POST'])
-#assume storeowner
+# @storeowner_permission.require()
+# @requires_roles('storeowner')
 def add_beer():
     """
     store owner privilege access only
@@ -411,7 +392,6 @@ def add_beer():
 
     return render_template("addbeer.html")
 
-
 #Error handler
 @app.errorhandler(404)
 def not_found_error(error):
@@ -420,19 +400,19 @@ def not_found_error(error):
     """
     return render_template('404.html'), 404
 
-# @app.errorhandler(405)
-# def not_found_error(error):
-#     """
-#     handle not found error code status 405
-#     """
-#     return render_template('405.html'), 405
-#
-# @app.errorhandler(400)
-# def not_found_error(error):
-#     """
-#     handle not found error code status 400
-#     """
-#     return render_template('400.html'), 400
+@app.errorhandler(405)
+def not_found_error(error):
+    """
+    handle not found error code status 405
+    """
+    return render_template('405.html'), 405
+
+@app.errorhandler(400)
+def not_found_error(error):
+    """
+    handle not found error code status 400
+    """
+    return render_template('400.html'), 400
 
 @app.errorhandler(500)
 def internal_error(error):

@@ -4,6 +4,8 @@ SQLAlchemy models
 #from datetime import datetime
 #from flask_sqlalchemy import SQLAlchemy
 from hopsapp import db
+from werkzeug import generate_password_hash, check_password_hash# Import the mixin
+# from flask.ext.permissions.models import UserMixin
 
 """
 Stock Table
@@ -169,7 +171,9 @@ class Storeowner(db.Model):
     #phone number string 20 incase international number
     phone = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(100))
-    authenticated = db.Column(db.Boolean, default=False)
+    authenticated = db.Column(db.Boolean, default=True)
+    #TODO: restruct to allow hash password
+    # pwdhash = db.Column(db.String(100))
     #storeowner.store
     # store = db.relationship('Store', backref='owner', lazy='dynamic')
     store = db.relationship('Store', backref='owner', lazy=True)
@@ -199,6 +203,13 @@ class Storeowner(db.Model):
         """
         return self.id
 
+    #TODO: restruct to allow hash password
+    # def set_password(self, password):
+        # self.pwdhash = generate_password_hash(password)
+
+    # def check_password(self, password):
+        # return check_password_hash(self.pwdhash, password)
+
     # Required for administrative interface
     def __unicode__(self):
         return self.name
@@ -208,13 +219,14 @@ class Storeowner(db.Model):
                  email,
                  phone,
                  password,
+                 roles=None,
                  **kwargs):
         super(Storeowner, self).__init__(**kwargs)
         self.name = name
         self.email = email
         self.phone = phone
         self.password = password
-
+        # UserMixin.__init__(self, roles)
 
     def __repr__(self):
         return '<StoreOwner %r, %r, %r, %r>' % (self.name, self.phone, self.email, self.store)
@@ -263,7 +275,6 @@ class Store(db.Model):
 
     def __repr__(self):
         return '<Store %r, %r, %r, %r, %r, %r, %r>' % (self.name, self.address, self.city, self.state, self.zip_code, self.average_traffic, self.owner)#pylint: disable=line-too-long
-
 
 class Customer(db.Model):
     """
