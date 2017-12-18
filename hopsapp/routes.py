@@ -149,6 +149,7 @@ def home():
     show on home page when lending, query specifc and shown on home page when requested by user,
     redirect to appropiate routes when user search for beer, bewery or store
     """
+    print(LOGGED_IN)
     if request.method == 'GET':
         beers = Beer.query.order_by(Beer.brewery_id)
         beer_c = find_popular_beers()
@@ -193,6 +194,7 @@ def about():
     """
     This method render about page and disply it
     """
+    print(LOGGED_IN)
     return render_template("about.html")
 
 @app.route('/contact')
@@ -200,6 +202,7 @@ def contact():
     """
     This method render contact page
     """
+    print(LOGGED_IN)
     return render_template("contact.html")
 
 @login_manager.user_loader
@@ -224,7 +227,6 @@ def login():
     This method handle login
     """
     global LOGGED_IN
-
     if request.method == 'GET':
         return render_template('login.html')
     elif request.method == 'POST':
@@ -267,6 +269,7 @@ def logout():
     This method is used to logout. It redirect to login page afrer logout
     """
     logout_user()
+    flash('Successfully Logged Out')
     return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -323,6 +326,7 @@ def beerprofile():
     that carry this beer, store info, beer info. It also take care new beer rating submit by
     user
     """
+    print(LOGGED_IN)
     if request.method == 'GET':
         search = request.args['name']
         beer = Beer.query.filter_by(name=search).first()
@@ -367,6 +371,7 @@ def breweryprofile():
     This method is used to show info about specfc bewery info includes all beers they produce and
     their style, ABV, popularity and rarity
     """
+    print(LOGGED_IN)
     if request.method == 'GET':
         search = request.args['name']
         brewery = Brewery.query.filter_by(name=search).first()
@@ -387,6 +392,7 @@ def storeprofile():
     This method is used to show info about specfc store's info includes all beers they carry and
     their style, ABV, popularity and rarity
     """
+    print(LOGGED_IN)
     if request.method == 'GET':
         search = request.args['name']
         store = Store.query.filter_by(name=search).first()
@@ -402,8 +408,6 @@ def storeprofile():
             return redirect(url_for('storeprofile', name=text_search))
 
 @app.route('/addbeer', methods=['GET', 'POST'])
-# @storeowner_permission.require()
-# @requires_roles('storeowner')
 def add_beer():
     """
     store owner privilege access only
@@ -414,52 +418,45 @@ def add_beer():
         flash('Must be a storeowner')
         return redirect(url_for('home'))
 
-    if request.method == 'GET':
-        return render_template("addbeer.html")
-    elif request.method == 'POST':
-        beer_name = request.args['beer_name']
-        beer_brewery = requests.args['beer_brewery']
-        beer_abv = request.args['beer_abv']
-        beer_type = requests.args['beer_type']
-        beer_seasonal = requests.args['beer_seasonal']
+    if request.method == 'POST':
+        beer_name = request.form['beer_name']
+
+        #TODO: check if we have beer on file
+
+        beer_brewery = request.form['beer_brewery']
+        beer_abv = request.form['beer_abv']
+        beer_type = request.form['beer_type']
+        beer_seasonal = request.form['beer_seasonal']
         #query the store and then append
-        beer_store = requests.args['beer_store']
-        beer_retail_cost = requests.args['beer_retail_cost']
-        beer_image = requests.args['beer_image']
-        beer_delivery_day_of_the_week = requests.args['beer_delivery_day_of_the_week']
+        beer_store = request.form['beer_store']
+        beer_retail_cost = request.form['beer_retail_cost']
+        beer_image = request.form['beer_image']
+        beer_delivery_day_of_the_week = request.form['beer_delivery_day_of_the_week']
 
         brewery = Brewery.query.filter_by(name=beer_brewery).first()
-        print(brewery.name)
         store = Store.query.filter_by(name=beer_store).first()
-        print(store.name)
         new_beer = Beer(name=beer_name,
                         beer_image=beer_image,
                         abv=beer_abv,
                         beer_type=beer_type,
                         seasonal=beer_seasonal,
                         retail_cost=beer_retail_cost,
-                        devlivery_day_of_the_week=beer_delivery_day_of_the_week)
+                        devlivery_day_of_the_week=beer_delivery_day_of_the_week,
+                        brewery_id = brewery.id)
 
+        #add the new beer to the db
+        db.session.add(new_beer)
+        #commit the data to the database
+        db.session.commit()
+        #add the beer to the list of beers of the store
+        store.beers.append(new_beer)
+        db.session.commit()
 
-        # flash('Added Beer Successfully ' + current_user.name)
-        # return redirect(url_for('home'))
-    """
-    we have the storeowner, get the store_id from the store owner id
-    get the beer name, & brewery (check if they exist, if not create new)
-    get the rest of the info
+        flash('Added Beer Successfully ' + current_user.name)
+        return redirect(url_for('home'))
 
-    #adding beer to the store
-    store1.beers.append(beer1)
-    store1.beers.append(beer3)
-    store2.beers.append(beer2)
-    store2.beers.append(beer3)
-
-    db.session.add(newbeer)
-    db.session.commit()
-
-    """
-
-
+    elif request.method == 'GET':
+        return render_template("addbeer.html")
 
 @app.route('/addstore', methods=['GET', 'POST'])
 def add_store():

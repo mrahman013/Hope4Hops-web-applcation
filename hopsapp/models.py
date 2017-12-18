@@ -45,8 +45,8 @@ class Beer(db.Model):
     rarity = db.Column(db.String(10), default='common')
     # accepts: ['MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN']
     devlivery_day_of_the_week = db.Column(db.String(3))
-    total_ratings = db.Column(db.Integer)
-    total_users = db.Column(db.Integer)
+    total_ratings = db.Column(db.Integer, default=0)
+    total_users = db.Column(db.Integer, default=0)
     #beer.brewery
     brewery_id = db.Column(db.Integer, db.ForeignKey('brewery.id'))
 
@@ -93,8 +93,6 @@ class Beer(db.Model):
                  beer_type,
                  seasonal,
                  retail_cost,
-                 average_popularity,
-                 rarity,
                  devlivery_day_of_the_week,
                  brewery_id,
                  **kwargs):
@@ -105,8 +103,6 @@ class Beer(db.Model):
         self.beer_type = beer_type
         self.seasonal = seasonal
         self.retail_cost = retail_cost
-        self.average_popularity = average_popularity
-        self.rarity = rarity
         self.devlivery_day_of_the_week = devlivery_day_of_the_week
         self.brewery_id = brewery_id
 
