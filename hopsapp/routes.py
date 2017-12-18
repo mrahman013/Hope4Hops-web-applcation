@@ -27,6 +27,13 @@ perms = Permission(app, db, current_user)
 
 LOGGED_IN = None
 
+# def set_LOGGED_IN(value):
+#     LOGGED_IN = value
+#     return LOGGED_IN
+#
+# def check_LOGGED_IN():
+#     return LOGGED_IN
+
 # Create a permission with a single Need, in this case a RoleNeed.
 # storeowner_permission = Permission(RoleNeed('storeowner'))
 # print('storeowner_permission ', storeowner_permission)
@@ -216,6 +223,8 @@ def login():
     """
     This method handle login
     """
+    global LOGGED_IN
+
     if request.method == 'GET':
         return render_template('login.html')
     elif request.method == 'POST':
@@ -230,7 +239,9 @@ def login():
             login_user(customer)
             # print(type(current_user))
             # print(isinstance(current_user, Customer))
+            # global LOGGED_IN = 'customer'
             LOGGED_IN = 'customer'
+            # set_LOGGED_IN('customer')
             print(LOGGED_IN)
             flash('Welcome ' + customer.name)
             return redirect(url_for('home'))
@@ -242,7 +253,9 @@ def login():
                 error = 'Failed Login Attempt'
                 return render_template('login.html', error=error)
             login_user(storeowner)
+            # global LOGGED_IN = 'storeowner'
             LOGGED_IN = 'storeowner'
+            # set_LOGGED_IN('storeowner')
             print(LOGGED_IN)
             flash('Welcome ' + storeowner.name)
             return redirect(url_for('home'))
@@ -396,21 +409,68 @@ def add_beer():
     store owner privilege access only
     add a beer to a store by a store owner
     """
+    print(LOGGED_IN)
+    if LOGGED_IN is not 'storeowner':
+        flash('Must be a storeowner')
+        return redirect(url_for('home'))
 
+    if request.method == 'GET':
+        return render_template("addbeer.html")
+    elif request.method == 'POST':
+        beer_name = request.args['beer_name']
+        beer_brewery = requests.args['beer_brewery']
+        beer_abv = request.args['beer_abv']
+        beer_type = requests.args['beer_type']
+        beer_seasonal = requests.args['beer_seasonal']
+        #query the store and then append
+        beer_store = requests.args['beer_store']
+        beer_retail_cost = requests.args['beer_retail_cost']
+        beer_image = requests.args['beer_image']
+        beer_delivery_day_of_the_week = requests.args['beer_delivery_day_of_the_week']
+
+        brewery = Brewery.query.filter_by(name=beer_brewery).first()
+        print(brewery.name)
+        store = Store.query.filter_by(name=beer_store).first()
+        print(store.name)
+        new_beer = Beer(name=beer_name,
+                        beer_image=beer_image,
+                        abv=beer_abv,
+                        beer_type=beer_type,
+                        seasonal=beer_seasonal,
+                        retail_cost=beer_retail_cost,
+                        devlivery_day_of_the_week=beer_delivery_day_of_the_week)
+
+
+        # flash('Added Beer Successfully ' + current_user.name)
+        # return redirect(url_for('home'))
     """
     we have the storeowner, get the store_id from the store owner id
     get the beer name, & brewery (check if they exist, if not create new)
-    get teh rest of the info
+    get the rest of the info
+
+    #adding beer to the store
+    store1.beers.append(beer1)
+    store1.beers.append(beer3)
+    store2.beers.append(beer2)
+    store2.beers.append(beer3)
 
     db.session.add(newbeer)
     db.session.commit()
 
     """
 
-    return render_template("addbeer.html")
+
 
 @app.route('/addstore', methods=['GET', 'POST'])
 def add_store():
+    """
+    store owner privilege access only
+    add a beer to a store by a store owner
+    """
+    if LOGGED_IN == 'customer' or LOGGED_IN == None:
+        flash('Must be a storeowner')
+        return redirect(url_for('home'))
+
     return render_template("addstore.html")
 
 #Error handler

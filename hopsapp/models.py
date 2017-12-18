@@ -39,10 +39,10 @@ class Beer(db.Model):
     retail_cost = db.Column(db.Float)
     # default value will be 0
     # todo- refers to ratings to be exact but I do not want to tackle that problem at 11:54 pm
-    average_popularity = db.Column(db.Float)
+    average_popularity = db.Column(db.Float, default=0)
     # accepts: ['common' | 'uncommon' | 'rare']
     # default value for entries will be 'common'
-    rarity = db.Column(db.String(10))
+    rarity = db.Column(db.String(10), default='common')
     # accepts: ['MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN']
     devlivery_day_of_the_week = db.Column(db.String(3))
     total_ratings = db.Column(db.Integer)
