@@ -25,6 +25,8 @@ principals = Principal(app)
 #flask-permissions
 perms = Permission(app, db, current_user)
 
+LOGGED_IN = None
+
 # Create a permission with a single Need, in this case a RoleNeed.
 # storeowner_permission = Permission(RoleNeed('storeowner'))
 # print('storeowner_permission ', storeowner_permission)
@@ -130,7 +132,7 @@ def login_required(f):
             return f(*args, **kwargs)
         else:
             flash("You need to login first")
-            return redirect(url_for('login'))
+            return redirect(url_for('home'))
     return wrap
 
 @app.route('/', methods=['GET', 'POST'])
@@ -198,7 +200,16 @@ def load_user(user_id):
     """
     This method used to query using user_id and return it
     """
-    return Customer.query.get(user_id)
+    try:
+        if LOGGED_IN == 'customer':
+            return Customer.query.get(user_id)
+        elif LOGGED_IN == 'storeowner':
+            return Storeowner.query.get(user_id)
+    except:
+        return None
+    # customers = Customer.query.all()
+    # storeowners = Storeowner.query.all()
+    # return Customer.query.get(user_id)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -217,6 +228,10 @@ def login():
                 error = 'Failed Login Attempt'
                 return render_template('login.html', error=error)
             login_user(customer)
+            # print(type(current_user))
+            # print(isinstance(current_user, Customer))
+            LOGGED_IN = 'customer'
+            print(LOGGED_IN)
             flash('Welcome ' + customer.name)
             return redirect(url_for('home'))
         elif usertype == "storeowner":
@@ -227,6 +242,8 @@ def login():
                 error = 'Failed Login Attempt'
                 return render_template('login.html', error=error)
             login_user(storeowner)
+            LOGGED_IN = 'storeowner'
+            print(LOGGED_IN)
             flash('Welcome ' + storeowner.name)
             return redirect(url_for('home'))
 
