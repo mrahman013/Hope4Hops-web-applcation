@@ -237,11 +237,11 @@ class Store(db.Model):
     state = db.Column(db.String(2), nullable=False)
     zip_code = db.Column(db.String(7), nullable=False)
     # accepts: ['common' | 'uncommon' | 'rare']
-    average_traffic = db.Column(db.String(10))
+    average_traffic = db.Column(db.String(10), default=0)
     # lat = db.Column(db.Float, nullable=False)
     # lon = db.Column(db.Float, nullable=False)
-    lat = db.Column(db.Float, unique=True)
-    lon = db.Column(db.Float, unique=True)
+    lat = db.Column(db.Float, default=0.0) #TODO: figure out how to make these two unique
+    lon = db.Column(db.Float, default=0.0)
     #store.owner
     storeowner_id = db.Column(db.Integer, db.ForeignKey('storeowner.id'))
 
@@ -251,9 +251,6 @@ class Store(db.Model):
                  city,
                  state,
                  zip_code,
-                 average_traffic,
-                 lat,
-                 lon,
                  **kwargs):
         super(Store, self).__init__(**kwargs)
         self.name = name
@@ -261,9 +258,10 @@ class Store(db.Model):
         self.city = city
         self.state = state
         self.zip_code = zip_code
-        self.average_traffic = average_traffic
-        self.lat = lat
-        self.lon = lon
+
+    #TODO: add determine lat & lon funtions here, may need js
+    def determine_lat_lon():
+        pass
 
     def __repr__(self):
         return '<Store %r, %r, %r, %r, %r, %r, %r>' % (self.name, self.address, self.city, self.state, self.zip_code, self.average_traffic, self.owner)#pylint: disable=line-too-long

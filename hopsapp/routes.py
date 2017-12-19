@@ -25,14 +25,10 @@ principals = Principal(app)
 #flask-permissions
 perms = Permission(app, db, current_user)
 
+#A terrible hack job to determine whether a storeowner or customer
+#are logged in, in the future, this is never to be done
 LOGGED_IN = None
 
-# def set_LOGGED_IN(value):
-#     LOGGED_IN = value
-#     return LOGGED_IN
-#
-# def check_LOGGED_IN():
-#     return LOGGED_IN
 
 # Create a permission with a single Need, in this case a RoleNeed.
 # storeowner_permission = Permission(RoleNeed('storeowner'))
@@ -268,6 +264,8 @@ def logout():
     """
     This method is used to logout. It redirect to login page afrer logout
     """
+    global LOGGED_IN
+    LOGGED_IN = None
     logout_user()
     flash('Successfully Logged Out')
     return redirect(url_for('login'))
@@ -428,7 +426,7 @@ def add_beer():
             store = Store.query.filter_by(name=beer_store).first()
             store.beers.append(beer)
             db.session.commit()
-            flash('Beer added uccessfully to your store' + current_user.name)
+            flash('Beer added successfully to your store ' + current_user.name)
             return redirect(url_for('home'))
 
         beer_brewery = request.form['beer_brewery']
@@ -460,7 +458,7 @@ def add_beer():
         store.beers.append(new_beer)
         db.session.commit()
 
-        flash('Added Beer Successfully ' + current_user.name)
+        flash('Beer added successfully to your store ' + current_user.name)
         return redirect(url_for('home'))
 
     elif request.method == 'GET':
@@ -472,11 +470,35 @@ def add_store():
     store owner privilege access only
     add a beer to a store by a store owner
     """
+    #TODO: uncomment when testing logged in storeowner
     if LOGGED_IN == 'customer' or LOGGED_IN == None:
         flash('Must be a storeowner')
         return redirect(url_for('home'))
 
-    return render_template("addstore.html")
+    if request.method == 'POST':
+        name = request.form['store_name']
+        address = request.form['store_address']
+        city = request.form['store_city']
+        state = request.form['store_state']
+        zip_code = request.form['store_zip_code']
+        #for this we must assume that a storeowner is logged in
+        # and that storeowner has an id
+        storeowner_id = current_user.id
+
+        store = Store(name=name,
+                    address=address,
+                    city=city,
+                    state=state,
+                    zip_code=zip_code,
+                    storeowner_id=storeowner_id)
+
+        db.session.add(store)
+        db.session.commit()
+        flash('Added your store successfully')
+        return redirect(url_for('home'))
+
+    elif request.method == 'GET':
+        return render_template("addstore.html")
 
 #Error handler
 @app.errorhandler(404)
