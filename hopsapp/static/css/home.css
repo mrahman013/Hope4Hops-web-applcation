@@ -40,8 +40,8 @@
     }
 
     .smallimage{
-      min-height: 100px;
-      max-height: 100px;
+      min-height: 50px;
+      max-height: 50px;
       display:block;
       margin:auto;
     }
