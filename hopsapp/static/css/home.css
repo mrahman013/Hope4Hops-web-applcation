@@ -39,6 +39,13 @@
       margin:auto;
     }
 
+    .smallimage{
+      min-height: 100px;
+      max-height: 100px;
+      display:block;
+      margin:auto;
+    }
+
     tr:hover{
       background-color:#CCCCCC;
       border-style:solid:
