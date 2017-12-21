@@ -9,13 +9,9 @@ you and that brew you've been searching for with our easy to use interface!
 -------
 
 
-https://user-images.githubusercontent.com/12536035/32802900-beb01286-c94f-11e7-8393-0f9e4809571d.png
-
 If you want to search for a specific beer, input beer name in the **Search Beer** search bar.
 
 If you want to search by brewery, input brewery name in the **Search Brewery** search bar.
-
-To narrow down the amount of liquor stores near you use the **Search Proximity** drop down
 
 With the following input values, we will return a selection of liquor stores that contain the product you are searching for on the map.
 
@@ -45,6 +41,24 @@ With the following input values, we will return a selection of liquor stores tha
 
 * Other way is to run `python app.py` on root directory
 
+### Running tests
+-------
+* Unit and Integration tests
+  * Navigate to /tests
+    * python test.py -v
+* Acceptance test of searcing Beer and Beer Profile
+  * Navigate to /tests
+    * python test_acceptance_beerprofile.py -v
+    
+ * Acceptance test of searcing Brewery and Brewery Profile
+  * Navigate to /tests
+    * python test_acceptance_brewery.py -v
+    
+* Acceptance test of searcing Store and Store Profile
+  * Navigate to /tests
+    * python test_acceptance_storeprofile.py -v
+    
+ 
 ### Contribute
 -------
 Issue Tracker: https://github.com/katierose1029/Hope4Hops/issues

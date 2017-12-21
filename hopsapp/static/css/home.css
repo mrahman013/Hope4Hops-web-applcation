@@ -11,11 +11,6 @@
       font-family:Lobster;
     }
 
-    
-    .logo_cls img{
-      margin-top: -12px;
-    }
-
      #map{
       height:400px;
       width:100%;
@@ -43,7 +38,7 @@
       display:block;
       margin:auto;
     }
-    
+
     tr:hover{
       background-color:#CCCCCC;
       border-style:solid:
@@ -68,4 +63,3 @@
   font-family: Spectral SC;
   font-size: 24px;
 }
-

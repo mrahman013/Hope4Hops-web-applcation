@@ -15,6 +15,7 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/nlogo.png') }}">
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Spectral SC" rel="stylesheet" type="text/css">
+
   </head>
 
   <body>
@@ -32,15 +33,17 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
+            <li {% if request.path == '/' %}class="active"{% endif %}><a href="/">Home</a></li>
+            <li {% if request.path == '/about' %}class="active"{% endif %}><a href="/about">About</a></li>
 
-            <li><a href="/contact">Contact</a></li>
+            <li {% if request.path == '/contact' %}class="active"{% endif %}><a href="/contact">Contact</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-              <li><a href="/register">Register</a></li>
-              <li><a href="/logout">Logout</a></li>
-            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              <li {% if request.path == '/addbeer' %}class="active"{% endif %}><a href="/addbeer">Add Beer</a></li>
+              <li {% if request.path == '/addstore' %}class="active"{% endif %}><a href="/addstore">Add Store</a></li>
+              <li {% if request.path == '/register' %}class="active"{% endif %}><a href="/register">Register</a></li>
+              <li {% if request.path == '/logout' %}class="active"{% endif %}><a href="/logout">Logout</a></li>
+            <li {% if request.path == '/login' %}class="active"{% endif %}><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 
           </ul>
         </div>
@@ -52,31 +55,16 @@
         <!-- <div class="row content"> -->
 
 
-    <div class="col-sm-2 sidenav pull-right">
-       <div>
- Search
-         <form method="POST">
-
-     <input type="text" name="text_search" placeholder="Search by Name..."><br>
-   <input type="radio" name="searchtype" value="beer" checked> Beer<br>
-   <input type="radio" name="searchtype" value="brewery"> Brewery<br>
-   <input type="radio" name="searchtype" value="store"> Store<br>
-       <button type="submit" name="submit" value="search">
-         <span class="glyphicon glyphicon-search"> Search</span>
-       </button>
-
-
-     </form>
-       </div>
-     </div>
-
 
 
     {% block body %}{% endblock %}
-
-    <footer class="container-fluid text-center">
+<!-- Footer margin -250px left and right to expand -->
+<div class="row">
+  <footer class="container-fluid text-center">
       <p>Property of Hope4Hops: <a href="/contact">Contact Us</a></p>
     </footer>
+</div>
+
 
   </body>
 </html>
