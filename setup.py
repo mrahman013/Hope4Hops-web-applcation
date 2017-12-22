@@ -6,6 +6,6 @@ setup(
     packages=['hopsapp'],
     include_package_data=True,
     install_requires=[
-        'flask', 'Flask-SQLAlchemy', 'flask-login', 'psycopg2'
+        'flask', 'Flask-SQLAlchemy', 'flask-login', 'psycopg2', 'flask-principal'
     ],
 )
