@@ -58,7 +58,12 @@ With the following input values, we will return a selection of liquor stores tha
   * Navigate to /tests
     * python test_acceptance_storeprofile.py -v
     
- 
+
+### Documentation
+* Sphinx Documentation
+  * Navigate to doc/_build/html
+    *Open index.html
+
 ### Contribute
 -------
 Issue Tracker: https://github.com/katierose1029/Hope4Hops/issues

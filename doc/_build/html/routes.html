@@ -59,7 +59,7 @@
 <dl class="get">
 <dt id="get--home">
 <code class="descname">GET </code><code class="descname">/home</code><a class="headerlink" href="#get--home" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lists every single beer in the database in the browse table</p>
+<dd><p>Reads beers from the database, collects the most popular and rarest beers, as well as staff reccomendations.</p>
 </dd></dl>
 
 <dl class="post">
@@ -113,13 +113,13 @@
 <dl class="get">
 <dt id="get--beerprofile?name=(String-beer_name)">
 <code class="descname">GET </code><code class="descname">/beerprofile?name=</code><span class="sig-paren">(</span><em class="property">String: </em><em>beer_name</em><span class="sig-paren">)</span><a class="headerlink" href="#get--beerprofile?name=(String-beer_name)" title="Permalink to this definition">¶</a></dt>
-<dd><p>Renders the beer profile page, listing stores that sell said beer, their average traffic, and their relative distance from the user</p>
+<dd><p>Renders the beer profile page, finds stores that sell said beer, each store’s average traffic, and their relative distance from the user</p>
 </dd></dl>
 
 <dl class="post">
 <dt id="post--beerprofile?name=(String-beer_name)">
 <code class="descname">POST </code><code class="descname">/beerprofile?name=</code><span class="sig-paren">(</span><em class="property">String: </em><em>beer_name</em><span class="sig-paren">)</span><a class="headerlink" href="#post--beerprofile?name=(String-beer_name)" title="Permalink to this definition">¶</a></dt>
-<dd><p>Either adds a new rating for the beer or utilizes the search function to render the template</p>
+<dd><p>Adds a new rating for the beer into the database when the user submits a rating or reads from the search bar to redirect to a new profile.</p>
 </dd></dl>
 
 <dl class="get">
@@ -131,19 +131,19 @@
 <dl class="post">
 <dt id="post--breweryprofile?name=(String-brewery_name)">
 <code class="descname">POST </code><code class="descname">/breweryprofile?name=</code><span class="sig-paren">(</span><em class="property">String: </em><em>brewery_name</em><span class="sig-paren">)</span><a class="headerlink" href="#post--breweryprofile?name=(String-brewery_name)" title="Permalink to this definition">¶</a></dt>
-<dd><p>Renders the brewery profile template using the search bar function</p>
+<dd><p>Reads the search bar to redirect to a new profile.</p>
 </dd></dl>
 
 <dl class="get">
 <dt id="get--storeprofile?name=(String-store_name)">
 <code class="descname">GET </code><code class="descname">/storeprofile?name=</code><span class="sig-paren">(</span><em class="property">String: </em><em>store_name</em><span class="sig-paren">)</span><a class="headerlink" href="#get--storeprofile?name=(String-store_name)" title="Permalink to this definition">¶</a></dt>
-<dd><p>Renders the brewery profile page, listing beers that the store sells, along with the beer’s popularity, rarity and when it normally arrives in the store</p>
+<dd><p>Renders the store profile page, listing beers that the store sells, along with the beer’s popularity, rarity and when it normally arrives in the store</p>
 </dd></dl>
 
 <dl class="post">
 <dt id="post--storeprofile?name=(String-store_name)">
 <code class="descname">POST </code><code class="descname">/storeprofile?name=</code><span class="sig-paren">(</span><em class="property">String: </em><em>store_name</em><span class="sig-paren">)</span><a class="headerlink" href="#post--storeprofile?name=(String-store_name)" title="Permalink to this definition">¶</a></dt>
-<dd><p>Renders the store profile template using the search bar function</p>
+<dd><p>Reads the search bar to redirect to a new profile.</p>
 </dd></dl>
 
 </div>
