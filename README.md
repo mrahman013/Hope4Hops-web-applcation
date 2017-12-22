@@ -21,6 +21,12 @@ With the following input values, we will return a selection of liquor stores tha
 
 **Cheers Friends!**
 
+### Deployed site
+-------
+Our web application is deployed via Heroku.
+
+It can be viewed in this site: https://hope4hops.herokuapp.com
+
 
 ### Installation
 -------
