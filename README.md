@@ -56,7 +56,16 @@ With the following input values, we will return a selection of liquor stores tha
 * Acceptance test of searcing Store and Store Profile
   * Navigate to /tests
     * python test_acceptance_storeprofile.py -v
+<<<<<<< HEAD
 
+=======
+    
+
+### Documentation
+* Sphinx Documentation
+  * Navigate to doc/_build/html
+    *Open index.html
+>>>>>>> e75f70e157df5493d017a9ec4d3445057be97410
 
 ### Contribute
 -------
