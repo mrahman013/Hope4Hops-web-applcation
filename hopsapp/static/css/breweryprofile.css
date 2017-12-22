@@ -1,0 +1,16 @@
+.description{
+	background: #d58601;
+}
+
+
+.inner{
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    break-before: always;
+    margin: 0 0 3em 0;
+}
+#fontbrewery {
+	font-family: Spectral SC;
+}
