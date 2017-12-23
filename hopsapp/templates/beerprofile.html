@@ -45,13 +45,13 @@
     <div class="col-sm-6">
 
       <!-- <div class="text-left"> -->
-
+      <br>
       <h1 id="fontbeer">{{beer.name}}</h1>
       <!-- <img src="{{ url_for('static', filename='beer.beer_image') }}" style="width:100%; float:right"> -->
       <!-- <img src="" style="width:100%; float:right"> -->
       <img src="{{beer.beer_image}}"><br>
       <span class = "beer_info">
-
+      <br>
       <p>Brewed By: <a href="/breweryprofile?name={{beer.brewery.name}}">{{beer.brewery.name.upper()}}</a></p>
       <p>Style: {{beer.beer_type.upper()}}</p>
       <p>Alcohol By Volume: {{'%0.2f'| format(beer.abv*100|float)}}%</p>
