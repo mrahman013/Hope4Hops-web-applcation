@@ -9,7 +9,9 @@ from hopsapp import db
 Stock Table
 Many Beers can be stocked at one Store. Many Stores can contain the one Beer
 """
-# few things needed to disable for pylint check, such as too few public method, too many attribute
+# few things needed to disable for pylint check, such as no-member, too few public method, too many attribute
+# becasue Any class we declare as inheriting from db.Model won't have query member
+# until the code runs so Pylint can't detect it
 #pylint: disable=no-member, too-many-instance-attributes, too-many-arguments, too-few-public-methods
 stock = db.Table('stock',
                  db.Column('beer_id', db.Integer, db.ForeignKey('beer.id')),

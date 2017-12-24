@@ -1,4 +1,4 @@
-"""Routes for flask app."""  # pylint: disable=cyclic-import, unused-import
+"""Routes for flask app."""  # pylint: disable= unused-import
 # import hashlib
 from math import cos, asin, sqrt
 from functools import wraps
@@ -16,7 +16,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, curren
 
 
 # flask-login
-#pylint: disable=no-member
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
