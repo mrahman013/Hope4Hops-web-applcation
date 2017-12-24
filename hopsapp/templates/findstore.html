@@ -9,6 +9,26 @@
 
 <body>
 
+    <div class="col-sm-2 sidenav pull-right col-xs-12">
+       <div>
+ Search
+         <form method="POST">
+
+     <input type="text" name="text_search" placeholder="Search by Name..."><br>
+   <input type="radio" name="searchtype" value="beer" checked> Beer<br>
+   <input type="radio" name="searchtype" value="brewery"> Brewery<br>
+   <input type="radio" name="searchtype" value="store"> Store<br>
+
+       <button type="submit" name="submit" value="search">
+         <span class="glyphicon glyphicon-search"> Search</span>
+       </button>
+
+
+     </form>
+       </div>
+     </div>
+
+
 {% for name, address, city, state, zip, traffic, lat, lon, dist in all_component %}
 	<h5>{{name}}</h5>
 	<p>{{address}}</p>
@@ -52,11 +72,11 @@
           handleLocationError(false, infoWindow, map.getCenter());
         }
 
-        
+
         // Array of marker for mocking
         // TODO: this array will come from database when database will be setup from store address
         //
-        
+
         var markers = [
         {
           coords:{lat:40.801866,lng:-73.967432},
@@ -81,14 +101,14 @@
           label: (count+1).toString(), // put label on marker
           map:map,
           //title: 'Uluru (Ayers Rock)',
-          animation: google.maps.Animation.DROP // drop animation 
-           
+          animation: google.maps.Animation.DROP // drop animation
+
         });
 
 
         // Check content and add on info windo if exist
         if(props.content){
-          
+
           var infoWindow = new google.maps.InfoWindow({
             content:props.content
           });
@@ -97,7 +117,7 @@
             infoWindow.open(map, marker);
           });
         }
-   
+
       } // end of addMarker function
 
     } // End of initMap() function

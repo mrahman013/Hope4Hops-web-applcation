@@ -21,6 +21,12 @@ With the following input values, we will return a selection of liquor stores tha
 
 **Cheers Friends!**
 
+### Deployed site
+-------
+Our web application is deployed via Heroku.
+
+It can be viewed in this site: https://hope4hops.herokuapp.com
+
 
 ### Installation
 -------
@@ -39,7 +45,6 @@ With the following input values, we will return a selection of liquor stores tha
 * Run this line every time you want to start the server
   * flask run
 
-* Other way is to run `python app.py` on root directory
 
 ### Running tests
 -------
@@ -49,16 +54,22 @@ With the following input values, we will return a selection of liquor stores tha
 * Acceptance test of searcing Beer and Beer Profile
   * Navigate to /tests
     * python test_acceptance_beerprofile.py -v
-    
+
  * Acceptance test of searcing Brewery and Brewery Profile
   * Navigate to /tests
     * python test_acceptance_brewery.py -v
-    
+
 * Acceptance test of searcing Store and Store Profile
   * Navigate to /tests
     * python test_acceptance_storeprofile.py -v
-    
- 
+
+
+### Documentation
+* Sphinx Documentation
+  * Navigate to doc/\_build/html
+    * Open index.html
+
+
 ### Contribute
 -------
 Issue Tracker: https://github.com/katierose1029/Hope4Hops/issues

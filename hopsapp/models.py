@@ -4,6 +4,8 @@ SQLAlchemy models
 #from datetime import datetime
 #from flask_sqlalchemy import SQLAlchemy
 from hopsapp import db
+from werkzeug import generate_password_hash, check_password_hash# Import the mixin
+# from flask.ext.permissions.models import UserMixin
 
 """
 Stock Table
@@ -17,7 +19,6 @@ stock = db.Table('stock',
                  db.Column('beer_id', db.Integer, db.ForeignKey('beer.id')),
                  db.Column('store_id', db.Integer, db.ForeignKey('store.id'))
                 )
-
 
 class Beer(db.Model):
     """
@@ -40,14 +41,14 @@ class Beer(db.Model):
     retail_cost = db.Column(db.Float)
     # default value will be 0
     # todo- refers to ratings to be exact but I do not want to tackle that problem at 11:54 pm
-    average_popularity = db.Column(db.Float)
+    average_popularity = db.Column(db.Float, default=0)
     # accepts: ['common' | 'uncommon' | 'rare']
     # default value for entries will be 'common'
-    rarity = db.Column(db.String(10))
+    rarity = db.Column(db.String(10), default='common')
     # accepts: ['MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN']
     devlivery_day_of_the_week = db.Column(db.String(3))
-    total_ratings = db.Column(db.Integer)
-    total_users = db.Column(db.Integer)
+    total_ratings = db.Column(db.Integer, default=0)
+    total_users = db.Column(db.Integer, default=0)
     #beer.brewery
     brewery_id = db.Column(db.Integer, db.ForeignKey('brewery.id'))
 
@@ -94,8 +95,6 @@ class Beer(db.Model):
                  beer_type,
                  seasonal,
                  retail_cost,
-                 average_popularity,
-                 rarity,
                  devlivery_day_of_the_week,
                  brewery_id,
                  **kwargs):
@@ -106,14 +105,11 @@ class Beer(db.Model):
         self.beer_type = beer_type
         self.seasonal = seasonal
         self.retail_cost = retail_cost
-        self.average_popularity = average_popularity
-        self.rarity = rarity
         self.devlivery_day_of_the_week = devlivery_day_of_the_week
         self.brewery_id = brewery_id
 
     def __repr__(self):
         return '<Beer %r, %r, %r, %r, %r, %r, %r, %r>' % (self.name, self.brewery, self.abv, self.beer_type, self.seasonal, self.retail_cost, self.average_popularity, self.rarity) #pylint: disable=line-too-long
-
 
 class Brewery(db.Model):
     """
@@ -158,7 +154,6 @@ class Brewery(db.Model):
     def __repr__(self):
         return '<Brewery %r, %r, %r, %r, %r, %r>' % (self.name, self.address, self.city, self.state, self.zip_code, self.beers) #pylint: disable=line-too-long
 
-
 class Storeowner(db.Model):
     """
     Storeowner Model (these are our Admins)
@@ -171,26 +166,65 @@ class Storeowner(db.Model):
     #phone number string 20 incase international number
     phone = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(100))
-    authenticated = db.Column(db.Boolean, default=False)
+    authenticated = db.Column(db.Boolean, default=True)
+    #TODO: restruct to allow hash password
+    # pwdhash = db.Column(db.String(100))
     #storeowner.store
     # store = db.relationship('Store', backref='owner', lazy='dynamic')
     store = db.relationship('Store', backref='owner', lazy=True)
 
+   # Flask-Login integration
+    def is_authenticated(self):
+        """
+        return true for authenticated
+        """
+        return True
+
+    def is_active(self): # line 37
+        """
+        return true for active
+        """
+        return True
+
+    def is_anonymous(self):
+        """
+        return False
+        """
+        return False
+
+    def get_id(self):
+        """
+        return id of user
+        """
+        return self.id
+
+    #TODO: restruct to allow hash password
+    # def set_password(self, password):
+        # self.pwdhash = generate_password_hash(password)
+
+    # def check_password(self, password):
+        # return check_password_hash(self.pwdhash, password)
+
+    # Required for administrative interface
+    def __unicode__(self):
+        return self.name
 
     def __init__(self,
                  name,
                  email,
                  phone,
+                 password,
+                 roles=None,
                  **kwargs):
         super(Storeowner, self).__init__(**kwargs)
         self.name = name
         self.email = email
         self.phone = phone
         self.password = password
+        # UserMixin.__init__(self, roles)
 
     def __repr__(self):
-        return '<StoreOwner %r, %r, %r, %r>' % (self.name, self.phone, self.email, self.stores)
-
+        return '<StoreOwner %r, %r, %r, %r>' % (self.name, self.phone, self.email, self.store)
 
 class Store(db.Model):
     """
@@ -205,11 +239,11 @@ class Store(db.Model):
     state = db.Column(db.String(2), nullable=False)
     zip_code = db.Column(db.String(7), nullable=False)
     # accepts: ['common' | 'uncommon' | 'rare']
-    average_traffic = db.Column(db.String(10))
+    average_traffic = db.Column(db.String(10), default=0)
     # lat = db.Column(db.Float, nullable=False)
     # lon = db.Column(db.Float, nullable=False)
-    lat = db.Column(db.Float, unique=True)
-    lon = db.Column(db.Float, unique=True)
+    lat = db.Column(db.Float, default=0.0) #TODO: figure out how to make these two unique
+    lon = db.Column(db.Float, default=0.0)
     #store.owner
     storeowner_id = db.Column(db.Integer, db.ForeignKey('storeowner.id'))
 
@@ -219,9 +253,6 @@ class Store(db.Model):
                  city,
                  state,
                  zip_code,
-                 average_traffic,
-                 lat,
-                 lon,
                  **kwargs):
         super(Store, self).__init__(**kwargs)
         self.name = name
@@ -229,13 +260,13 @@ class Store(db.Model):
         self.city = city
         self.state = state
         self.zip_code = zip_code
-        self.average_traffic = average_traffic
-        self.lat = lat
-        self.lon = lon
+
+    #TODO: add determine lat & lon funtions here, may need js
+    def determine_lat_lon():
+        pass
 
     def __repr__(self):
         return '<Store %r, %r, %r, %r, %r, %r, %r>' % (self.name, self.address, self.city, self.state, self.zip_code, self.average_traffic, self.owner)#pylint: disable=line-too-long
-
 
 class Customer(db.Model):
     """
@@ -279,7 +310,7 @@ class Customer(db.Model):
 
     # Required for administrative interface
     def __unicode__(self):
-        return self.username
+        return self.name
 
     def __init__(self, name, phone, email, password, **kwargs):
         super(Customer, self).__init__(**kwargs)

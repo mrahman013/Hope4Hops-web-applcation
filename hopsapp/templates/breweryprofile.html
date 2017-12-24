@@ -5,15 +5,38 @@
 {% block body %}
 <head>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/breweryprofile.css') }}">
 </head>
 
 
 <body>
-<div class="container-fluid text-center">
+
+
+    <div class="col-sm-2 sidenav pull-right col-xs-12">
+       <div>
+ Search
+         <form method="POST">
+
+     <input type="text" name="text_search" placeholder="Search by Name..."><br>
+   <input type="radio" name="searchtype" value="beer" checked> Beer<br>
+   <input type="radio" name="searchtype" value="brewery"> Brewery<br>
+   <input type="radio" name="searchtype" value="store"> Store<br>
+
+       <button type="submit" name="submit" value="search">
+         <span class="glyphicon glyphicon-search"> Search</span>
+       </button>
+
+
+     </form>
+       </div>
+     </div>
+
+<br>
+<div class="container-fluid text-center footer_bot">
 <div class="row">
 <div class="col-sm-4">
 
-<h1>{{brewery.name}}</h1>
+<h1 id="fontbrewery">{{brewery.name}}</h1>
 Address:{{brewery.address}}<br>
 State:{{brewery.state}}<br>
 </div>

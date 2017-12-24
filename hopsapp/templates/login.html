@@ -3,8 +3,9 @@
 {% block title %}Hope 4 Hops | Login{% endblock %}
 
 {% block body %}
-<head>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+<!-- <head>
+  
 <style type="text/css">
 	body{
 		background: url({{ url_for('static', filename='images/beer_for_login_page.jpg') }}) no-repeat center center fixed;
@@ -14,25 +15,27 @@
 	    background-size: cover;
 	}
   </style>
-</head>
+</head> -->
 <body>
     {% if error %}
-      <p><strong>Error:</strong></p> {{ error }}
-      {% endif %}
-<div class="container custom_css">
-	<h2>Login</h2>
-	<form method="POST">
-		<div class="form-group">
+	<p><strong>Error:</strong></p> {{ error }}
+	{% endif %}
+
+<div class="login_div">
+	<div class="container custom_css">
+		<h2>Login</h2>
+		<form method="POST">
 			<label>Email address</label>
-			<input type="text" name="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
-		</div>
-		<div class="form-group">
-			<label for="exampleInputPassword1">Password</label>
-			<input type="text" name="password" class="form-control"  placeholder="Password">
-		</div>
-		<button type="submit" name="submit" value="login" class="btn btn-primary">Submit</button>
-	</form>
-	<a class="reg_link" href="/register">Register</a>
+			<input type="text" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+			<label>Password</label>
+			<input type="password" name="password" placeholder="Password"><br>
+	        <input type="radio" name="usertype" value="customer"> Customer<br>
+	        <input type="radio" name="usertype" value="storeowner"> Store Owner<br><br>
+			<button type="submit" name="submit" value="login" class="btn btn-primary">Submit</button>
+		</form>
+		<a class="reg_link" href="/register">Register</a>
+		<br><br>
+	</div>
 </div>
 </body>
 {% endblock %}

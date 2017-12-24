@@ -16,6 +16,28 @@
 
 
 <body>
+
+
+    <div class="col-sm-2 sidenav pull-right col-xs-12">
+       <div>
+ Search
+         <form method="POST">
+
+     <input type="text" name="text_search" placeholder="Search by Name..."><br>
+   <input type="radio" name="searchtype" value="beer" checked> Beer<br>
+   <input type="radio" name="searchtype" value="brewery"> Brewery<br>
+   <input type="radio" name="searchtype" value="store"> Store<br>
+
+       <button type="submit" name="submit" value="search">
+         <span class="glyphicon glyphicon-search"> Search</span>
+       </button>
+
+
+     </form>
+       </div>
+     </div>
+
+
 <div class="container-fluid text-left">
 <!-- <div class="row"> -->
 
@@ -23,13 +45,13 @@
     <div class="col-sm-6">
 
       <!-- <div class="text-left"> -->
-
+      <br>
       <h1 id="fontbeer">{{beer.name}}</h1>
       <!-- <img src="{{ url_for('static', filename='beer.beer_image') }}" style="width:100%; float:right"> -->
       <!-- <img src="" style="width:100%; float:right"> -->
       <img src="{{beer.beer_image}}"><br>
       <span class = "beer_info">
-
+      <br>
       <p>Brewed By: <a href="/breweryprofile?name={{beer.brewery.name}}">{{beer.brewery.name.upper()}}</a></p>
       <p>Style: {{beer.beer_type.upper()}}</p>
       <p>Alcohol By Volume: {{'%0.2f'| format(beer.abv*100|float)}}%</p>
