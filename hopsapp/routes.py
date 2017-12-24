@@ -13,9 +13,10 @@ from sqlalchemy import desc, func
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user, login_required #pylint: disable=line-too-long
 from flask_principal import Principal, Permission, RoleNeed
 
-
+# Any class we declare as inheriting from db.Model won't have query member
+# until the code runs so Pylint can't detect it
+#pylint: disable=no-member
 # flask-login
-
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
@@ -102,14 +103,13 @@ def distance_from_user(beer):
     specific beer that user seached for and return list of store, beer and distance from user to
     those stores sorted by distance
     """
-    user_lat = 40.8200471
-    user_lon = -73.9514611
-    
-    # send_url = 'http://freegeoip.net/json'
-    # req = requests.get(send_url)
-    # j = json.loads(req.text)
-    # user_lat = j['latitude']
-    # user_lon = j['longitude']
+    # user_lat = 40.8200471
+    # user_lon = -73.9514611
+    send_url = 'http://freegeoip.net/json'
+    req = requests.get(send_url)
+    j = json.loads(req.text)
+    user_lat = j['latitude']
+    user_lon = j['longitude']
 
     distances = []
 
@@ -419,7 +419,7 @@ def add_beer():
     if request.method == 'POST':
         beer_name = request.form['beer_name']
 
-        #TODO: check if we have beer on file
+        #check if we have beer on file
         if Beer.query.filter_by(name=beer_name):
             beer = Beer.query.filter_by(name=beer_name).first()
             beer_store = request.form['beer_store']
@@ -448,7 +448,7 @@ def add_beer():
                         seasonal=beer_seasonal,
                         retail_cost=beer_retail_cost,
                         devlivery_day_of_the_week=beer_delivery_day_of_the_week,
-                        brewery_id = brewery.id)
+                        brewery_id=brewery.id)
 
         #add the new beer to the db
         db.session.add(new_beer)
@@ -470,7 +470,7 @@ def add_store():
     store owner privilege access only
     add a beer to a store by a store owner
     """
-    #TODO: uncomment when testing logged in storeowner
+    #uncomment when testing logged in storeowner
     if LOGGED_IN == 'customer' or LOGGED_IN == None:
         flash('Must be a storeowner')
         return redirect(url_for('home'))
@@ -486,11 +486,11 @@ def add_store():
         storeowner_id = current_user.id
 
         store = Store(name=name,
-                    address=address,
-                    city=city,
-                    state=state,
-                    zip_code=zip_code,
-                    storeowner_id=storeowner_id)
+                      address=address,
+                      city=city,
+                      state=state,
+                      zip_code=zip_code,
+                      storeowner_id=storeowner_id)
 
         db.session.add(store)
         db.session.commit()
