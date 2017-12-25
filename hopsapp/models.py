@@ -11,7 +11,9 @@ from werkzeug import generate_password_hash, check_password_hash# Import the mix
 Stock Table
 Many Beers can be stocked at one Store. Many Stores can contain the one Beer
 """
-# few things needed to disable for pylint check, such as too few public method, too many attribute
+# few things needed to disable for pylint check, such as no-member, too few public method, too many attribute
+# becasue Any class we declare as inheriting from db.Model won't have query member
+# until the code runs so Pylint can't detect it
 #pylint: disable=no-member, too-many-instance-attributes, too-many-arguments, too-few-public-methods
 stock = db.Table('stock',
                  db.Column('beer_id', db.Integer, db.ForeignKey('beer.id')),
@@ -165,7 +167,6 @@ class Storeowner(db.Model):
     phone = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(100))
     authenticated = db.Column(db.Boolean, default=True)
-    #TODO: restruct to allow hash password
     # pwdhash = db.Column(db.String(100))
     #storeowner.store
     # store = db.relationship('Store', backref='owner', lazy='dynamic')
@@ -196,7 +197,7 @@ class Storeowner(db.Model):
         """
         return self.id
 
-    #TODO: restruct to allow hash password
+
     # def set_password(self, password):
         # self.pwdhash = generate_password_hash(password)
 
@@ -240,7 +241,7 @@ class Store(db.Model):
     average_traffic = db.Column(db.String(10), default=0)
     # lat = db.Column(db.Float, nullable=False)
     # lon = db.Column(db.Float, nullable=False)
-    lat = db.Column(db.Float, default=0.0) #TODO: figure out how to make these two unique
+    lat = db.Column(db.Float, default=0.0) #figure out how to make these two unique
     lon = db.Column(db.Float, default=0.0)
     #store.owner
     storeowner_id = db.Column(db.Integer, db.ForeignKey('storeowner.id'))
@@ -259,8 +260,11 @@ class Store(db.Model):
         self.state = state
         self.zip_code = zip_code
 
-    #TODO: add determine lat & lon funtions here, may need js
+    #add determine lat & lon funtions here, may need js
     def determine_lat_lon():
+        """
+        may be will added late. no effect for now
+        """
         pass
 
     def __repr__(self):
