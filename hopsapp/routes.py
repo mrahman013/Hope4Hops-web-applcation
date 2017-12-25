@@ -103,13 +103,13 @@ def distance_from_user(beer):
     specific beer that user seached for and return list of store, beer and distance from user to
     those stores sorted by distance
     """
-    user_lat = 40.8200471
-    user_lon = -73.9514611
-    # send_url = 'http://freegeoip.net/json'
-    # req = requests.get(send_url)
-    # j = json.loads(req.text)
-    # user_lat = j['latitude']
-    # user_lon = j['longitude']
+    # user_lat = 40.8200471
+    # user_lon = -73.9514611
+    send_url = 'http://freegeoip.net/json'
+    req = requests.get(send_url)
+    j = json.loads(req.text)
+    user_lat = j['latitude']
+    user_lon = j['longitude']
 
     distances = []
 
