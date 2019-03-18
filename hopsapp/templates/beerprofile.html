@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block title %}Hope 4 Hops | Beer Profiles{% endblock %}
+
+{% block body %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/beerprofile.css') }}">
+
+<style>
+  .beer_info{
+    line-height: 1px;
+  }
+</style>
+</head>
+
+
+<body>
+
+
+    <div class="col-sm-2 sidenav pull-right col-xs-12">
+       <div>
+ Search
+         <form method="POST">
+
+     <input type="text" name="text_search" placeholder="Search by Name..."><br>
+   <input type="radio" name="searchtype" value="beer" checked> Beer<br>
+   <input type="radio" name="searchtype" value="brewery"> Brewery<br>
+   <input type="radio" name="searchtype" value="store"> Store<br>
+
+       <button type="submit" name="submit" value="search">
+         <span class="glyphicon glyphicon-search"> Search</span>
+       </button>
+
+
+     </form>
+       </div>
+     </div>
+
+
+<div class="container-fluid text-left">
+<!-- <div class="row"> -->
+
+<!-- <div class = "description"> -->
+    <div class="col-sm-6">
+
+      <!-- <div class="text-left"> -->
+      <br>
+      <h1 id="fontbeer">{{beer.name}}</h1>
+      <!-- <img src="{{ url_for('static', filename='beer.beer_image') }}" style="width:100%; float:right"> -->
+      <!-- <img src="" style="width:100%; float:right"> -->
+      <img src="{{beer.beer_image}}"><br>
+      <span class = "beer_info">
+      <br>
+      <p>Brewed By: <a href="/breweryprofile?name={{beer.brewery.name}}">{{beer.brewery.name.upper()}}</a></p>
+      <p>Style: {{beer.beer_type.upper()}}</p>
+      <p>Alcohol By Volume: {{'%0.2f'| format(beer.abv*100|float)}}%</p>
+
+      <p>Popularity: {{beer.average_popularity}}</p>
+      <p>Rarity: {{beer.rarity.upper()}}</p>
+    </span>
+    <table>
+    <thead>
+    <td>Store Name</td>
+    <td>Store Traffic</td>
+    <td>Delivery Day</td>
+    <td>Distance From User</td>
+    <td>Let's Go!</td>
+
+    <script>
+      var markers = [];
+    </script>
+
+    </thead>
+      {% for item in distances %}
+    <tr>
+
+
+
+    <td><a href="/storeprofile?name={{item[1].name}}">{{item[1].name.upper()}}</a></td>
+    <td>{{item[1].average_traffic}}</td>
+    <td>{{beer.devlivery_day_of_the_week.upper()}}</td>
+    <td>{{'%0.2f'| format(item[2]|float)}} miles</td>
+    <td><a href="http://maps.google.com/?q={{item[1].lat}},{{item[1].lon}}"><button>Direction</button></a></td>
+    </tr>
+
+
+    <script>
+      var temp = {
+          coords:{lat: {{item[1].lat}},lng:{{item[1].lon}}},
+              content: '<a href="#"><h4>{{item[1].name.upper()}}</h4></a><p>{{item[1].address}}</p><p>{{item[1].city}}, {{item[1].state}}</p><p><a href="http://maps.google.com/?q={{item[1].lat}},{{item[1].lon}}">Get Direction</a> | {{item[2]}} miles</p>'
+        };
+        markers.push(temp);
+      </script>
+    {% endfor %}
+    </table>
+
+    <p>Tell us how you feel about this brew:</p>
+    <form method="POST">
+        <input type="radio" name="new_rating" value="1" /> 1 </label>
+        <input type="radio" name="new_rating" value="2" /> 2 </label>
+        <input type="radio" name="new_rating" value="3" /> 3 </label>
+        <input type="radio" name="new_rating" value="4" /> 4 </label>
+        <input type="radio" name="new_rating" value="5" /> 5 </label>
+        <button type="submit" name="submit" value="rating">
+            <span> Rate</span>
+          </button>
+    </form>
+    <!-- </div> -->
+
+
+      </div>
+
+      <div class = "col-sm-6">
+          <div id="map"></div>
+
+        <script>
+          function initMap(){
+            // Map options
+            var options = {
+              zoom:14,
+              center: markers[0].coords // positonig around shotest distance store
+            }
+
+            // New map
+            var map = new google.maps.Map(document.getElementById('map'), options);
+            var icon_image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+
+          // //If user shares location, set that as center
+          // if (navigator.geolocation) {
+          //    navigator.geolocation.getCurrentPosition(function (position) {
+          //        initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+          //        map.setCenter(initialLocation);
+          //    });
+          //   }
+          // else {
+          //     // Browser doesn't support Geolocation
+          //     handleLocationError(false, infoWindow, map.getCenter());
+          //   }
+
+
+          // Loop through markers
+          for(var i = 0;i < markers.length;i++){
+            // Add marker
+            addMarker(markers[i], i);
+          }
+
+          // Marker function
+          function addMarker(props, count){
+            var marker = new google.maps.Marker({
+              position:props.coords,
+              label: (count+1).toString(), // put label on marker
+              map:map,
+              //title: 'Uluru (Ayers Rock)',
+              animation: google.maps.Animation.DROP // drop animation
+
+            });
+
+
+            // Check content and add on info windo if exist
+            if(props.content){
+
+              var infoWindow = new google.maps.InfoWindow({
+                content:props.content
+              });
+
+              marker.addListener('click', function(){
+                infoWindow.open(map, marker);
+              });
+            }
+
+          } // end of addMarker function
+
+        } // End of initMap() function
+
+        </script>
+
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQa_l6bixK6rBPNKGG8CZMpOHervz24K4&callback=initMap">
+        </script>
+
+
+
+          <p style="text-align:center">Map provided by Google</p>
+
+
+  </div>
+
+      </div>
+<!-- </div> -->
+
+    <!-- <div class="col-sm-5"> -->
+
+
+    <!-- </div> -->
+
+
+  </div>
+
+  <!-- Map start here -->
+
+
+</body>
+</html>
+
+{% endblock %}

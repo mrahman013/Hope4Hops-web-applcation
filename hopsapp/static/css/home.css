@@ -1,0 +1,72 @@
+/* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+
+    .lobby{
+      font-family:Lobster;
+    }
+
+     #map{
+      height:400px;
+      width:100%;
+    }
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;}
+    }
+
+    .image {
+      min-height: 500px;
+      max-height: 500px;
+      display:block;
+      margin:auto;
+    }
+
+    .sideimage {
+      min-height: 300px;
+      max-height: 300px;
+      display:block;
+      margin:auto;
+    }
+
+    .smallimage{
+      min-height: 80px;
+      max-height: 80px;
+      display:block;
+      margin:auto;
+    }
+
+    tr:hover{
+      background-color:#CCCCCC;
+      border-style:solid:
+}
+
+#sidefont {
+  font-family: Spectral SC;
+  font-size: 20px;
+}
+
+#beer_rec_text {
+  font-family: Spectral SC;
+  font-size: 18px;
+}
+
+#browse {
+  font-family: Spectral SC;
+  margin-top: 90px;
+}
+
+.text-desc {
+  font-family: Spectral SC;
+  font-size: 24px;
+}

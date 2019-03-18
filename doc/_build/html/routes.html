@@ -1,0 +1,246 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Routes &#8212; Hope4Hops 3.4.0 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '3.4.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Models" href="models.html" />
+    <link rel="prev" title="Requirements" href="requirements.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
+          <a href="models.html" title="Models"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="requirements.html" title="Requirements"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Hope4Hops 3.4.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="routes">
+<h1>Routes<a class="headerlink" href="#routes" title="Permalink to this headline">¶</a></h1>
+<p>This page is dedicated to the routes module for our web application. This renders the templates for our web site visuals, and allows us to bring the backend to the front end in the form of jinja2 variables</p>
+<div class="section" id="hope4hops-pages">
+<h2>Hope4Hops Pages<a class="headerlink" href="#hope4hops-pages" title="Permalink to this headline">¶</a></h2>
+<dl class="get">
+<dt id="get--home">
+<code class="descname">GET </code><code class="descname">/home</code><a class="headerlink" href="#get--home" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads beers from the database, collects the most popular and rarest beers, as well as staff reccomendations.</p>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--home">
+<code class="descname">POST </code><code class="descname">/home</code><a class="headerlink" href="#post--home" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filters the beers by style, state, availability, and rarity</p>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--about">
+<code class="descname">GET </code><code class="descname">/about</code><a class="headerlink" href="#get--about" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders the about page.</p>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--contact">
+<code class="descname">GET </code><code class="descname">/contact</code><a class="headerlink" href="#get--contact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders the contacts page.</p>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--login">
+<code class="descname">GET </code><code class="descname">/login</code><a class="headerlink" href="#get--login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders the login page.</p>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--login">
+<code class="descname">POST </code><code class="descname">/login</code><a class="headerlink" href="#post--login" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks the database for logged in user and validates with password.</p>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--logout">
+<code class="descname">GET </code><code class="descname">/logout</code><a class="headerlink" href="#get--logout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs out the user before redirecting to the login page.</p>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--register">
+<code class="descname">GET </code><code class="descname">/register</code><a class="headerlink" href="#get--register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders the register form.</p>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--register">
+<code class="descname">POST </code><code class="descname">/register</code><a class="headerlink" href="#post--register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a customer in the database after checking for validity</p>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--beerprofile?name=(String-beer_name)">
+<code class="descname">GET </code><code class="descname">/beerprofile?name=</code><span class="sig-paren">(</span><em class="property">String: </em><em>beer_name</em><span class="sig-paren">)</span><a class="headerlink" href="#get--beerprofile?name=(String-beer_name)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders the beer profile page, finds stores that sell said beer, each store’s average traffic, and their relative distance from the user</p>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--beerprofile?name=(String-beer_name)">
+<code class="descname">POST </code><code class="descname">/beerprofile?name=</code><span class="sig-paren">(</span><em class="property">String: </em><em>beer_name</em><span class="sig-paren">)</span><a class="headerlink" href="#post--beerprofile?name=(String-beer_name)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new rating for the beer into the database when the user submits a rating or reads from the search bar to redirect to a new profile.</p>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--breweryprofile?name=(String-brewery_name)">
+<code class="descname">GET </code><code class="descname">/breweryprofile?name=</code><span class="sig-paren">(</span><em class="property">String: </em><em>brewery_name</em><span class="sig-paren">)</span><a class="headerlink" href="#get--breweryprofile?name=(String-brewery_name)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders the brewery profile page, listing beers that the brewery makes, and the beers various attributes</p>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--breweryprofile?name=(String-brewery_name)">
+<code class="descname">POST </code><code class="descname">/breweryprofile?name=</code><span class="sig-paren">(</span><em class="property">String: </em><em>brewery_name</em><span class="sig-paren">)</span><a class="headerlink" href="#post--breweryprofile?name=(String-brewery_name)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the search bar to redirect to a new profile.</p>
+</dd></dl>
+
+<dl class="get">
+<dt id="get--storeprofile?name=(String-store_name)">
+<code class="descname">GET </code><code class="descname">/storeprofile?name=</code><span class="sig-paren">(</span><em class="property">String: </em><em>store_name</em><span class="sig-paren">)</span><a class="headerlink" href="#get--storeprofile?name=(String-store_name)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders the store profile page, listing beers that the store sells, along with the beer’s popularity, rarity and when it normally arrives in the store</p>
+</dd></dl>
+
+<dl class="post">
+<dt id="post--storeprofile?name=(String-store_name)">
+<code class="descname">POST </code><code class="descname">/storeprofile?name=</code><span class="sig-paren">(</span><em class="property">String: </em><em>store_name</em><span class="sig-paren">)</span><a class="headerlink" href="#post--storeprofile?name=(String-store_name)" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the search bar to redirect to a new profile.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="helper-functions">
+<h2>Helper Functions<a class="headerlink" href="#helper-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="find_popular_beers">
+<code class="descname">find_popular_beers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#find_popular_beers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to find the top 3 most popular beers in the database to be placed in the home page carousel</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="find_rare_beers">
+<code class="descname">find_rare_beers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#find_rare_beers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to find three of the rarest beers  in the database to be placed in the home page carousel</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="staff_beers">
+<code class="descname">staff_beers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#staff_beers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to fill the side bar in the home page with staff reccomendations</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="distance">
+<code class="descname">distance</code><span class="sig-paren">(</span><em>lat1</em>, <em>lon1</em>, <em>lat2</em>, <em>lon2</em><span class="sig-paren">)</span><a class="headerlink" href="#distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the distance in miles between two locations using their latitudes and longitudes</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="distance_from_user">
+<code class="descname">distance_from_user</code><span class="sig-paren">(</span><em>beer</em><span class="sig-paren">)</span><a class="headerlink" href="#distance_from_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes in a beer and returns a list of distances of store addresses from the user that sell beer in question</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="login_required">
+<code class="descname">login_required</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="headerlink" href="#login_required" title="Permalink to this definition">¶</a></dt>
+<dd><p>Redirects the user to the login page if a page requires users to be logged in.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="load_user">
+<code class="descname">load_user</code><span class="sig-paren">(</span><em>user_id</em><span class="sig-paren">)</span><a class="headerlink" href="#load_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets a customer to the current user using input user_id.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="requirements.html"
+                        title="previous chapter">Requirements</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="models.html"
+                        title="next chapter">Models</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="http-routingtable.html" title="HTTP Routing Table"
+             >routing table</a> |</li>
+        <li class="right" >
+          <a href="models.html" title="Models"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="requirements.html" title="Requirements"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Hope4Hops 3.4.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Max Inciong, Kaitlyn Chait, Andre Wong, Chris Panican, MD Rahman.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.5.
+    </div>
+  </body>
+</html>

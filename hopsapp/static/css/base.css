@@ -1,0 +1,25 @@
+/* Set black background color, white text and some padding */
+footer {
+  background-color: #555;
+  color: white;
+  padding: 15px;
+  position: relative;
+  width: 100%;
+  bottom: 0;
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+  padding-top: 20px;
+  background-color: white;
+  height: 200%;
+}
+
+/*height:2295px; for max height*/
+.sidenav1{
+  padding-top: 20px;
+  background-color: #f1f1f1;
+  height: auto;
+  word-wrap:break-word;
+  margin-left: -13px;
+}

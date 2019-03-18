@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Hope 4 Hops{% endblock %}
+
+{% block body %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+
+<body>
+
+    <div class="col-sm-2 sidenav pull-right col-xs-12">
+       <div>
+ Search
+         <form method="POST">
+
+     <input type="text" name="text_search" placeholder="Search by Name..."><br>
+   <input type="radio" name="searchtype" value="beer" checked> Beer<br>
+   <input type="radio" name="searchtype" value="brewery"> Brewery<br>
+   <input type="radio" name="searchtype" value="store"> Store<br>
+
+       <button type="submit" name="submit" value="search">
+         <span class="glyphicon glyphicon-search"> Search</span>
+       </button>
+
+
+     </form>
+       </div>
+     </div>
+
+
+{% for name, address, city, state, zip, traffic, lat, lon, dist in all_component %}
+	<h5>{{name}}</h5>
+	<p>{{address}}</p>
+	<p>{{city}}, {{state}} {{zip}}</p>
+	<p>Traffic: {{traffic}}  Distance: {{dist}} miles</p>
+{% endfor %}
+
+
+
+<!-- Map start here -->
+      <div id="map"></div>
+
+    <script>
+      function initMap(){
+        // Map options
+        var options = {
+          zoom:14,
+          center:{lat: 40.8200471, lng: -73.9514611}
+        }
+
+        // New map
+        var map = new google.maps.Map(document.getElementById('map'), options);
+        var icon_image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+
+      // Add marker
+        // var marker = new google.maps.Marker({
+        //   position:{lat:40.8200471,lng:-73.9514611},
+        //   map:map,
+        //   icon: icon_image
+        // });
+
+      //If user shares location, set that as center
+      if (navigator.geolocation) {
+         navigator.geolocation.getCurrentPosition(function (position) {
+             initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+             map.setCenter(initialLocation);
+         });
+        }
+      else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+
+
+        // Array of marker for mocking
+        // TODO: this array will come from database when database will be setup from store address
+        //
+
+        var markers = [
+        {
+          coords:{lat:40.801866,lng:-73.967432},
+          content: '<a href="#"><h4>Store A</h4></a><p>Address</p><p><a href="#">Get Direction</a> | 0.0 miles</p>'
+        }
+      ];
+
+
+
+
+
+      // Loop through markers
+      for(var i = 0;i < markers.length;i++){
+        // Add marker
+        addMarker(markers[i], i);
+      }
+
+      // Marker function
+      function addMarker(props, count){
+        var marker = new google.maps.Marker({
+          position:props.coords,
+          label: (count+1).toString(), // put label on marker
+          map:map,
+          //title: 'Uluru (Ayers Rock)',
+          animation: google.maps.Animation.DROP // drop animation
+
+        });
+
+
+        // Check content and add on info windo if exist
+        if(props.content){
+
+          var infoWindow = new google.maps.InfoWindow({
+            content:props.content
+          });
+
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+        }
+
+      } // end of addMarker function
+
+    } // End of initMap() function
+
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQa_l6bixK6rBPNKGG8CZMpOHervz24K4&callback=initMap">
+    </script>
+
+
+
+      <p style="text-align:center">Map provided by Google</p>
+
+
+
+
+
+
+</body>
+{% endblock %}

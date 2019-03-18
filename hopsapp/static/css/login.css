@@ -1,0 +1,50 @@
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+.custom_css{
+	width: 400px;
+	background-color: rgba(0,0,0,0.7);
+	margin: 0 auto;
+	margin-top: 50px;
+	padding-top: 20px;
+	padding-left: 54px;
+	padding-right: 47px;
+	border-radius: 20px;
+	font-family: arial;
+	color: rgb(227,165,0);
+	padding-bottom: 5px;
+	margin-bottom: 50px;
+	-webkit-border-radius:20px;
+	-moz-border-radius:20px;
+	-o-border-radius:20px;
+}
+
+.custom_css a{
+	background: rgba(0,0,0,0.6);
+    
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 163px;
+    padding-right: 163px;
+	margin-left: -53px;
+	font-size: 20px;
+	text-decoration: none;
+}
+.reg_link{
+	-webkit-border-bottom-left-radius:20px;
+	-moz-border-bottom-left-radius:20px;
+	-o-border-bottom-left-radius:20px;
+	-webkit-border-bottom-right-radius:20px;
+	-moz-border-bottom-right-radius:20px;
+	-o-border-bottom-right-radius:20px;
+}
+
+.custom_css button:hover, #current{color:black;}
+.custom_css a:hover, #current{background:black; color: rgb(227,165,0);}
+
+.login_div{
+	height: 80vh;
+}

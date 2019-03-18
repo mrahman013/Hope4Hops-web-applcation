@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Hope 4 Hops{% endblock %}
+
+{% block body %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/storeprofile.css') }}">
+</head>
+
+
+<body>
+
+
+    <div class="col-sm-2 sidenav pull-right col-xs-12">
+       <div>
+ Search
+         <form method="POST">
+
+     <input type="text" name="text_search" placeholder="Search by Name..."><br>
+   <input type="radio" name="searchtype" value="beer" checked> Beer<br>
+   <input type="radio" name="searchtype" value="brewery"> Brewery<br>
+   <input type="radio" name="searchtype" value="store"> Store<br>
+
+       <button type="submit" name="submit" value="search">
+         <span class="glyphicon glyphicon-search"> Search</span>
+       </button>
+
+
+     </form>
+       </div>
+     </div>
+
+<div class="container-fluid text-center">
+<div class="row">
+<div class="col-sm-4">
+
+<h1 id="fontstore">{{store.name}}</h1>
+Address: {{store.address}}<br>
+State: {{store.state}}<br>
+Traffic: {{store.traffic}}
+</div>
+<div class="col-sm-6">
+<table>
+<thead>
+<td>Beer Name</td>
+<td>Brewery</td>
+<td>Popularity</td>
+<td>Rarity</td>
+<td>Delivery Day</td>
+</thead>
+{% for beer in store.beers %}
+<tr>
+<td><a href="/beerprofile?name={{beer.name}}">{{beer.name}}</a></td>
+<td><a href="/breweryprofile?name={{beer.brewery.name}}">{{beer.brewery.name}}</a></td>
+<td>{{beer.average_popularity}}</td>
+<td>{{beer.rarity.upper()}}</td>
+<td>{{beer.devlivery_day_of_the_week.upper()}}</td>
+</tr>
+{% endfor %}
+</table>
+
+</div>
+
+
+</div>
+</div>
+
+
+</body>
+</html>
+
+{% endblock %}

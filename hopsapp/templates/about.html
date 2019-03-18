@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Hope 4 Hops | About{% endblock %}
+
+{% block body %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/about.css') }}">
+</head>
+
+<div class="container">
+	<h2 class="main-font">About</h2>
+	<div class="container">
+		<div>
+			<h3 class="main-font">What is Hope4Hops?</h3>
+			<p>
+				Hope4Hops is a beer finding application that allows users to search for stores to find their favorite beers. 
+				The application contains database profiles of many beers and breweries which the users can explore 
+				Users can filter certain beers by alcohol percentage, seasons, style, and more to find the perfect beer
+				Hope4Hops also lists popular and rare beers to see what other users consider popular and/or rare.
+				We also have staff recommendations that the developers think are great tasting beers.
+			</p>
+		</div>
+		<h3 class="main-font">Meet the team</h3>
+		<div class="row ">
+			<div class="col-sm-2 hidden-xs"></div>
+			<div class="col-sm-4 col-xs-12">
+				<div class="card">
+					<h3>Kaitlyn Chait</h3>
+					<img src="https://placehold.it/200x200">
+					<p>Scrum Master</p>
+				</div>
+			</div>
+			<div class="col-sm-4 col-xs-12">
+				<div class="card">
+					<h3>Max Inciong</h3>
+					<img src="https://placehold.it/200x200">
+					<p>Product Owner</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4 col-xs-12">
+				<div class="card">
+					<h3>Andre Wong</h3>
+					<img src="https://placehold.it/200x200">
+					<p>Developer</p>
+				</div>
+			</div>
+			<div class="col-sm-4 col-xs-12">
+				<div class="card">
+					<h3>Chris Panican</h3>
+					<img src="https://placehold.it/200x200">
+					<p>Developer</p>
+				</div>
+			</div>
+			<div class="col-sm-4 col-xs-12">
+				<div class="card">
+					<h3>MD Rahman</h3>
+					<img src="https://placehold.it/200x200">
+					<p>Developer</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
